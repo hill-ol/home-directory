@@ -1,6 +1,7 @@
 import StackOrbit from "@/components/StackOrbit";
 import Polaroid from "@/components/Polaroid";
 import FolderIcon from "@/components/FolderIcon";
+import OrgIcons from "@/components/OrgIcons";
 
 export default function Home() {
     return (
@@ -24,6 +25,7 @@ export default function Home() {
             >
                 <StackOrbit />
                 <Polaroid />
+                <OrgIcons />
                 {/* Project folders */}
                 <FolderIcon label="StyleBoard.jsx"  href="/projects/styleboard" top="47%" left="4%"  />
                 <FolderIcon label="therapy_db.sql"  href="/projects/therapydb"  top="70%" left="14%"  />
