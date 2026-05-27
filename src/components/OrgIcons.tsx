@@ -93,8 +93,8 @@ export default function OrgIcons() {
             />
             <OrgTile
                 label="Argonne"
-                top="75%"
-                left="72%"
+                top="80%"
+                left="74%"
                 src="/orgs/argonne1.png"
                 bg="white"
             />
