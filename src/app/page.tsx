@@ -1,4 +1,5 @@
 import StackOrbit from "@/components/StackOrbit";
+import Polaroid from "@/components/Polaroid";
 
 export default function Home() {
     return (
@@ -21,6 +22,7 @@ export default function Home() {
                 }}
             >
                 <StackOrbit />
+                <Polaroid />
 
                 {/* Hero */}
                 <div
