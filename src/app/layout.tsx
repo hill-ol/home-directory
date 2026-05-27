@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
-import { Playfair_Display, DM_Sans } from "next/font/google";
+import {Playfair_Display, DM_Sans, Wallpoet} from "next/font/google";
 import MenuBar from "@/components/MenuBar";
+import TakeWhatYouNeed from "@/components/TakeWhatYouNeed";
 import "./globals.css";
 
 const playfair = Playfair_Display({
@@ -31,6 +32,7 @@ export default function RootLayout({
         <html lang="en" className={`${playfair.variable} ${dmSans.variable}`}>
         <body>
         <MenuBar />
+        <TakeWhatYouNeed />
         {children}
         </body>
         </html>
