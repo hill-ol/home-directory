@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useState } from "react";
+import { motion } from "framer-motion";
 
 interface FolderIconProps {
     label: string;
@@ -12,6 +13,7 @@ interface FolderIconProps {
 
 export default function FolderIcon({ label, href, top, left }: FolderIconProps) {
     const [hovered, setHovered] = useState(false);
+    const slug = href.split("/").pop() ?? label;
 
     return (
         <Link
@@ -28,37 +30,34 @@ export default function FolderIcon({ label, href, top, left }: FolderIconProps) 
                 gap: "6px",
                 textDecoration: "none",
                 zIndex: 6,
-                transform: hovered ? "scale(1.06)" : "scale(1)",
-                transition: "transform 0.2s ease",
             }}
         >
-            {/* Folder SVG */}
-            <svg
-                width="96"
-                height="78"
-                viewBox="0 0 96 78"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
+            <motion.div
+                layoutId={`folder-${slug}`}
+                style={{ borderRadius: "8px" }}
+                animate={{ scale: hovered ? 1.06 : 1 }}
+                transition={{ duration: 0.45, ease: "easeOut" }}
             >
-                {/* Back layer — tab + full body, darker pink */}
-                <path
-                    d="M6,78 Q2,78 2,74 L2,8 Q2,2 8,2 L34,2 Q40,2 42,6 L44,12 Q46,16 50,16 L90,16 Q94,16 94,20 L94,74 Q94,78 90,78 Z"
-                    fill={hovered ? "#C966A0" : "#D47BAD"}
-                    style={{ transition: "fill 0.2s ease" }}
-                />
-                {/* Front face — lighter pink */}
-                <rect
-                    x="2"
-                    y="18"
-                    width="92"
-                    height="58"
-                    rx="6"
-                    fill={hovered ? "#F5BADB" : "#F0A8CF"}
-                    style={{ transition: "fill 0.2s ease" }}
-                />
-            </svg>
+                <svg
+                    width="96"
+                    height="78"
+                    viewBox="0 0 96 78"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                >
+                    <path
+                        d="M6,78 Q2,78 2,74 L2,8 Q2,2 8,2 L34,2 Q40,2 42,6 L44,12 Q46,16 50,16 L90,16 Q94,16 94,20 L94,74 Q94,78 90,78 Z"
+                        fill={hovered ? "#C966A0" : "#D47BAD"}
+                        style={{ transition: "fill 0.2s ease" }}
+                    />
+                    <rect
+                        x="2" y="18" width="92" height="58" rx="6"
+                        fill={hovered ? "#F5BADB" : "#F0A8CF"}
+                        style={{ transition: "fill 0.2s ease" }}
+                    />
+                </svg>
+            </motion.div>
 
-            {/* Filename label */}
             <span
                 style={{
                     fontFamily: "-apple-system, BlinkMacSystemFont, system-ui",

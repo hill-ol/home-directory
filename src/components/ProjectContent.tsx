@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { motion } from "framer-motion";
 import type { Project } from "@/content/projects";
 
 export default function ProjectContent({ project }: { project: Project }) {
@@ -37,36 +38,59 @@ export default function ProjectContent({ project }: { project: Project }) {
                     ← back to desktop
                 </Link>
 
-                {/* Folder filename */}
-                <div
+                {/* Animated folder header */}
+                <motion.div
+                    layoutId={`folder-${project.slug}`}
                     style={{
-                        fontFamily: "-apple-system, BlinkMacSystemFont, system-ui",
-                        fontSize: "11px",
-                        color: "#F0A8CF",
-                        letterSpacing: "0.04em",
-                        marginBottom: "12px",
+                        borderRadius: "8px",
+                        marginBottom: "32px",
+                        overflow: "hidden",
                     }}
+                    initial={{ scale: 0.3, opacity: 0 }}
+                    animate={{ scale: 1, opacity: 1 }}
+                    exit={{ scale: 0.3, opacity: 0 }}
+                    transition={{ duration: 0.65, ease: [0.32, 0.72, 0, 1] }}
                 >
-                    {project.filename}
-                </div>
-
-                {/* Title */}
-                <h1
-                    style={{
-                        fontFamily: "var(--font-playfair)",
-                        fontSize: "clamp(36px, 6vw, 56px)",
-                        fontWeight: 400,
-                        color: "#1C1917",
-                        lineHeight: 1.1,
-                        letterSpacing: "-0.02em",
-                        margin: "0 0 16px 0",
-                    }}
-                >
-                    {project.title}
-                </h1>
+                    <div
+                        style={{
+                            backgroundColor: "#F0A8CF",
+                            padding: "28px 32px",
+                            borderRadius: "8px",
+                        }}
+                    >
+                        <div
+                            style={{
+                                fontFamily: "-apple-system, BlinkMacSystemFont, system-ui",
+                                fontSize: "11px",
+                                color: "rgba(255,255,255,0.7)",
+                                letterSpacing: "0.06em",
+                                marginBottom: "8px",
+                            }}
+                        >
+                            {project.filename}
+                        </div>
+                        <h1
+                            style={{
+                                fontFamily: "var(--font-playfair)",
+                                fontSize: "clamp(32px, 5vw, 48px)",
+                                fontWeight: 400,
+                                color: "white",
+                                lineHeight: 1.1,
+                                letterSpacing: "-0.02em",
+                                margin: 0,
+                            }}
+                        >
+                            {project.title}
+                        </h1>
+                    </div>
+                </motion.div>
 
                 {/* Tagline */}
-                <p
+                <motion.p
+                    initial={{ opacity: 0, y: 12 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: 8 }}
+                    transition={{ delay: 0.3, duration: 0.4 }}
                     style={{
                         fontFamily: "var(--font-dm-sans)",
                         fontSize: "16px",
@@ -77,10 +101,14 @@ export default function ProjectContent({ project }: { project: Project }) {
                     }}
                 >
                     {project.tagline}
-                </p>
+                </motion.p>
 
                 {/* Meta row */}
-                <div
+                <motion.div
+                    initial={{ opacity: 0, y: 12 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: 8 }}
+                    transition={{ delay: 0.38, duration: 0.4 }}
                     style={{
                         display: "flex",
                         gap: "40px",
@@ -91,79 +119,46 @@ export default function ProjectContent({ project }: { project: Project }) {
                     }}
                 >
                     <div>
-                        <div
-                            style={{
-                                fontFamily: "-apple-system, BlinkMacSystemFont, system-ui",
-                                fontSize: "10px",
-                                color: "#A89E99",
-                                letterSpacing: "0.06em",
-                                textTransform: "uppercase",
-                                marginBottom: "4px",
-                            }}
-                        >
-                            Role
-                        </div>
-                        <div
-                            style={{
-                                fontFamily: "var(--font-dm-sans)",
-                                fontSize: "13px",
-                                color: "#1C1917",
-                            }}
-                        >
+                        <div style={{
+                            fontFamily: "-apple-system, BlinkMacSystemFont, system-ui",
+                            fontSize: "10px", color: "#A89E99",
+                            letterSpacing: "0.06em", textTransform: "uppercase", marginBottom: "4px",
+                        }}>Role</div>
+                        <div style={{ fontFamily: "var(--font-dm-sans)", fontSize: "13px", color: "#1C1917" }}>
                             {project.role}
                         </div>
                     </div>
                     <div>
-                        <div
-                            style={{
-                                fontFamily: "-apple-system, BlinkMacSystemFont, system-ui",
-                                fontSize: "10px",
-                                color: "#A89E99",
-                                letterSpacing: "0.06em",
-                                textTransform: "uppercase",
-                                marginBottom: "4px",
-                            }}
-                        >
-                            Period
-                        </div>
-                        <div
-                            style={{
-                                fontFamily: "var(--font-dm-sans)",
-                                fontSize: "13px",
-                                color: "#1C1917",
-                            }}
-                        >
+                        <div style={{
+                            fontFamily: "-apple-system, BlinkMacSystemFont, system-ui",
+                            fontSize: "10px", color: "#A89E99",
+                            letterSpacing: "0.06em", textTransform: "uppercase", marginBottom: "4px",
+                        }}>Period</div>
+                        <div style={{ fontFamily: "var(--font-dm-sans)", fontSize: "13px", color: "#1C1917" }}>
                             {project.period}
                         </div>
                     </div>
                     <div>
-                        <div
-                            style={{
-                                fontFamily: "-apple-system, BlinkMacSystemFont, system-ui",
-                                fontSize: "10px",
-                                color: "#A89E99",
-                                letterSpacing: "0.06em",
-                                textTransform: "uppercase",
-                                marginBottom: "4px",
-                            }}
-                        >
-                            Stack
-                        </div>
-                        <div
-                            style={{
-                                fontFamily: "-apple-system, BlinkMacSystemFont, system-ui",
-                                fontSize: "12px",
-                                color: "#6B6560",
-                                lineHeight: 1.6,
-                            }}
-                        >
+                        <div style={{
+                            fontFamily: "-apple-system, BlinkMacSystemFont, system-ui",
+                            fontSize: "10px", color: "#A89E99",
+                            letterSpacing: "0.06em", textTransform: "uppercase", marginBottom: "4px",
+                        }}>Stack</div>
+                        <div style={{
+                            fontFamily: "-apple-system, BlinkMacSystemFont, system-ui",
+                            fontSize: "12px", color: "#6B6560", lineHeight: 1.6,
+                        }}>
                             {project.stack.join(" · ")}
                         </div>
                     </div>
-                </div>
+                </motion.div>
 
                 {/* Description */}
-                <p
+                <motion.p
+                    initial={{ opacity: 0, y: 12 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: 8 }}
+                    transition={{ delay: 0.45, duration: 0.4 }}
                     style={{
                         fontFamily: "var(--font-dm-sans)",
                         fontSize: "15px",
@@ -174,10 +169,16 @@ export default function ProjectContent({ project }: { project: Project }) {
                     }}
                 >
                     {project.description}
-                </p>
+                </motion.p>
 
                 {/* Links */}
-                <div style={{ display: "flex", gap: "16px", flexWrap: "wrap" }}>
+                <motion.div
+                    initial={{ opacity: 0, y: 12 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: 8 }}
+                    transition={{ delay: 0.52, duration: 0.4 }}
+                    style={{ display: "flex", gap: "16px", flexWrap: "wrap" }}
+                >
                     {project.github && (
                         <a
                             href={project.github}
@@ -214,7 +215,7 @@ export default function ProjectContent({ project }: { project: Project }) {
                             Live →
                         </a>
                     )}
-                </div>
+                </motion.div>
             </div>
         </main>
     );
