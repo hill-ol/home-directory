@@ -1,8 +1,8 @@
 # home-directory
 
-Personal portfolio site for Olivia Hill — CS + Math @ Northeastern University.
+My personal portfolio site!
 
-Built as a macOS desktop metaphor: project folders, scattered app icons, a pinned Polaroid, and a pink binder full of coursework. The concept is that your personal site is your desktop — everything on it is something you actually made or lived.
+Built as a macOS desktop metaphor: project folders, scattered app icons, a pinned Polaroid, and a pink binder full of coursework. The concept is that my personal site is my desktop; everything on it is something I made or experienced!
 
 **Live:** [home-directory.vercel.app/](https://home-directory.vercel.app/) &nbsp;·&nbsp; **Built with:** Next.js 15 · TypeScript · Tailwind v4 · Framer Motion
 
@@ -61,12 +61,12 @@ public/
 
 ## Design decisions
 
-**Why a desktop metaphor?** Most portfolios follow the same template. A desktop gives every element a reason to exist on screen — folders are navigational, icons are informational, the Polaroid is personal. The metaphor also happens to be native language for any engineer who opens it.
+**Why a desktop metaphor?** I wanted my portfolio to have personality and allow me to experiment with design. The desktop gives every element a reason to exist on screen: folders are navigational, icons are informational, the Polaroid is personal. The metaphor also happens to be native language for any engineer who opens it.
 
 **Why Playfair + DM Sans?** Playfair's high-contrast thick-thin strokes give the site editorial presence without being heavy. DM Sans keeps the body copy friendly and readable. The Playfair italic on nav hover is the signature interaction.
 
-**Why all pink folders?** One cohesive color for all five project folders reads as a system rather than arbitrary decoration. The specific pink is a deliberate choice — warm, confident, and not the default teal everyone reaches for.
+**Why all pink folders?** One cohesive color for all five project folders reads as a system rather than arbitrary decoration. The specific pink is a deliberate choice. It is warm, confident, and my favorite color.
 
 ---
 
-Made with Next.js and a lot of attention to detail.
+Made with Next.js and a lot of clicking on Pinterest.
