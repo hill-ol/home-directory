@@ -72,8 +72,8 @@ export default function Home() {
                             margin: 0,
                         }}
                     >
-                        CS + Math @ Northeastern. Building full-stack products
-                        and exploring computing at the edge of the physical world.
+                        CS + Math @ Northeastern. Building full-stack products and software that makes a meaningful
+                        impact.
                     </p>
                 </div>
             </div>
