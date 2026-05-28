@@ -9,18 +9,24 @@ import {
     siPostgresql,
     siSupabase,
     siGit,
+    siMongodb,
+    siOpenjdk,
+    siGo,
 } from "simple-icons";
 import { useState } from "react";
 
 const icons = [
-    { icon: siTypescript, label: "TypeScript", top: "30%", left: "24%" },
-    { icon: siPython,     label: "Python",     top: "25%", left: "72%" },
-    { icon: siReact,      label: "React",      top: "58%", left: "22%" },
+    { icon: siTypescript, label: "TypeScript", top: "34%", left: "24%" },
+    { icon: siPython,     label: "Python",     top: "27%", left: "71%" },
+    { icon: siReact,      label: "React",      top: "54%", left: "20%" },
     { icon: siNextdotjs,  label: "Next.js",    top: "60%", left: "76%" },
-    { icon: siNodedotjs,  label: "Node.js",    top: "20%", left: "36%" },
+    { icon: siNodedotjs,  label: "Node.js",    top: "25%", left: "36%" },
     { icon: siPostgresql, label: "SQL",        top: "70%", left: "34%" },
     { icon: siSupabase,   label: "Supabase",   top: "68%", left: "64%" },
-    { icon: siGit,        label: "Git",        top: "22%", left: "62%" },
+    { icon: siGit,        label: "Git",        top: "20%", left: "62%" },
+    { icon: siMongodb,    label: "MongoDB",    top: "80%", left: "25%" },
+    { icon: siOpenjdk,    label: "Java",       top: "15%", left: "27%" },
+    { icon: siGo,         label: "Go",         top: "72%", left: "84%" },
 ];
 
 export default function StackOrbit() {

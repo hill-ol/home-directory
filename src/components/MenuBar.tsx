@@ -32,19 +32,41 @@ export default function MenuBar() {
                     padding: "8px 40px",
                 }}
             >
-                {/* Left — name */}
-                <Link
-                    href="/"
-                    style={{
-                        fontFamily: "var(--font-dm-sans)",
-                        fontSize: "13px",
-                        color: "#1C1917",
-                        textDecoration: "none",
-                        letterSpacing: "0.02em",
-                    }}
-                >
-                    Olivia Hill
-                </Link>
+                {/* Left — home icon + name */}
+                <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
+                    <Link
+                        href="/"
+                        style={{
+                            fontFamily: "-apple-system, BlinkMacSystemFont, system-ui",
+                            fontSize: "13px",
+                            color: "#1C1917",
+                            textDecoration: "none",
+                            display: "flex",
+                            alignItems: "center",
+                            transition: "color 0.2s ease",
+                        }}
+                        onMouseEnter={(e) => ((e.currentTarget as HTMLElement).style.color = "#F0A8CF")}
+                        onMouseLeave={(e) => ((e.currentTarget as HTMLElement).style.color = "#1C1917")}
+                    >
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                            <path d="M3 9.5L12 3l9 6.5V20a1 1 0 01-1 1H4a1 1 0 01-1-1V9.5z"/>
+                            <path d="M9 21V12h6v9"/>
+                        </svg>
+                    </Link>
+
+                    <Link
+                        href="/"
+                        style={{
+                            fontFamily: "-apple-system, BlinkMacSystemFont, system-ui",
+                            fontSize: "13px",
+                            color: "#1C1917",
+                            textDecoration: "none",
+                            letterSpacing: "0.02em",
+                        }}
+                    >
+                        Olivia Hill
+                    </Link>
+                </div>
 
                 {/* Center — nav links, always truly centered via grid */}
                 <nav style={{ display: "flex", alignItems: "center", gap: "40px" }}>

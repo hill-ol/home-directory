@@ -64,7 +64,7 @@ export default function WorkPage() {
                                 maxWidth: "480px",
                             }}
                         >
-                            A selection of things I've built — full-stack products,
+                            A selection of things I&apros;ve built. Full-stack products,
                             research tools, and everything in between.
                         </p>
                     </div>

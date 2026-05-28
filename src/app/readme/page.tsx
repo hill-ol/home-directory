@@ -23,19 +23,19 @@ const contact = [
 
 const neofetch = [
     { key: "OS",        value: "Northeastern University",         isUptime: false },
-    { key: "Host",      value: "CS + Math, Class of 2027",        isUptime: false },
+    { key: "Host",      value: "CS + Math, Class of 2028",        isUptime: false },
     { key: "Uptime",    value: "",                                isUptime: true  },
     { key: "Shell",     value: "TypeScript · Python",             isUptime: false },
     { key: "Editor",    value: "VS Code",                         isUptime: false },
     { key: "Location",  value: "Boston, MA",                      isUptime: false },
     { key: "Status",    value: "on co-op @ Chewy",                isUptime: false },
-    { key: "Interests", value: "fashion · architecture · cities", isUptime: false },
+    { key: "Interests", value: "fashion · traveling · running", isUptime: false },
 ];
 
 function UptimeCounter() {
     const [uptime, setUptime] = useState("");
     useEffect(() => {
-        const start = new Date("2022-09-01");
+        const start = new Date("2024-09-01");
         const update = () => {
             const now = new Date();
             const diff = now.getTime() - start.getTime();
@@ -123,30 +123,31 @@ export default function ReadmePage() {
                                     fontFamily: "var(--font-dm-sans)", fontSize: "13px",
                                     fontWeight: 300, color: "#6B6560", lineHeight: 1.8, margin: 0,
                                 }}>
-                                    I&apos;m a CS + Math student at Northeastern University, currently
-                                    on co-op at Chewy as a software engineer. I build full-stack web
-                                    products and do research at the intersection of computing and the
-                                    physical world — quantum circuits at The Mills Institute, materials
-                                    simulation at Argonne National Laboratory.
+                                    I&apos;m a CS and Math student at Northeastern, currently on co-op at Chewy as a
+                                    software engineer. Studying math alongside CS has changed how I approach building.
+                                    It gives me stronger context for the tools I reach for and pushes me toward problems
+                                    that sit at technical intersections. Outside of class, I build at Generate Product
+                                    Development Studio, where I&apos;ve wrapped up my first semester shipping a trip
+                                    planning app with an incredible team.
                                 </p>
 
                                 <p style={{
                                     fontFamily: "var(--font-dm-sans)", fontSize: "13px",
                                     fontWeight: 300, color: "#6B6560", lineHeight: 1.8, margin: 0,
                                 }}>
-                                    I care about the craft: readable code, considered interfaces,
-                                    products that solve real problems. I also think the best engineers
-                                    are curious about things outside their editor — for me that&apos;s
-                                    architecture, fashion, and the way cities are designed.
+                                    Before that I was working on full-stack projects ranging from a geographically-tagged
+                                    art commission platform to a job aggregator I built to solve a problem I had myself.
+                                    My math background helps here too. It&apos;s less about the coursework and more
+                                    about having a framework for thinking carefully before reaching for a solution.
                                 </p>
 
                                 <p style={{
                                     fontFamily: "var(--font-dm-sans)", fontSize: "13px",
                                     fontWeight: 300, color: "#6B6560", lineHeight: 1.8, margin: 0,
                                 }}>
-                                    Looking for SWE co-ops and full-time roles where I can work on
-                                    hard problems with people who take both their work and their taste
-                                    seriously.
+                                    When I&apos;m not at my desk I&apos;m usually running, exploring Boston, reading, or
+                                    planning my next trip. Open to SWE co-ops where I can work on real problems and keep
+                                    learning.
                                 </p>
 
                                 <Link
