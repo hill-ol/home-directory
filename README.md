@@ -1,36 +1,72 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# home-directory
 
-## Getting Started
+Personal portfolio site for Olivia Hill — CS + Math @ Northeastern University.
 
-First, run the development server:
+Built as a macOS desktop metaphor: project folders, scattered app icons, a pinned Polaroid, and a pink binder full of coursework. The concept is that your personal site is your desktop — everything on it is something you actually made or lived.
+
+**Live:** [home-directory.vercel.app/](https://home-directory.vercel.app/) &nbsp;·&nbsp; **Built with:** Next.js 15 · TypeScript · Tailwind v4 · Framer Motion
+
+---
+
+## Stack
+
+| Layer | Choice |
+|---|---|
+| Framework | Next.js 15 (App Router) |
+| Language | TypeScript |
+| Styling | Tailwind CSS v4 (CSS-first config) |
+| Animation | Framer Motion |
+| Fonts | Playfair Display · DM Sans (via `next/font`) |
+| Icons | simple-icons |
+| Deployment | Vercel |
+
+## Pages
+
+| Route | Description |
+|---|---|
+| `/` | Desktop canvas — project folders, stack orbit, org icons, Polaroid |
+| `/work` | Project index |
+| `/projects/[slug]` | Individual project case studies |
+| `/readme` | About page with neofetch terminal, currently section, passport stamps |
+| `/research` | Undergraduate research — Mills Institute + Northeastern |
+| `/coursework` | Academic record in an accordion binder |
+
+## Running locally
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [localhost:3000](http://localhost:3000).
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Structure
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```
+src/
+  app/                  # Next.js App Router pages
+    projects/[slug]/    # Dynamic project pages
+    work/               # Project index
+    readme/             # About page
+    research/           # Research page
+    coursework/         # Coursework binder
+  components/           # Reusable UI components
+  content/
+    projects/           # Project data (index.ts)
+public/
+  orgs/                 # Organization logos
+  research/             # Research poster images
+  contact/              # Contact icon images
+```
 
-## Learn More
+## Design decisions
 
-To learn more about Next.js, take a look at the following resources:
+**Why a desktop metaphor?** Most portfolios follow the same template. A desktop gives every element a reason to exist on screen — folders are navigational, icons are informational, the Polaroid is personal. The metaphor also happens to be native language for any engineer who opens it.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+**Why Playfair + DM Sans?** Playfair's high-contrast thick-thin strokes give the site editorial presence without being heavy. DM Sans keeps the body copy friendly and readable. The Playfair italic on nav hover is the signature interaction.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+**Why all pink folders?** One cohesive color for all five project folders reads as a system rather than arbitrary decoration. The specific pink is a deliberate choice — warm, confident, and not the default teal everyone reaches for.
 
-## Deploy on Vercel
+---
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Made with Next.js and a lot of attention to detail.
