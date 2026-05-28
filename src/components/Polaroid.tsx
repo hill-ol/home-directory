@@ -1,3 +1,5 @@
+import Image from "next/image";
+
 export default function Polaroid() {
     return (
         <div
@@ -49,26 +51,18 @@ export default function Polaroid() {
                     style={{
                         width: "128px",
                         height: "128px",
-                        backgroundColor: "#E8E4DC",
-                        display: "flex",
-                        alignItems: "center",
-                        justifyContent: "center",
                         overflow: "hidden",
+                        position: "relative",
                     }}
                 >
-          <span
-              style={{
-                  fontFamily: "-apple-system, BlinkMacSystemFont, system-ui",
-                  fontSize: "10px",
-                  color: "#A89E99",
-                  textAlign: "center",
-                  lineHeight: 1.4,
-              }}
-          >
-            your photo here
-          </span>
+                    <Image
+                        src="/readme/Headshot.jpg"
+                        alt="Olivia Hill"
+                        fill
+                        style={{ objectFit: "cover", objectPosition: "center top" }}
+                    />
+                </div>
                 </div>
             </div>
-        </div>
     );
 }

@@ -3,6 +3,7 @@
 import { motion } from "framer-motion";
 import Link from "next/link";
 import { useEffect, useState } from "react";
+import Image from "next/image";
 import PassportStamps from "@/components/PassportStamps";
 
 const currently = [
@@ -65,24 +66,13 @@ export default function ReadmePage() {
 
                     {/* Left — full bleed photo */}
                     <div style={{ position: "relative", minHeight: "100vh" }}>
-                        {/* uncomment when photo is ready:
-            <Image
-              src="/readme/photo.jpg"
-              alt="Olivia Hill"
-              fill
-              style={{ objectFit: "cover", objectPosition: "center top" }}
-              priority
-            /> */}
-                        <div style={{
-                            position: "absolute", inset: 0,
-                            backgroundColor: "#E0D9D0",
-                            display: "flex", alignItems: "center", justifyContent: "center",
-                        }}>
-              <span style={{
-                  fontFamily: "-apple-system, BlinkMacSystemFont, system-ui",
-                  fontSize: "11px", color: "#A89E99",
-              }}>your photo here</span>
-                        </div>
+                        <Image
+                          src="/readme/Headshot.jpg"
+                          alt="Olivia Hill"
+                          fill
+                          style={{ objectFit: "cover", objectPosition: "center top" }}
+                          priority
+                        />
                     </div>
 
                     {/* Right — bio + passport stamps side by side */}

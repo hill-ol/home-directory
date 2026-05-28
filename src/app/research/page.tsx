@@ -10,12 +10,13 @@ const entries = [
         poster: "/research/quantum.png",
         posterLabel: "Poster #12-UR",
         institution: "The Mills Institute · Northeastern Oakland",
-        title: "Exploratory analysis of the database-classification capability of quantum computing frameworks",
+        title: "Quantum Computing Research",
+        tagline: "Exploring whether quantum frameworks can classify medical datasets as effectively as classical ML.",
         meta: ["Solo research", "Advisor: Dr. Miguel Fuentes-Cabrera", "Spring 2025"],
-        abstract: "Can quantum computing frameworks classify medical datasets as effectively as classical machine learning? I explored this question by applying quantum circuit classification — using data embedding into Hilbert space — to the Iris and Wisconsin Breast Cancer datasets, comparing IBM's Qiskit against Pennylane. Pennylane showed stronger potential for hybrid quantum-classical applications, while accessibility barriers in Qiskit remain a meaningful challenge for the field.",
-        stack: ["Qiskit", "Pennylane", "Python", "PyTorch", "TensorFlow"],
+        abstract: "Can quantum computing frameworks match classical machine learning on medical classification tasks? I explored this question by applying quantum circuit classification to the Iris and Wisconsin Breast Cancer datasets, embedding classical data into Hilbert space and running quantum circuit processing using IBM's Qiskit and Pennylane. The research compared accuracy, accessibility, and hybrid potential across both frameworks. Pennylane showed stronger promise for quantum-classical hybrid pipelines, while Qiskit encountered meaningful accessibility barriers following IBM Quantum Lab's transition in 2024. Test accuracy reached 64% on the breast cancer dataset using Pennylane. Presented at the Northeastern Oakland undergraduate research symposium (Poster #12-UR). Funded by The Mills Institute.",
+        stack: ["Qiskit", "Pennylane", "Python", "PyTorch", "TensorFlow", "IBM Quantum"],
         award: null,
-        credit: "Mills Institute · 2025",
+        credit: "Mills Institute · Spring 2025",
     },
     {
         number: "02",
@@ -23,11 +24,12 @@ const entries = [
         posterLabel: "Poster #18-UR",
         institution: "Northeastern University · Oakland",
         title: "Child Therapist Training Database",
+        tagline: "An award-winning platform for training child therapists using AI-generated personas.",
         meta: ["Team of 5", "Advisor: Akram Bayat", "Spring 2025"],
-        abstract: "No existing system uses AI-generated virtual personas to train therapists in Art Therapy through interactive case scenarios. We designed and built a relational database around six core entities — pairing therapists with children based on art form preferences, connecting guardians and supervisors, and integrating OpenAI-generated personas that evolve as training progresses. The system went through conceptual, logical, and physical design stages and is normalized to 3NF.",
-        stack: ["MySQL", "React", "Flask", "OpenAI API", "Python"],
+        abstract: "No existing system uses AI-generated virtual personas to train therapists in Art Therapy through interactive case scenarios. We designed and built a relational database around six core entities: Therapist, Child, Training Supervisor, Guardian, Art Therapy, and Art Therapy Specialist, with therapist-child pairing based on shared art form preferences. The database went through conceptual, logical, and physical design stages and is normalized to 3NF. On top of the MySQL backend sits a React frontend and Flask API that integrates OpenAI to generate virtual pediatric patient personas whose responses evolve as training progresses. Presented at the Northeastern Oakland undergraduate research symposium (Poster #18-UR) and won the Khoury College Undergraduate Excellence Award.",
+        stack: ["MySQL", "React", "Flask", "Python", "OpenAI API"],
         award: "Khoury Undergraduate Excellence Award",
-        credit: "Northeastern Oakland · 2025",
+        credit: "Northeastern Oakland · Spring 2025",
     },
 ];
 
@@ -97,7 +99,7 @@ export default function ResearchPage() {
                                 }}>[ status: completed ]</span>
                             </div>
 
-                            {/* Poster — full width, above content */}
+                            {/* Poster */}
                             <div style={{
                                 position: "relative",
                                 width: "100%",
@@ -114,7 +116,6 @@ export default function ResearchPage() {
                                     fill
                                     style={{ objectFit: "contain" }}
                                 />
-                                {/* Fallback text */}
                                 <div style={{
                                     position: "absolute", inset: 0,
                                     display: "flex", alignItems: "center", justifyContent: "center",
@@ -124,14 +125,12 @@ export default function ResearchPage() {
                     {entry.posterLabel}
                   </span>
                                 </div>
-                                {/* Award badge */}
                                 {entry.award && (
                                     <div style={{
                                         position: "absolute", bottom: "12px", left: "12px",
                                         backgroundColor: "#FAC775", color: "#633806",
                                         fontFamily: "monospace", fontSize: "9px",
-                                        padding: "3px 10px", borderRadius: "3px",
-                                        zIndex: 2,
+                                        padding: "3px 10px", borderRadius: "3px", zIndex: 2,
                                     }}>{entry.award}</div>
                                 )}
                             </div>
@@ -139,23 +138,33 @@ export default function ResearchPage() {
                             {/* Credit */}
                             <div style={{
                                 fontFamily: "-apple-system,BlinkMacSystemFont,system-ui",
-                                fontSize: "10px", color: "#A89E99",
-                                marginBottom: "28px",
+                                fontSize: "10px", color: "#A89E99", marginBottom: "28px",
                             }}>{entry.credit}</div>
 
                             {/* Content */}
                             <div style={{ display: "flex", flexDirection: "column", gap: "14px" }}>
+
+                                {/* Institution */}
                                 <div style={{
                                     fontFamily: "monospace", fontSize: "10px", color: "#A89E99",
                                     letterSpacing: "0.06em", textTransform: "uppercase",
                                 }}>{entry.institution}</div>
 
+                                {/* Title */}
                                 <h2 style={{
                                     fontFamily: "var(--font-playfair)",
                                     fontSize: "22px", fontWeight: 400, color: "#1C1917",
                                     lineHeight: 1.25, margin: 0,
                                 }}>{entry.title}</h2>
 
+                                {/* Tagline */}
+                                <p style={{
+                                    fontFamily: "var(--font-dm-sans)", fontSize: "15px",
+                                    fontWeight: 300, color: "#6B6560", lineHeight: 1.6,
+                                    margin: 0, fontStyle: "italic",
+                                }}>{entry.tagline}</p>
+
+                                {/* Meta */}
                                 <div style={{ display: "flex", alignItems: "center", gap: "8px", flexWrap: "wrap" }}>
                                     {entry.meta.map((m, idx) => (
                                         <span key={m} style={{ display: "flex", alignItems: "center", gap: "8px" }}>
@@ -165,13 +174,16 @@ export default function ResearchPage() {
                                     ))}
                                 </div>
 
+                                {/* Divider */}
                                 <div style={{ height: "0.5px", backgroundColor: "rgba(28,25,23,0.08)" }}/>
 
+                                {/* Abstract */}
                                 <p style={{
                                     fontFamily: "var(--font-dm-sans)", fontSize: "13px",
                                     fontWeight: 300, color: "#6B6560", lineHeight: 1.8, margin: 0,
                                 }}>{entry.abstract}</p>
 
+                                {/* Stack */}
                                 <div style={{ display: "flex", flexWrap: "wrap", gap: "6px", marginTop: "4px" }}>
                                     {entry.stack.map(tag => (
                                         <span key={tag} style={{
@@ -182,6 +194,7 @@ export default function ResearchPage() {
                                         }}>{tag}</span>
                                     ))}
                                 </div>
+
                             </div>
                         </motion.div>
                     ))}

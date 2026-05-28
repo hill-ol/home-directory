@@ -13,10 +13,10 @@ const semesters = [
         color: "#F0A8CF",
         darkColor: "#D47BAD",
         courses: [
-            { name: "CS Fundamentals 1",           note: "where it all started"              },
-            { name: "Philosophy of Technology",     note: "asking why before asking how"      },
-            { name: "Cultures of London",           note: "studied this one from London"      },
-            { name: "Discrete Mathematics",         note: "first taste of mathematical proof" },
+            { name: "CS 1802 Fundamentals of Computer Science I",           note: "where it all started"              },
+            { name: "PHIL 1145 Technology and Human Values",     note: "asking why before asking how"      },
+            { name: "INSH 1600 Cultures of London",           note: "studied this one from London"      },
+            { name: "CS 1800 Discrete Structures",         note: "first taste of mathematical proof" },
         ],
     },
     {
@@ -27,10 +27,10 @@ const semesters = [
         color: "#A8D4C8",
         darkColor: "#6AAFA0",
         courses: [
-            { name: "CS Fundamentals 2",                       note: "data structures clicked here"       },
-            { name: "Fundamentals of Cybersecurity",            note: "threat models and defense thinking" },
-            { name: "Differential Equations & Linear Algebra",  note: "the semester that humbled me"      },
-            { name: "Introduction to Databases",               note: "first real project with SQL"        },
+            { name: "CS 2510 Fundamentals of Computer Science II",                       note: "data structures clicked here"       },
+            { name: "CY 2550 Foundations of Cybersecurity",            note: "threat models and defense thinking" },
+            { name: "MATH 2341 Differential Equations & Linear Algebra",  note: "the semester that humbled me"      },
+            { name: "CS 3200 Introduction to Databases",               note: "first real project with SQL"        },
         ],
     },
     {
@@ -41,11 +41,11 @@ const semesters = [
         color: "#F5C8A0",
         darkColor: "#D4926A",
         courses: [
-            { name: "Physics 1",                         note: "quantum context made this hit different" },
-            { name: "Number Theory",                     note: "beautiful and useless in the best way"   },
-            { name: "Probability & Statistics",          note: "now I actually understand p-values"      },
-            { name: "Exploration of Modern Mathematics", note: "math can be playful"                     },
-            { name: "Calculus 3",                        note: "gradients, surfaces, and suffering"      },
+            { name: "PHYS 1151 Physics for Engineering I",                         note: "quantum context made this hit different" },
+            { name: "MATH 3527 Number Theory I",                     note: "beautiful and useless in the best way"   },
+            { name: "MATH 3081 Probability & Statistics",          note: "now I actually understand p-values"      },
+            { name: "MATH 3090 Exploration of Modern Mathematics", note: "math can be playful"                     },
+            { name: "MATH 2321 Calculus III for Science and Engineering",                        note: "gradients, surfaces, and suffering"      },
         ],
     },
     {
@@ -56,9 +56,10 @@ const semesters = [
         color: "#C8B8E8",
         darkColor: "#9B84C8",
         courses: [
-            { name: "Algorithms (CS 5800)",         note: "made me think like an engineer"          },
-            { name: "Linear Algebra",               note: "SVD, eigenvalues, the whole thing"       },
-            { name: "Object Oriented Programming",  note: "Java, design patterns, SOLID principles" },
+            { name: "CS 5800 Algorithms",         note: "made me think like an engineer"          },
+            { name: "CS 3950 Introduction to CS Research",         note: "made me think like an engineer"          },
+            { name: "MATH 2331 Linear Algebra",               note: "SVD, eigenvalues, the whole thing"       },
+            { name: "CS 3100 Program Design & Implementation II",  note: "Java, design patterns, SOLID principles" },
         ],
     },
     {
@@ -69,10 +70,10 @@ const semesters = [
         color: "#D47BAD",
         darkColor: "#A8547E",
         courses: [
-            { name: "Web Development",                     note: "built StyleBoard in this one"           },
-            { name: "Group Theory",                        note: "abstract algebra is genuinely beautiful" },
-            { name: "Software Engineering",                note: "agile, testing, the real stuff"         },
-            { name: "Introduction to Information Systems", note: "MISM crossover"                        },
+            { name: "CS 4550 Web Development",                     note: "built StyleBoard in this one"           },
+            { name: "MATH 3175 Group Theory",                        note: "abstract algebra is genuinely beautiful" },
+            { name: "CS 4535 Professional Practicum Capstone",                note: "agile, testing, the real stuff"         },
+            { name: "MISM 2301 Introduction to Information Systems and Digital Technology", note: "MISM crossover"                        },
         ],
     },
 ];
@@ -116,8 +117,8 @@ export default function CourseworkPage() {
 
                     <div style={{ marginBottom: "48px" }}>
                         <div style={{ fontFamily: "-apple-system,BlinkMacSystemFont,system-ui", fontSize: "10px", color: "#F0A8CF", letterSpacing: "0.06em", textTransform: "uppercase", marginBottom: "12px" }}>coursework/</div>
-                        <h1 style={{ fontFamily: "var(--font-playfair)", fontSize: "clamp(32px,5vw,48px)", fontWeight: 400, color: "#1C1917", lineHeight: 1.1, letterSpacing: "-0.02em", margin: "0 0 12px 0" }}>Academic Record</h1>
-                        <p style={{ fontFamily: "var(--font-dm-sans)", fontSize: "13px", fontWeight: 300, color: "#6B6560", lineHeight: 1.7, margin: 0 }}>CS + Math double major · Northeastern University · Class of 2027</p>
+                        <h1 style={{ fontFamily: "var(--font-playfair)", fontSize: "clamp(32px,5vw,48px)", fontWeight: 400, color: "#1C1917", lineHeight: 1.1, letterSpacing: "-0.02em", margin: "0 0 12px 0" }}>Coursework</h1>
+                        <p style={{ fontFamily: "var(--font-dm-sans)", fontSize: "13px", fontWeight: 300, color: "#6B6560", lineHeight: 1.7, margin: 0 }}>Computer Science and Mathematics combined major · Northeastern University · Class of 2028</p>
                     </div>
 
                     <div style={{ position: "relative" }}>
