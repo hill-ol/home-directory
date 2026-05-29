@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 
 export const metadata: Metadata = {
     title: "Coursework",
-    description: "CS and Mathematics coursework at Northeastern University by Olivia Hill: from Discrete Structures and Algorithms (CS 5800) to Group Theory, Linear Algebra, and Quantum Computing, across five semesters in Boston, Oakland, and Budapest.",
+    description: "CS and Mathematics coursework at Northeastern University by Olivia Hill: from Discrete Structures and Algorithms (CS 5800) to Group Theory, Linear Algebra, and Quantum Computing, across semesters in Boston, Oakland, and Budapest.",
     openGraph: {
         title: "Coursework · Olivia Hill",
         description: "CS + Math coursework at Northeastern University, Class of 2028.",

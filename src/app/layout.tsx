@@ -23,7 +23,7 @@ export const metadata: Metadata = {
         template: "%s · Olivia Hill",
     },
     description:
-        "CS + Math student at Northeastern University, Class of 2028. Software engineer co-op at Chewy. CS + Math @ Northeastern. Building full-stack products and software that makes a meaningful impact. Global Scholar: London, Oakland, Budapest.",
+        "CS + Math student at Northeastern University, Class of 2028. Software engineer co-op at Chewy. Building full-stack products and exploring computing at the edge of the physical world. Global Scholar: London, Oakland, Budapest.",
     keywords: [
         "Olivia Hill",
         "software engineer",
@@ -44,7 +44,7 @@ export const metadata: Metadata = {
         siteName: "Olivia Hill",
         title: "Olivia Hill",
         description:
-            "CS + Math @ Northeastern. Software engineer co-op at Chewy. CS + Math @ Northeastern. Building full-stack products and software that makes a meaningful impact.",
+            "CS + Math @ Northeastern, Class of 2028. Software engineer co-op at Chewy. Building full-stack products and exploring computing at the edge of the physical world.",
         images: [
             {
                 url: "/og",
@@ -58,7 +58,7 @@ export const metadata: Metadata = {
         card: "summary_large_image",
         title: "Olivia Hill",
         description:
-            "CS + Math @ Northeastern. Software engineer co-op at Chewy. CS + Math @ Northeastern. Building full-stack products and software that makes a meaningful impact.",
+            "CS + Math @ Northeastern, Class of 2028. Software engineer co-op at Chewy. Building full-stack products and exploring computing at the edge of the physical world.",
         images: ["/og"],
     },
     icons: {
