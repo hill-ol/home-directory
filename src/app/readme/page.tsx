@@ -30,7 +30,7 @@ const neofetch = [
     { key: "Editor",    value: "VS Code",                         isUptime: false },
     { key: "Location",  value: "Boston, MA",                      isUptime: false },
     { key: "Status",    value: "on co-op @ Chewy",                isUptime: false },
-    { key: "Interests", value: "fashion · traveling · running", isUptime: false },
+    { key: "Interests", value: "fashion · traveling · running",   isUptime: false },
 ];
 
 function UptimeCounter() {
@@ -61,58 +61,65 @@ export default function ReadmePage() {
         >
             <main style={{ minHeight: "100vh", backgroundColor: "#F2EDE4" }}>
 
-                {/* HERO — two column */}
-                <div style={{ display: "grid", gridTemplateColumns: "2fr 3fr", minHeight: "100vh" }}>
+                {/* HERO */}
+                <div className="grid md:grid-cols-[2fr_3fr]" style={{ minHeight: "100vh" }}>
 
-                    {/* Left — full bleed photo */}
-                    <div style={{ position: "relative", minHeight: "100vh" }}>
+                    {/* Left — full bleed photo, desktop only */}
+                    <div className="hidden md:block" style={{ position: "relative", minHeight: "100vh" }}>
                         <Image
-                          src="/readme/Headshot.jpg"
-                          alt="Olivia Hill"
-                          fill
-                          style={{ objectFit: "cover", objectPosition: "center top" }}
-                          priority
+                            src="/readme/Headshot.jpg"
+                            alt="Olivia Hill"
+                            fill
+                            style={{ objectFit: "cover", objectPosition: "center top" }}
+                            priority
                         />
                     </div>
 
-                    {/* Right — bio + passport stamps side by side */}
-                    <div style={{
-                        padding: "120px 56px 80px 56px",
-                        display: "flex",
-                        flexDirection: "column",
-                        justifyContent: "center",
-                        gap: "20px",
-                    }}>
-                        <div style={{
-                            display: "grid",
-                            gridTemplateColumns: "1fr 1fr",
-                            gap: "48px",
-                            alignItems: "start",
-                        }}>
+                    {/* Right — bio + stamps */}
+                    <div
+                        className="flex flex-col justify-center"
+                        style={{ padding: "120px 56px 80px 56px", gap: "20px" }}
+                    >
 
-                            {/* Left: bio */}
+                        {/* Mobile photo — circular, mobile only */}
+                        <div className="flex md:hidden justify-center" style={{ marginBottom: "8px" }}>
+                            <div style={{
+                                width: "100px", height: "100px",
+                                borderRadius: "50%",
+                                overflow: "hidden",
+                                backgroundColor: "#E8E4DC",
+                                border: "3px solid white",
+                                boxShadow: "0 2px 12px rgba(28,25,23,0.10)",
+                                position: "relative",
+                                flexShrink: 0,
+                            }}>
+                                <Image
+                                    src="/readme/Headshot.jpg"
+                                    alt="Olivia Hill"
+                                    fill
+                                    style={{ objectFit: "cover", objectPosition: "center top" }}
+                                />
+                            </div>
+                        </div>
+
+                        <div className="grid md:grid-cols-2" style={{ gap: "48px", alignItems: "start" }}>
+
+                            {/* Bio */}
                             <div style={{ display: "flex", flexDirection: "column", gap: "20px" }}>
                                 <div style={{
                                     fontFamily: "-apple-system, BlinkMacSystemFont, system-ui",
                                     fontSize: "10px", color: "#F0A8CF",
                                     letterSpacing: "0.06em", textTransform: "uppercase",
-                                }}>
-                                    readme.md
-                                </div>
+                                }}>readme.md</div>
 
                                 <h1 style={{
                                     fontFamily: "var(--font-playfair)",
                                     fontSize: "clamp(32px, 4vw, 52px)",
                                     fontWeight: 400, color: "#1C1917",
                                     lineHeight: 1.05, letterSpacing: "-0.02em", margin: 0,
-                                }}>
-                                    Hi, I&apos;m Olivia.
-                                </h1>
+                                }}>Hi, I&apos;m Olivia.</h1>
 
-                                <p style={{
-                                    fontFamily: "var(--font-dm-sans)", fontSize: "13px",
-                                    fontWeight: 300, color: "#6B6560", lineHeight: 1.8, margin: 0,
-                                }}>
+                                <p style={{ fontFamily: "var(--font-dm-sans)", fontSize: "13px", fontWeight: 300, color: "#6B6560", lineHeight: 1.8, margin: 0 }}>
                                     I&apos;m a CS and Math student at Northeastern, currently on co-op at Chewy as a
                                     software engineer. Studying math alongside CS has changed how I approach building.
                                     It gives me stronger context for the tools I reach for and pushes me toward problems
@@ -121,20 +128,14 @@ export default function ReadmePage() {
                                     planning app with an incredible team.
                                 </p>
 
-                                <p style={{
-                                    fontFamily: "var(--font-dm-sans)", fontSize: "13px",
-                                    fontWeight: 300, color: "#6B6560", lineHeight: 1.8, margin: 0,
-                                }}>
+                                <p style={{ fontFamily: "var(--font-dm-sans)", fontSize: "13px", fontWeight: 300, color: "#6B6560", lineHeight: 1.8, margin: 0 }}>
                                     Before that I was working on full-stack projects ranging from a geographically-tagged
                                     art commission platform to a job aggregator I built to solve a problem I had myself.
                                     My math background helps here too. It&apos;s less about the coursework and more
                                     about having a framework for thinking carefully before reaching for a solution.
                                 </p>
 
-                                <p style={{
-                                    fontFamily: "var(--font-dm-sans)", fontSize: "13px",
-                                    fontWeight: 300, color: "#6B6560", lineHeight: 1.8, margin: 0,
-                                }}>
+                                <p style={{ fontFamily: "var(--font-dm-sans)", fontSize: "13px", fontWeight: 300, color: "#6B6560", lineHeight: 1.8, margin: 0 }}>
                                     When I&apos;m not at my desk I&apos;m usually running, exploring Boston, reading, or
                                     planning my next trip. Open to SWE co-ops where I can work on real problems and keep
                                     learning.
@@ -148,60 +149,62 @@ export default function ReadmePage() {
                                         textDecoration: "none", marginTop: "4px",
                                         transition: "color 0.2s ease",
                                     }}
-                                    onMouseEnter={(e) => ((e.currentTarget as HTMLElement).style.color = "#F0A8CF")}
-                                    onMouseLeave={(e) => ((e.currentTarget as HTMLElement).style.color = "#A89E99")}
-                                >
-                                    view coursework →
-                                </Link>
+                                    onMouseEnter={e => ((e.currentTarget as HTMLElement).style.color = "#F0A8CF")}
+                                    onMouseLeave={e => ((e.currentTarget as HTMLElement).style.color = "#A89E99")}
+                                >view coursework →</Link>
                             </div>
 
-                            {/* Right: passport stamps */}
-                            <div style={{ paddingTop: "40px" }}>
+                            {/* Passport stamps — desktop only */}
+                            <div className="hidden md:block" style={{ paddingTop: "40px" }}>
                                 <PassportStamps />
                             </div>
-
                         </div>
+
+                        {/* Passport stamps — mobile 2x2 grid */}
+                        <div className="block md:hidden">
+                            <div style={{
+                                fontFamily: "-apple-system, BlinkMacSystemFont, system-ui",
+                                fontSize: "10px", color: "#A89E99",
+                                letterSpacing: "0.06em", textTransform: "uppercase",
+                                marginBottom: "16px", marginTop: "8px",
+                            }}>global scholar</div>
+                            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "12px" }}>
+                                {[
+                                    { city: "London",   season: "Fall 2024",   color: "#C8B8E8" },
+                                    { city: "Oakland",  season: "Spring 2025", color: "#F0A8CF" },
+                                    { city: "Budapest", season: "Summer 2025", color: "#A8D4C8" },
+                                    { city: "Boston",   season: "Fall 2025",   color: "#F5C8A0" },
+                                ].map(stamp => (
+                                    <div key={stamp.city} style={{
+                                        backgroundColor: stamp.color,
+                                        borderRadius: "6px", padding: "12px",
+                                        display: "flex", flexDirection: "column", gap: "2px",
+                                    }}>
+                                        <div style={{ fontFamily: "var(--font-playfair)", fontStyle: "italic", fontSize: "14px", color: "#1C1917" }}>{stamp.city}</div>
+                                        <div style={{ fontFamily: "-apple-system,BlinkMacSystemFont,system-ui", fontSize: "10px", color: "#6B6560" }}>{stamp.season}</div>
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
+
                     </div>
                 </div>
 
-                {/* NEOFETCH TERMINAL */}
+                {/* NEOFETCH */}
                 <div style={{ padding: "64px 0", borderTop: "0.5px solid rgba(28,25,23,0.06)" }}>
-                    <div style={{ maxWidth: "860px", margin: "0 auto", padding: "0 40px" }}>
-                        <div style={{
-                            backgroundColor: "#D47BAD",
-                            borderRadius: "10px",
-                            overflow: "hidden",
-                        }}>
-                            <div style={{
-                                padding: "8px 14px",
-                                backgroundColor: "rgba(0,0,0,0.15)",
-                                display: "flex", alignItems: "center", gap: "6px",
-                            }}>
-                                {["#FF5F57","#FEBC2E","#28C840"].map((c) => (
-                                    <div key={c} style={{
-                                        width: "10px", height: "10px", borderRadius: "50%",
-                                        backgroundColor: c, opacity: 0.85,
-                                    }} />
+                    <div style={{ maxWidth: "860px", margin: "0 auto", padding: "0 24px" }}>
+                        <div style={{ backgroundColor: "#D47BAD", borderRadius: "10px", overflow: "hidden" }}>
+                            <div style={{ padding: "8px 14px", backgroundColor: "rgba(0,0,0,0.15)", display: "flex", alignItems: "center", gap: "6px" }}>
+                                {["#FF5F57","#FEBC2E","#28C840"].map(c => (
+                                    <div key={c} style={{ width: "10px", height: "10px", borderRadius: "50%", backgroundColor: c, opacity: 0.85 }}/>
                                 ))}
-                                <span style={{
-                                    fontFamily: "monospace", fontSize: "10px",
-                                    color: "rgba(255,255,255,0.6)", marginLeft: "8px",
-                                }}>
+                                <span style={{ fontFamily: "monospace", fontSize: "10px", color: "rgba(255,255,255,0.6)", marginLeft: "8px" }}>
                   olivia@northeastern ~ neofetch
                 </span>
                             </div>
-                            <div style={{
-                                padding: "20px 24px",
-                                display: "grid",
-                                gridTemplateColumns: "1fr 1fr",
-                                gap: "5px 40px",
-                            }}>
+                            <div className="grid md:grid-cols-2" style={{ padding: "20px 24px", gap: "5px 40px" }}>
                                 {neofetch.map(({ key, value, isUptime }) => (
-                                    <div key={key} style={{
-                                        fontFamily: "monospace", fontSize: "12px",
-                                        color: "rgba(255,255,255,0.9)",
-                                        display: "flex", gap: "8px",
-                                    }}>
+                                    <div key={key} style={{ fontFamily: "monospace", fontSize: "12px", color: "rgba(255,255,255,0.9)", display: "flex", gap: "8px" }}>
                                         <span style={{ minWidth: "80px", color: "rgba(255,255,255,0.5)" }}>{key}</span>
                                         {isUptime ? <UptimeCounter /> : <span>{value}</span>}
                                     </div>
@@ -213,39 +216,25 @@ export default function ReadmePage() {
 
                 {/* CURRENTLY */}
                 <div style={{ padding: "0 0 64px" }}>
-                    <div style={{ maxWidth: "860px", margin: "0 auto", padding: "0 40px" }}>
+                    <div style={{ maxWidth: "860px", margin: "0 auto", padding: "0 24px" }}>
                         <div style={{
                             fontFamily: "-apple-system, BlinkMacSystemFont, system-ui",
                             fontSize: "13px", color: "#A89E99",
-                            letterSpacing: "0.06em", textTransform: "uppercase",
-                            marginBottom: "24px",
-                        }}>
-                            currently
-                        </div>
-                        <div style={{
-                            display: "grid", gridTemplateColumns: "repeat(3, 1fr)",
+                            letterSpacing: "0.06em", textTransform: "uppercase", marginBottom: "24px",
+                        }}>currently</div>
+                        <div className="grid grid-cols-2 md:grid-cols-3" style={{
                             border: "0.5px solid rgba(28,25,23,0.08)",
                             borderRadius: "8px", overflow: "hidden",
                         }}>
                             {currently.map(({ field, value }, i) => (
                                 <div key={field} style={{
                                     padding: "20px 22px",
-                                    borderRight: i % 3 !== 2 ? "0.5px solid rgba(28,25,23,0.08)" : "none",
-                                    borderBottom: i < 3 ? "0.5px solid rgba(28,25,23,0.08)" : "none",
+                                    borderRight: "0.5px solid rgba(28,25,23,0.08)",
+                                    borderBottom: "0.5px solid rgba(28,25,23,0.08)",
                                     backgroundColor: "#F2EDE4",
                                 }}>
-                                    <div style={{
-                                        fontFamily: "monospace", fontSize: "10px",
-                                        color: "#F0A8CF", letterSpacing: "0.04em", marginBottom: "6px",
-                                    }}>
-                                        {field}
-                                    </div>
-                                    <div style={{
-                                        fontFamily: "var(--font-dm-sans)", fontSize: "13px",
-                                        fontWeight: 300, color: "#1C1917", lineHeight: 1.4,
-                                    }}>
-                                        {value}
-                                    </div>
+                                    <div style={{ fontFamily: "monospace", fontSize: "10px", color: "#F0A8CF", letterSpacing: "0.04em", marginBottom: "6px" }}>{field}</div>
+                                    <div style={{ fontFamily: "var(--font-dm-sans)", fontSize: "13px", fontWeight: 300, color: "#1C1917", lineHeight: 1.4 }}>{value}</div>
                                 </div>
                             ))}
                         </div>
@@ -254,15 +243,12 @@ export default function ReadmePage() {
 
                 {/* CONTACT */}
                 <div style={{ borderTop: "0.5px solid rgba(28,25,23,0.06)", padding: "48px 0 64px" }}>
-                    <div style={{ maxWidth: "860px", margin: "0 auto", padding: "0 40px" }}>
+                    <div style={{ maxWidth: "860px", margin: "0 auto", padding: "0 24px" }}>
                         <div style={{
                             fontFamily: "-apple-system, BlinkMacSystemFont, system-ui",
                             fontSize: "13px", color: "#A89E99",
-                            letterSpacing: "0.06em", textTransform: "uppercase",
-                            marginBottom: "24px",
-                        }}>
-                            contact
-                        </div>
+                            letterSpacing: "0.06em", textTransform: "uppercase", marginBottom: "24px",
+                        }}>contact</div>
                         <div style={{ display: "flex", flexDirection: "column" }}>
                             {contact.map(({ label, href, display }) => (
                                 <a
@@ -276,24 +262,11 @@ export default function ReadmePage() {
                                         borderBottom: "0.5px solid rgba(28,25,23,0.06)",
                                         textDecoration: "none",
                                     }}
-                                    onMouseEnter={(e) => {
-                                        (e.currentTarget.querySelector(".cv") as HTMLElement).style.color = "#D47BAD";
-                                    }}
-                                    onMouseLeave={(e) => {
-                                        (e.currentTarget.querySelector(".cv") as HTMLElement).style.color = "#F0A8CF";
-                                    }}
+                                    onMouseEnter={e => { (e.currentTarget.querySelector(".cv") as HTMLElement).style.color = "#D47BAD"; }}
+                                    onMouseLeave={e => { (e.currentTarget.querySelector(".cv") as HTMLElement).style.color = "#F0A8CF"; }}
                                 >
-                  <span style={{
-                      fontFamily: "monospace", fontSize: "11px",
-                      color: "#A89E99", minWidth: "80px",
-                  }}>
-                    {label}
-                  </span>
-                                    <span className="cv" style={{
-                                        fontFamily: "-apple-system, BlinkMacSystemFont, system-ui",
-                                        fontSize: "12px", color: "#F0A8CF",
-                                        transition: "color 0.2s ease",
-                                    }}>
+                                    <span style={{ fontFamily: "monospace", fontSize: "11px", color: "#A89E99", minWidth: "80px" }}>{label}</span>
+                                    <span className="cv" style={{ fontFamily: "-apple-system,BlinkMacSystemFont,system-ui", fontSize: "12px", color: "#F0A8CF", transition: "color 0.2s ease" }}>
                     {display} →
                   </span>
                                 </a>
@@ -304,16 +277,9 @@ export default function ReadmePage() {
 
                 {/* FOOTER */}
                 <div style={{ borderTop: "0.5px solid rgba(28,25,23,0.06)", padding: "16px 0" }}>
-                    <div style={{
-                        maxWidth: "860px", margin: "0 auto", padding: "0 40px",
-                        display: "flex", justifyContent: "space-between", alignItems: "center",
-                    }}>
-            <span style={{ fontFamily: "monospace", fontSize: "10px", color: "#A89E99" }}>
-              last modified: May 2026
-            </span>
-                        <span style={{ fontFamily: "monospace", fontSize: "10px", color: "#A89E99" }}>
-              uptime: <UptimeCounter />
-            </span>
+                    <div style={{ maxWidth: "860px", margin: "0 auto", padding: "0 24px", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+                        <span style={{ fontFamily: "monospace", fontSize: "10px", color: "#A89E99" }}>last modified: May 2026</span>
+                        <span style={{ fontFamily: "monospace", fontSize: "10px", color: "#A89E99" }}>uptime: <UptimeCounter /></span>
                     </div>
                 </div>
 

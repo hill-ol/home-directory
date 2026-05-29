@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
-import {Playfair_Display, DM_Sans, Wallpoet} from "next/font/google";
-import MenuBar from "@/components/MenuBar";
+import { Playfair_Display, DM_Sans } from "next/font/google";
+import MenuBar, { MobileNav } from "@/components/MenuBar";
 import TakeWhatYouNeed from "@/components/TakeWhatYouNeed";
 import "./globals.css";
 
@@ -19,19 +19,18 @@ const dmSans = DM_Sans({
 
 export const metadata: Metadata = {
     title: "Olivia Hill",
-    description:
-        "CS + Math @ Northeastern. Building full-stack products and exploring computing at the edge of the physical world.",
+    description: "CS + Math @ Northeastern. Building full-stack products and software that makes a meaningful impact.",
+    icons: {
+        icon: "/favicon.svg",
+    },
 };
 
-export default function RootLayout({
-                                       children,
-                                   }: {
-    children: React.ReactNode;
-}) {
+export default function RootLayout({ children }: { children: React.ReactNode }) {
     return (
         <html lang="en" className={`${playfair.variable} ${dmSans.variable}`}>
         <body>
         <MenuBar />
+        <MobileNav />
         <TakeWhatYouNeed />
         {children}
         </body>

@@ -5,9 +5,37 @@ import { usePathname } from "next/navigation";
 import { useState } from "react";
 
 const navLinks = [
-    { href: "/work", label: "work" },
-    { href: "/readme", label: "readme" },
+    { href: "/work",     label: "work"     },
+    { href: "/readme",   label: "readme"   },
     { href: "/research", label: "research" },
+];
+
+const mobileLinks = [
+    {
+        href: "/",
+        label: "home",
+        icon: "M3 9.5L12 3l9 6.5V20a1 1 0 01-1 1H4a1 1 0 01-1-1V9.5z M9 21V12h6v9",
+    },
+    {
+        href: "/work",
+        label: "work",
+        icon: "M3 7h18M3 12h18M3 17h18",
+    },
+    {
+        href: "/readme",
+        label: "readme",
+        icon: "M12 20h9M16.5 3.5a2.121 2.121 0 013 3L7 19l-4 1 1-4L16.5 3.5z",
+    },
+    {
+        href: "/research",
+        label: "research",
+        icon: "M9 3H5a2 2 0 00-2 2v4m6-6h10a2 2 0 012 2v4M9 3v18m0 0h10a2 2 0 002-2v-4M9 21H5a2 2 0 01-2-2v-4m0 0h18",
+    },
+    {
+        href: "/coursework",
+        label: "courses",
+        icon: "M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253",
+    },
 ];
 
 export default function MenuBar() {
@@ -33,31 +61,28 @@ export default function MenuBar() {
                 }}
             >
                 {/* Left — home icon + name */}
-                <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
+                <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
                     <Link
                         href="/"
                         style={{
-                            fontFamily: "-apple-system, BlinkMacSystemFont, system-ui",
-                            fontSize: "13px",
-                            color: "#1C1917",
+                            color: "#A89E99",
                             textDecoration: "none",
                             display: "flex",
                             alignItems: "center",
                             transition: "color 0.2s ease",
                         }}
-                        onMouseEnter={(e) => ((e.currentTarget as HTMLElement).style.color = "#F0A8CF")}
-                        onMouseLeave={(e) => ((e.currentTarget as HTMLElement).style.color = "#1C1917")}
+                        onMouseEnter={e => ((e.currentTarget as HTMLElement).style.color = "#F0A8CF")}
+                        onMouseLeave={e => ((e.currentTarget as HTMLElement).style.color = "#A89E99")}
                     >
                         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
                             <path d="M3 9.5L12 3l9 6.5V20a1 1 0 01-1 1H4a1 1 0 01-1-1V9.5z"/>
                             <path d="M9 21V12h6v9"/>
                         </svg>
                     </Link>
-
                     <Link
                         href="/"
                         style={{
-                            fontFamily: "-apple-system, BlinkMacSystemFont, system-ui",
+                            fontFamily: "var(--font-dm-sans)",
                             fontSize: "13px",
                             color: "#1C1917",
                             textDecoration: "none",
@@ -68,13 +93,12 @@ export default function MenuBar() {
                     </Link>
                 </div>
 
-                {/* Center — nav links, always truly centered via grid */}
-                <nav style={{ display: "flex", alignItems: "center", gap: "40px" }}>
+                {/* Center — nav links, desktop only */}
+                <nav className="hidden md:flex" style={{ alignItems: "center", gap: "40px" }}>
                     {navLinks.map((link) => {
                         const isActive = pathname === link.href;
                         const isHovered = hoveredLink === link.href;
                         const highlighted = isActive || isHovered;
-                        const isReadme = link.label === "readme";
 
                         return (
                             <Link
@@ -89,71 +113,103 @@ export default function MenuBar() {
                                     display: "inline-block",
                                 }}
                             >
-                                {/* Playfair italic — always in flow, sets the width */}
-                                <span
-                                    style={{
-                                        fontFamily: "var(--font-playfair)",
-                                        fontStyle: "italic",
-                                        fontSize: "13px",
-                                        color: "#F0A8CF",
-                                        opacity: highlighted ? 1 : 0,
-                                        transition: "opacity 0.35s ease",
-                                        display: "block",
-                                    }}
-                                >
-                  {link.label}
-                </span>
-
-                                {/* DM Sans — absolutely positioned, fades out on hover */}
-                                <span
-                                    style={{
-                                        fontFamily: "var(--font-dm-sans)",
-                                        fontSize: "13px",
-                                        color: "#6B6560",
-                                        opacity: highlighted ? 0 : 1,
-                                        transition: "opacity 0.35s ease",
-                                        position: "absolute",
-                                        top: 0,
-                                        left: 0,
-                                        right: 0,
-                                        whiteSpace: "nowrap",
-                                    }}
-                                >
-                  {link.label}
-                </span>
-
-                                {/* Underline — expands from center, wider on readme */}
-                                <span
-                                    style={{
-                                        position: "absolute",
-                                        bottom: 0,
-                                        left: highlighted ? (isReadme ? "-6px" : "0px") : "50%",
-                                        right: highlighted ? (isReadme ? "-6px" : "0px") : "50%",
-                                        height: "1.5px",
-                                        backgroundColor: "#F0A8CF",
-                                        transition: "left 0.35s ease, right 0.35s ease",
-                                        borderRadius: "1px",
-                                    }}
-                                />
+                <span style={{
+                    fontFamily: "var(--font-playfair)",
+                    fontStyle: "italic",
+                    fontSize: "13px",
+                    color: "#F0A8CF",
+                    opacity: highlighted ? 1 : 0,
+                    transition: "opacity 0.35s ease",
+                    display: "block",
+                }}>{link.label}</span>
+                                <span style={{
+                                    fontFamily: "var(--font-dm-sans)",
+                                    fontSize: "13px",
+                                    color: "#6B6560",
+                                    opacity: highlighted ? 0 : 1,
+                                    transition: "opacity 0.35s ease",
+                                    position: "absolute",
+                                    top: 0, left: 0, right: 0,
+                                    whiteSpace: "nowrap",
+                                }}>{link.label}</span>
+                                <span style={{
+                                    position: "absolute",
+                                    bottom: 0,
+                                    left: highlighted ? (link.label === "readme" ? "-6px" : "0px") : "50%",
+                                    right: highlighted ? (link.label === "readme" ? "-6px" : "0px") : "50%",
+                                    height: "1.5px",
+                                    backgroundColor: "#F0A8CF",
+                                    transition: "left 0.35s ease, right 0.35s ease",
+                                    borderRadius: "1px",
+                                }}/>
                             </Link>
                         );
                     })}
                 </nav>
 
-                {/* Right — availability, pushed to the right edge */}
-                <div style={{ display: "flex", justifyContent: "flex-end" }}>
-          <span
-              style={{
-                  fontFamily: "-apple-system, BlinkMacSystemFont, system-ui",
-                  fontSize: "11px",
-                  color: "#A89E99",
-                  letterSpacing: "0.01em",
-              }}
-          >
+                {/* Right — availability, desktop only */}
+                <div className="hidden md:flex" style={{ justifyContent: "flex-end" }}>
+          <span style={{
+              fontFamily: "-apple-system, BlinkMacSystemFont, system-ui",
+              fontSize: "11px",
+              color: "#A89E99",
+              letterSpacing: "0.01em",
+          }}>
             Boston, MA · available S&apos;27
           </span>
                 </div>
             </div>
         </header>
+    );
+}
+
+export function MobileNav() {
+    const pathname = usePathname();
+
+    return (
+        <nav
+            className="fixed bottom-0 left-0 right-0 md:hidden z-50"
+            style={{
+                backgroundColor: "rgba(242,237,228,0.95)",
+                backdropFilter: "blur(12px)",
+                WebkitBackdropFilter: "blur(12px)",
+                borderTop: "0.5px solid rgba(28,25,23,0.08)",
+                paddingBottom: "env(safe-area-inset-bottom)",
+            }}
+        >
+            <div style={{ display: "flex", justifyContent: "space-around", padding: "8px 0" }}>
+                {mobileLinks.map(link => {
+                    const isActive = pathname === link.href;
+                    return (
+                        <Link
+                            key={link.href}
+                            href={link.href}
+                            style={{
+                                display: "flex", flexDirection: "column",
+                                alignItems: "center", gap: "3px",
+                                textDecoration: "none", padding: "4px 12px",
+                            }}
+                        >
+                            <svg
+                                width="20" height="20" viewBox="0 0 24 24"
+                                fill="none"
+                                stroke={isActive ? "#F0A8CF" : "#A89E99"}
+                                strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"
+                                style={{ transition: "stroke 0.2s ease" }}
+                            >
+                                <path d={link.icon}/>
+                            </svg>
+                            <span style={{
+                                fontFamily: "-apple-system,BlinkMacSystemFont,system-ui",
+                                fontSize: "9px",
+                                color: isActive ? "#F0A8CF" : "#A89E99",
+                                letterSpacing: "0.03em",
+                                transition: "color 0.2s ease",
+                            }}>{link.label}</span>
+                        </Link>
+                    );
+                })}
+            </div>
+        </nav>
     );
 }

@@ -183,9 +183,8 @@ export default function TakeWhatYouNeed() {
             {/* Floating pill */}
             <button
                 onClick={() => setOpen((o) => !o)}
+                className="fixed bottom-20 md:bottom-8"
                 style={{
-                    position: "fixed",
-                    bottom: "32px",
                     right: "40px",
                     zIndex: 50,
                     display: "flex",

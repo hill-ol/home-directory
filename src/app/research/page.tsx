@@ -40,8 +40,8 @@ export default function ResearchPage() {
             animate={{ opacity: 1 }}
             transition={{ duration: 0.4 }}
         >
-            <main style={{ minHeight: "100vh", backgroundColor: "#F2EDE4", paddingTop: "80px", paddingBottom: "80px" }}>
-                <div style={{ maxWidth: "900px", margin: "0 auto", padding: "0 40px" }}>
+            <main style={{ minHeight: "100vh", backgroundColor: "#F2EDE4", paddingTop: "80px", paddingBottom: "96px" }}>
+                <div style={{ maxWidth: "900px", margin: "0 auto", padding: "0 24px" }}>
 
                     {/* Back */}
                     <Link href="/" style={{
@@ -86,20 +86,18 @@ export default function ResearchPage() {
                         >
                             {/* Entry rule */}
                             <div style={{ display: "flex", alignItems: "center", gap: "12px", marginBottom: "28px" }}>
-                <span style={{
-                    fontFamily: "monospace", fontSize: "11px",
-                    color: "#F0A8CF", letterSpacing: "0.04em",
-                }}>{entry.number} ·</span>
+                                <span style={{ fontFamily: "monospace", fontSize: "11px", color: "#F0A8CF", letterSpacing: "0.04em" }}>{entry.number} ·</span>
                                 <div style={{ flex: 1, height: "0.5px", backgroundColor: "rgba(28,25,23,0.10)" }}/>
                                 <span style={{
                                     fontFamily: "monospace", fontSize: "10px", color: "#A89E99",
                                     backgroundColor: "rgba(28,25,23,0.04)",
                                     border: "0.5px solid rgba(28,25,23,0.08)",
                                     padding: "2px 8px", borderRadius: "20px",
+                                    whiteSpace: "nowrap",
                                 }}>[ status: completed ]</span>
                             </div>
 
-                            {/* Poster */}
+                            {/* Poster — full width */}
                             <div style={{
                                 position: "relative",
                                 width: "100%",
@@ -144,27 +142,25 @@ export default function ResearchPage() {
                             {/* Content */}
                             <div style={{ display: "flex", flexDirection: "column", gap: "14px" }}>
 
-                                {/* Institution */}
                                 <div style={{
                                     fontFamily: "monospace", fontSize: "10px", color: "#A89E99",
                                     letterSpacing: "0.06em", textTransform: "uppercase",
                                 }}>{entry.institution}</div>
 
-                                {/* Title */}
                                 <h2 style={{
                                     fontFamily: "var(--font-playfair)",
-                                    fontSize: "22px", fontWeight: 400, color: "#1C1917",
+                                    fontSize: "clamp(18px, 3vw, 22px)",
+                                    fontWeight: 400, color: "#1C1917",
                                     lineHeight: 1.25, margin: 0,
                                 }}>{entry.title}</h2>
 
-                                {/* Tagline */}
                                 <p style={{
-                                    fontFamily: "var(--font-dm-sans)", fontSize: "15px",
+                                    fontFamily: "var(--font-dm-sans)", fontSize: "14px",
                                     fontWeight: 300, color: "#6B6560", lineHeight: 1.6,
                                     margin: 0, fontStyle: "italic",
                                 }}>{entry.tagline}</p>
 
-                                {/* Meta */}
+                                {/* Meta — wraps naturally on mobile */}
                                 <div style={{ display: "flex", alignItems: "center", gap: "8px", flexWrap: "wrap" }}>
                                     {entry.meta.map((m, idx) => (
                                         <span key={m} style={{ display: "flex", alignItems: "center", gap: "8px" }}>
@@ -174,16 +170,13 @@ export default function ResearchPage() {
                                     ))}
                                 </div>
 
-                                {/* Divider */}
                                 <div style={{ height: "0.5px", backgroundColor: "rgba(28,25,23,0.08)" }}/>
 
-                                {/* Abstract */}
                                 <p style={{
                                     fontFamily: "var(--font-dm-sans)", fontSize: "13px",
                                     fontWeight: 300, color: "#6B6560", lineHeight: 1.8, margin: 0,
                                 }}>{entry.abstract}</p>
 
-                                {/* Stack */}
                                 <div style={{ display: "flex", flexWrap: "wrap", gap: "6px", marginTop: "4px" }}>
                                     {entry.stack.map(tag => (
                                         <span key={tag} style={{
