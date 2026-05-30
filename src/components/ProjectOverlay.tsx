@@ -55,8 +55,8 @@ export default function ProjectOverlay({ project, folderRect, onClose }: Props) 
                         style={{
                             position: "fixed", inset: 0,
                             backgroundColor: "rgba(28,25,23,0.45)",
-                            backdropFilter: "blur(6px)",
-                            WebkitBackdropFilter: "blur(6px)",
+                            backdropFilter: "blur(4px)",
+                            WebkitBackdropFilter: "blur(4px)",
                             zIndex: 100,
                         }}
                     />
@@ -73,14 +73,14 @@ export default function ProjectOverlay({ project, folderRect, onClose }: Props) 
                         {/* Animated panel — x/y shift it to start at folder position */}
                         <motion.div
                             key="panel"
-                            initial={{ opacity: 0, scale: 0.05, x: dx, y: dy }}
+                            initial={{ opacity: 0, scale: 0.2, x: dx, y: dy }}
                             animate={{ opacity: 1, scale: 1, x: 0, y: 0 }}
-                            exit={{ opacity: 0, scale: 0.05, x: dx, y: dy }}
+                            exit={{ opacity: 0, scale: 0.2, x: dx, y: dy }}
                             transition={{
                                 type: "spring",
-                                stiffness: 300,
-                                damping: 30,
-                                mass: 0.8,
+                                stiffness: 260,
+                                damping: 28,
+                                mass: 0.6,
                             }}
                             style={{
                                 width: "100%",

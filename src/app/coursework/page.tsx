@@ -124,35 +124,42 @@ export default function CourseworkPage() {
                     {/* ── MOBILE ── */}
                     <div className="block md:hidden">
                         {/* Scrolling pill tabs */}
-                        <div style={{
-                            display: "flex", gap: "8px",
-                            overflowX: "auto", paddingBottom: "12px",
-                            scrollbarWidth: "none",
-                            marginBottom: "20px",
-                        }}>
-                            {semesters.map((sem, idx) => {
-                                const isActive = activeIdx === idx;
-                                return (
-                                    <button
-                                        key={sem.id}
-                                        onClick={() => go(idx)}
-                                        style={{
-                                            flexShrink: 0,
-                                            padding: "6px 14px",
-                                            borderRadius: "20px",
-                                            border: `0.5px solid ${isActive ? sem.darkColor : "rgba(28,25,23,0.10)"}`,
-                                            backgroundColor: isActive ? sem.color : "transparent",
-                                            fontFamily: isActive ? "var(--font-playfair)" : "-apple-system,BlinkMacSystemFont,system-ui",
-                                            fontStyle: isActive ? "italic" : "normal",
-                                            fontSize: "12px",
-                                            color: isActive ? sem.darkColor : "#6B6560",
-                                            cursor: "pointer",
-                                            transition: "all 0.2s ease",
-                                            whiteSpace: "nowrap",
-                                        }}
-                                    >{sem.label}</button>
-                                );
-                            })}
+                        <div style={{ marginBottom: "20px" }}>
+                            <div style={{
+                                display: "flex", gap: "8px",
+                                overflowX: "auto", paddingBottom: "8px",
+                                scrollbarWidth: "thin",
+                                scrollbarColor: "#F0A8CF #EDE8DF",
+                            }} className="pill-scroll">
+                                <style>{`
+                  .pill-scroll::-webkit-scrollbar { height: 3px; }
+                  .pill-scroll::-webkit-scrollbar-track { background: #EDE8DF; border-radius: 2px; }
+                  .pill-scroll::-webkit-scrollbar-thumb { background: #F0A8CF; border-radius: 2px; }
+                `}</style>
+                                {semesters.map((sem, idx) => {
+                                    const isActive = activeIdx === idx;
+                                    return (
+                                        <button
+                                            key={sem.id}
+                                            onClick={() => go(idx)}
+                                            style={{
+                                                flexShrink: 0,
+                                                padding: "6px 14px",
+                                                borderRadius: "20px",
+                                                border: `0.5px solid ${isActive ? sem.darkColor : "rgba(28,25,23,0.10)"}`,
+                                                backgroundColor: isActive ? sem.color : "transparent",
+                                                fontFamily: isActive ? "var(--font-playfair)" : "-apple-system,BlinkMacSystemFont,system-ui",
+                                                fontStyle: isActive ? "italic" : "normal",
+                                                fontSize: "12px",
+                                                color: isActive ? sem.darkColor : "#6B6560",
+                                                cursor: "pointer",
+                                                transition: "all 0.2s ease",
+                                                whiteSpace: "nowrap",
+                                            }}
+                                        >{sem.label}</button>
+                                    );
+                                })}
+                            </div>
                         </div>
 
                         {/* Mobile content */}
@@ -316,13 +323,9 @@ export default function CourseworkPage() {
                                                             Computer Science<br/>Mathematics<br/>Northeastern University
                                                         </div>
                                                     </div>
-                                                    <motion.div
-                                                        animate={{ x: [0, 6, 0] }}
-                                                        transition={{ duration: 1.8, repeat: Infinity, ease: "easeInOut" }}
-                                                        style={{ fontFamily: "-apple-system,BlinkMacSystemFont,system-ui", fontSize: "10px", color: "#A89E99", letterSpacing: "0.05em" }}
-                                                    >
+                                                    <div style={{ fontFamily: "-apple-system,BlinkMacSystemFont,system-ui", fontSize: "10px", color: "#A89E99", letterSpacing: "0.05em" }}>
                                                         select a semester →
-                                                    </motion.div>
+                                                    </div>
                                                 </motion.div>
                                             ) : (
                                                 <motion.div key={active!.id}
