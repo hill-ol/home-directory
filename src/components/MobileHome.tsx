@@ -121,21 +121,72 @@ export default function MobileHome({ onFolderClick }: Props) {
             paddingTop: "72px",
             paddingBottom: "96px",
         }}>
-            <div style={{ padding: "0 24px", display: "flex", flexDirection: "column", gap: "48px" }}>
+            <div style={{ padding: "0 24px", display: "flex", flexDirection: "column", gap: "40px" }}>
 
-                {/* Hero */}
-                <div style={{ textAlign: "center", display: "flex", flexDirection: "column", alignItems: "center", gap: "16px", paddingTop: "24px" }}>
+                {/* Hero — Polaroid + name */}
+                <div style={{
+                    display: "flex",
+                    flexDirection: "column",
+                    alignItems: "center",
+                    gap: "24px",
+                    paddingTop: "16px",
+                }}>
+                    {/* Polaroid card */}
                     <div style={{
-                        width: "100px", height: "100px", borderRadius: "50%",
-                        overflow: "hidden", backgroundColor: "#E8E4DC",
-                        border: "3px solid white", boxShadow: "0 2px 12px rgba(28,25,23,0.10)",
-                        position: "relative", flexShrink: 0,
+                        backgroundColor: "white",
+                        padding: "10px 10px 32px 10px",
+                        boxShadow: "0 4px 24px rgba(28,25,23,0.12), 0 1px 4px rgba(28,25,23,0.06)",
+                        borderRadius: "2px",
+                        transform: "rotate(-2deg)",
+                        width: "180px",
+                        flexShrink: 0,
                     }}>
-                        <Image src="/readme/Headshot.jpg" alt="Olivia Hill" fill style={{ objectFit: "cover", objectPosition: "center top" }}/>
+                        <div style={{
+                            position: "relative",
+                            width: "160px",
+                            height: "200px",
+                            overflow: "hidden",
+                            backgroundColor: "#E8E4DC",
+                        }}>
+                            <Image
+                                src="/readme/Headshot.jpg"
+                                alt="Olivia Hill"
+                                fill
+                                priority
+                                style={{ objectFit: "cover", objectPosition: "center top" }}
+                            />
+                        </div>
+                        <div style={{
+                            fontFamily: "var(--font-playfair)",
+                            fontStyle: "italic",
+                            fontSize: "13px",
+                            color: "#A89E99",
+                            textAlign: "center",
+                            marginTop: "10px",
+                            letterSpacing: "0.01em",
+                        }}></div>
                     </div>
-                    <div>
-                        <h1 style={{ fontFamily: "var(--font-playfair)", fontSize: "42px", fontWeight: 400, color: "#1C1917", lineHeight: 1.05, letterSpacing: "-0.02em", margin: "0 0 10px 0" }}>Olivia Hill</h1>
-                        <p style={{ fontFamily: "var(--font-dm-sans)", fontSize: "14px", fontWeight: 300, color: "#6B6560", lineHeight: 1.7, margin: 0, maxWidth: "280px" }}>
+
+                    {/* Name + bio */}
+                    <div style={{ textAlign: "center" }}>
+                        <h1 style={{
+                            fontFamily: "var(--font-playfair)",
+                            fontSize: "42px",
+                            fontWeight: 400,
+                            color: "#1C1917",
+                            lineHeight: 1.0,
+                            letterSpacing: "-0.02em",
+                            margin: "0 0 10px 0",
+                        }}>Olivia Hill</h1>
+                        <p style={{
+                            fontFamily: "var(--font-dm-sans)",
+                            fontSize: "13px",
+                            fontWeight: 300,
+                            color: "#6B6560",
+                            lineHeight: 1.7,
+                            margin: 0,
+                            maxWidth: "280px",
+                        }}>
                             CS + Math @ Northeastern. Building full-stack products and software that makes a meaningful impact.
                         </p>
                     </div>

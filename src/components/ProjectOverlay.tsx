@@ -55,8 +55,7 @@ export default function ProjectOverlay({ project, folderRect, onClose }: Props) 
                         style={{
                             position: "fixed", inset: 0,
                             backgroundColor: "rgba(28,25,23,0.45)",
-                            backdropFilter: "blur(4px)",
-                            WebkitBackdropFilter: "blur(4px)",
+
                             zIndex: 100,
                         }}
                     />
