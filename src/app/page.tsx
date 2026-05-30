@@ -9,6 +9,7 @@ import ResumeIcon from "@/components/ResumeIcon";
 import MobileHome from "@/components/MobileHome";
 import ProjectOverlay from "@/components/ProjectOverlay";
 import { getProject } from "@/content/projects";
+import ContextMenu from "@/components/ContextMenu";
 import type { Project } from "@/content/projects";
 
 export default function Home() {
@@ -93,12 +94,13 @@ export default function Home() {
                             maxWidth: "340px", margin: 0,
                         }}>
                             CS + Math @ Northeastern. Building full-stack products
-                            and exploring computing at the edge of the physical world.
+                            and software that makes a meaningful impact.
                         </p>
                     </div>
                 </div>
 
                 <ProjectOverlay project={activeProject} folderRect={folderRect} onClose={closeProject} />
+                <ContextMenu />
             </main>
 
             {/* Mobile */}

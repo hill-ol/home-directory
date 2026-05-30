@@ -30,6 +30,20 @@ export async function GET() {
                     </svg>
                 </div>
 
+                {/* Ghost folder top right */}
+                <div style={{
+                    position: "absolute",
+                    right: "360px",
+                    top: "72px",
+                    display: "flex",
+                    opacity: 0.2,
+                }}>
+                    <svg width="120" height="98" viewBox="0 0 96 78" preserveAspectRatio="xMidYMid meet" fill="none">
+                        <path d="M6,78 Q2,78 2,74 L2,8 Q2,2 8,2 L34,2 Q40,2 42,6 L44,12 Q46,16 50,16 L90,16 Q94,16 94,20 L94,74 Q94,78 90,78 Z" fill="#D47BAD"/>
+                        <rect x="2" y="18" width="92" height="58" rx="6" fill="#F0A8CF"/>
+                    </svg>
+                </div>
+
                 {/* Left content */}
                 <div style={{ display: "flex", flexDirection: "column", maxWidth: "580px" }}>
 
@@ -64,7 +78,7 @@ export async function GET() {
                         fontWeight: 300,
                         marginBottom: "40px",
                     }}>
-                        CS + Math @ Northeastern
+                        CS + Math @ Northeastern · Building full-stack products and software that makes a meaningful impact.
                     </div>
 
                     {/* Tags */}

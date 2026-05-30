@@ -136,7 +136,7 @@ export default function MobileHome({ onFolderClick }: Props) {
                     <div>
                         <h1 style={{ fontFamily: "var(--font-playfair)", fontSize: "42px", fontWeight: 400, color: "#1C1917", lineHeight: 1.05, letterSpacing: "-0.02em", margin: "0 0 10px 0" }}>Olivia Hill</h1>
                         <p style={{ fontFamily: "var(--font-dm-sans)", fontSize: "14px", fontWeight: 300, color: "#6B6560", lineHeight: 1.7, margin: 0, maxWidth: "280px" }}>
-                            CS + Math @ Northeastern. Building full-stack products and exploring computing at the edge of the physical world.
+                            CS + Math @ Northeastern. Building full-stack products and software that makes a meaningful impact.
                         </p>
                     </div>
                 </div>
