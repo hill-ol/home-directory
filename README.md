@@ -91,11 +91,9 @@ public/
 
 **Why a desktop metaphor?** I wanted my portfolio to have personality and allow me to experiment with design. The desktop gives every element a reason to exist on screen: folders are navigational, icons are informational, the Polaroid is personal. The metaphor also happens to be native language for any engineer who opens it.
 
-**Why an overlay instead of navigation?** The original design used Next.js page navigation for project detail views, which caused folders to unmount and broke animations. Switching to an in-page overlay means the desktop never unmounts — the folder is always there to animate from and back to. URL sync is handled via `window.history.pushState` so links still work.
-
 **Why Playfair + DM Sans?** Playfair's high-contrast thick-thin strokes give the site editorial presence without being heavy. DM Sans keeps the body copy friendly and readable. The Playfair italic on nav hover is the signature interaction.
 
-**Why all pink folders?** One cohesive color for all five project folders reads as a system rather than arbitrary decoration. The specific pink is deliberate — warm, confident, and my favorite color.
+**Why all pink folders?** One cohesive color for all five project folders reads as a system rather than arbitrary decoration. The specific pink is deliberate. It is warm, confident, and my favorite color.
 
 ---
 
