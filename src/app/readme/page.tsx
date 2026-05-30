@@ -2,7 +2,7 @@
 
 import { motion } from "framer-motion";
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import Image from "next/image";
 import PassportStamps from "@/components/PassportStamps";
 
@@ -23,14 +23,14 @@ const contact = [
 ];
 
 const neofetch = [
-    { key: "OS",        value: "Northeastern University",         isUptime: false },
-    { key: "Host",      value: "CS + Math, Class of 2028",        isUptime: false },
-    { key: "Uptime",    value: "",                                isUptime: true  },
-    { key: "Shell",     value: "TypeScript · Python",             isUptime: false },
-    { key: "Editor",    value: "VS Code",                         isUptime: false },
-    { key: "Location",  value: "Boston, MA",                      isUptime: false },
-    { key: "Status",    value: "on co-op @ Chewy",                isUptime: false },
-    { key: "Interests", value: "fashion · traveling · running",   isUptime: false },
+    { key: "OS",        value: "Northeastern University",         isUptime: false, isTypewriter: false },
+    { key: "Host",      value: "CS + Math, Class of 2028",        isUptime: false, isTypewriter: false },
+    { key: "Uptime",    value: "",                                isUptime: true,  isTypewriter: false },
+    { key: "Shell",     value: "TypeScript · Python",             isUptime: false, isTypewriter: false },
+    { key: "Editor",    value: "VS Code",                         isUptime: false, isTypewriter: false },
+    { key: "Location",  value: "Boston, MA",                      isUptime: false, isTypewriter: false },
+    { key: "Status",    value: "on co-op @ Chewy",                isUptime: false, isTypewriter: false },
+    { key: "Interests", value: "fashion · traveling · running",   isUptime: false, isTypewriter: true  },
 ];
 
 function UptimeCounter() {
@@ -52,6 +52,45 @@ function UptimeCounter() {
     return <span style={{ color: "#F0A8CF" }}>{uptime}</span>;
 }
 
+function TypewriterText({ text, delay = 800 }: { text: string; delay?: number }) {
+    const [displayed, setDisplayed] = useState("");
+    const [done, setDone] = useState(false);
+    const indexRef = useRef(0);
+
+    useEffect(() => {
+        const timeout = setTimeout(() => {
+            const interval = setInterval(() => {
+                if (indexRef.current < text.length) {
+                    setDisplayed(text.slice(0, indexRef.current + 1));
+                    indexRef.current++;
+                } else {
+                    setDone(true);
+                    clearInterval(interval);
+                }
+            }, 55);
+            return () => clearInterval(interval);
+        }, delay);
+        return () => clearTimeout(timeout);
+    }, [text, delay]);
+
+    return (
+        <span>
+            {displayed}
+            {!done && (
+                <span style={{
+                    display: "inline-block",
+                    width: "1px",
+                    height: "12px",
+                    backgroundColor: "rgba(255,255,255,0.8)",
+                    marginLeft: "2px",
+                    verticalAlign: "middle",
+                    animation: "blink 1s step-end infinite",
+                }}/>
+            )}
+        </span>
+    );
+}
+
 export default function ReadmePage() {
     return (
         <motion.div
@@ -59,6 +98,17 @@ export default function ReadmePage() {
             animate={{ opacity: 1 }}
             transition={{ duration: 0.4, ease: "easeOut" }}
         >
+            <style>{`
+                @keyframes blink {
+                    0%, 100% { opacity: 1; }
+                    50% { opacity: 0; }
+                }
+                @keyframes cursor-blink {
+                    0%, 100% { opacity: 1; }
+                    50% { opacity: 0; }
+                }
+            `}</style>
+
             <main style={{ minHeight: "100vh", backgroundColor: "#F2EDE4" }}>
 
                 {/* HERO */}
@@ -80,45 +130,25 @@ export default function ReadmePage() {
                         className="flex flex-col justify-center"
                         style={{ padding: "120px 56px 80px 56px", gap: "20px" }}
                     >
-
-                        {/* Mobile photo — circular, mobile only */}
+                        {/* Mobile photo */}
                         <div className="flex md:hidden justify-center" style={{ marginBottom: "8px" }}>
                             <div style={{
                                 width: "100px", height: "100px",
-                                borderRadius: "50%",
-                                overflow: "hidden",
+                                borderRadius: "50%", overflow: "hidden",
                                 backgroundColor: "#E8E4DC",
                                 border: "3px solid white",
                                 boxShadow: "0 2px 12px rgba(28,25,23,0.10)",
-                                position: "relative",
-                                flexShrink: 0,
+                                position: "relative", flexShrink: 0,
                             }}>
-                                <Image
-                                    src="/readme/Headshot.jpg"
-                                    alt="Olivia Hill"
-                                    fill
-                                    style={{ objectFit: "cover", objectPosition: "center top" }}
-                                />
+                                <Image src="/readme/Headshot.jpg" alt="Olivia Hill" fill style={{ objectFit: "cover", objectPosition: "center top" }}/>
                             </div>
                         </div>
 
                         <div className="grid md:grid-cols-2" style={{ gap: "48px", alignItems: "start" }}>
-
                             {/* Bio */}
                             <div style={{ display: "flex", flexDirection: "column", gap: "20px" }}>
-                                <div style={{
-                                    fontFamily: "-apple-system, BlinkMacSystemFont, system-ui",
-                                    fontSize: "10px", color: "#F0A8CF",
-                                    letterSpacing: "0.06em", textTransform: "uppercase",
-                                }}>readme.md</div>
-
-                                <h1 style={{
-                                    fontFamily: "var(--font-playfair)",
-                                    fontSize: "clamp(32px, 4vw, 52px)",
-                                    fontWeight: 400, color: "#1C1917",
-                                    lineHeight: 1.05, letterSpacing: "-0.02em", margin: 0,
-                                }}>Hi, I&apos;m Olivia.</h1>
-
+                                <div style={{ fontFamily: "-apple-system, BlinkMacSystemFont, system-ui", fontSize: "10px", color: "#F0A8CF", letterSpacing: "0.06em", textTransform: "uppercase" }}>readme.md</div>
+                                <h1 style={{ fontFamily: "var(--font-playfair)", fontSize: "clamp(32px, 4vw, 52px)", fontWeight: 400, color: "#1C1917", lineHeight: 1.05, letterSpacing: "-0.02em", margin: 0 }}>Hi, I&apos;m Olivia.</h1>
                                 <p style={{ fontFamily: "var(--font-dm-sans)", fontSize: "13px", fontWeight: 300, color: "#6B6560", lineHeight: 1.8, margin: 0 }}>
                                     I&apos;m a CS and Math student at Northeastern, currently on co-op at Chewy as a
                                     software engineer. Studying math alongside CS has changed how I approach building.
@@ -127,30 +157,20 @@ export default function ReadmePage() {
                                     Development Studio, where I&apos;ve wrapped up my first semester shipping a trip
                                     planning app with an incredible team.
                                 </p>
-
                                 <p style={{ fontFamily: "var(--font-dm-sans)", fontSize: "13px", fontWeight: 300, color: "#6B6560", lineHeight: 1.8, margin: 0 }}>
                                     Before that I was working on full-stack projects ranging from a geographically-tagged
                                     art commission platform to a job aggregator I built to solve a problem I had myself.
                                     My math background helps here too. It&apos;s less about the coursework and more
                                     about having a framework for thinking carefully before reaching for a solution.
                                 </p>
-
                                 <p style={{ fontFamily: "var(--font-dm-sans)", fontSize: "13px", fontWeight: 300, color: "#6B6560", lineHeight: 1.8, margin: 0 }}>
                                     When I&apos;m not at my desk I&apos;m usually running, exploring Boston, reading, or
                                     planning my next trip. Open to SWE co-ops where I can work on real problems and keep
                                     learning.
                                 </p>
-
-                                <Link
-                                    href="/coursework"
-                                    style={{
-                                        fontFamily: "-apple-system, BlinkMacSystemFont, system-ui",
-                                        fontSize: "11px", color: "#A89E99",
-                                        textDecoration: "none", marginTop: "4px",
-                                        transition: "color 0.2s ease",
-                                    }}
-                                    onMouseEnter={e => ((e.currentTarget as HTMLElement).style.color = "#F0A8CF")}
-                                    onMouseLeave={e => ((e.currentTarget as HTMLElement).style.color = "#A89E99")}
+                                <Link href="/coursework" style={{ fontFamily: "-apple-system, BlinkMacSystemFont, system-ui", fontSize: "11px", color: "#A89E99", textDecoration: "none", marginTop: "4px", transition: "color 0.2s ease" }}
+                                      onMouseEnter={e => ((e.currentTarget as HTMLElement).style.color = "#F0A8CF")}
+                                      onMouseLeave={e => ((e.currentTarget as HTMLElement).style.color = "#A89E99")}
                                 >view coursework →</Link>
                             </div>
 
@@ -160,14 +180,9 @@ export default function ReadmePage() {
                             </div>
                         </div>
 
-                        {/* Passport stamps — mobile 2x2 grid */}
+                        {/* Passport stamps — mobile */}
                         <div className="block md:hidden">
-                            <div style={{
-                                fontFamily: "-apple-system, BlinkMacSystemFont, system-ui",
-                                fontSize: "10px", color: "#A89E99",
-                                letterSpacing: "0.06em", textTransform: "uppercase",
-                                marginBottom: "16px", marginTop: "8px",
-                            }}>global scholar</div>
+                            <div style={{ fontFamily: "-apple-system, BlinkMacSystemFont, system-ui", fontSize: "10px", color: "#A89E99", letterSpacing: "0.06em", textTransform: "uppercase", marginBottom: "16px", marginTop: "8px" }}>global scholar</div>
                             <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "12px" }}>
                                 {[
                                     { city: "London",   season: "Fall 2024",   color: "#C8B8E8" },
@@ -175,18 +190,13 @@ export default function ReadmePage() {
                                     { city: "Budapest", season: "Summer 2025", color: "#A8D4C8" },
                                     { city: "Boston",   season: "Fall 2025",   color: "#F5C8A0" },
                                 ].map(stamp => (
-                                    <div key={stamp.city} style={{
-                                        backgroundColor: stamp.color,
-                                        borderRadius: "6px", padding: "12px",
-                                        display: "flex", flexDirection: "column", gap: "2px",
-                                    }}>
+                                    <div key={stamp.city} style={{ backgroundColor: stamp.color, borderRadius: "6px", padding: "12px", display: "flex", flexDirection: "column", gap: "2px" }}>
                                         <div style={{ fontFamily: "var(--font-playfair)", fontStyle: "italic", fontSize: "14px", color: "#1C1917" }}>{stamp.city}</div>
                                         <div style={{ fontFamily: "-apple-system,BlinkMacSystemFont,system-ui", fontSize: "10px", color: "#6B6560" }}>{stamp.season}</div>
                                     </div>
                                 ))}
                             </div>
                         </div>
-
                     </div>
                 </div>
 
@@ -199,14 +209,20 @@ export default function ReadmePage() {
                                     <div key={c} style={{ width: "10px", height: "10px", borderRadius: "50%", backgroundColor: c, opacity: 0.85 }}/>
                                 ))}
                                 <span style={{ fontFamily: "monospace", fontSize: "10px", color: "rgba(255,255,255,0.6)", marginLeft: "8px" }}>
-                  olivia@northeastern ~ neofetch
-                </span>
+                                    olivia@northeastern ~ neofetch
+                                </span>
                             </div>
                             <div className="grid md:grid-cols-2" style={{ padding: "20px 24px", gap: "5px 40px" }}>
-                                {neofetch.map(({ key, value, isUptime }) => (
+                                {neofetch.map(({ key, value, isUptime, isTypewriter }) => (
                                     <div key={key} style={{ fontFamily: "monospace", fontSize: "12px", color: "rgba(255,255,255,0.9)", display: "flex", gap: "8px" }}>
                                         <span style={{ minWidth: "80px", color: "rgba(255,255,255,0.5)" }}>{key}</span>
-                                        {isUptime ? <UptimeCounter /> : <span>{value}</span>}
+                                        {isUptime ? (
+                                            <UptimeCounter />
+                                        ) : isTypewriter ? (
+                                            <TypewriterText text={value} delay={600} />
+                                        ) : (
+                                            <span>{value}</span>
+                                        )}
                                     </div>
                                 ))}
                             </div>
@@ -217,24 +233,25 @@ export default function ReadmePage() {
                 {/* CURRENTLY */}
                 <div style={{ padding: "0 0 64px" }}>
                     <div style={{ maxWidth: "860px", margin: "0 auto", padding: "0 24px" }}>
-                        <div style={{
-                            fontFamily: "-apple-system, BlinkMacSystemFont, system-ui",
-                            fontSize: "13px", color: "#A89E99",
-                            letterSpacing: "0.06em", textTransform: "uppercase", marginBottom: "24px",
-                        }}>currently</div>
-                        <div className="grid grid-cols-2 md:grid-cols-3" style={{
-                            border: "0.5px solid rgba(28,25,23,0.08)",
-                            borderRadius: "8px", overflow: "hidden",
-                        }}>
-                            {currently.map(({ field, value }, i) => (
-                                <div key={field} style={{
-                                    padding: "20px 22px",
-                                    borderRight: "0.5px solid rgba(28,25,23,0.08)",
-                                    borderBottom: "0.5px solid rgba(28,25,23,0.08)",
-                                    backgroundColor: "#F2EDE4",
-                                }}>
+                        <div style={{ fontFamily: "-apple-system, BlinkMacSystemFont, system-ui", fontSize: "13px", color: "#A89E99", letterSpacing: "0.06em", textTransform: "uppercase", marginBottom: "24px" }}>currently</div>
+                        <div className="grid grid-cols-2 md:grid-cols-3" style={{ border: "0.5px solid rgba(28,25,23,0.08)", borderRadius: "8px", overflow: "hidden" }}>
+                            {currently.map(({ field, value }) => (
+                                <div key={field} style={{ padding: "20px 22px", borderRight: "0.5px solid rgba(28,25,23,0.08)", borderBottom: "0.5px solid rgba(28,25,23,0.08)", backgroundColor: "#F2EDE4" }}>
                                     <div style={{ fontFamily: "monospace", fontSize: "10px", color: "#F0A8CF", letterSpacing: "0.04em", marginBottom: "6px" }}>{field}</div>
-                                    <div style={{ fontFamily: "var(--font-dm-sans)", fontSize: "13px", fontWeight: 300, color: "#1C1917", lineHeight: 1.4 }}>{value}</div>
+                                    <div style={{ fontFamily: "var(--font-dm-sans)", fontSize: "13px", fontWeight: 300, color: "#1C1917", lineHeight: 1.4 }}>
+                                        {value}
+                                        {field === "building" && (
+                                            <span style={{
+                                                display: "inline-block",
+                                                width: "1.5px",
+                                                height: "15px",
+                                                backgroundColor: "#F0A8CF",
+                                                marginLeft: "2.2px",
+                                                verticalAlign: "-1.5px",
+                                                animation: "cursor-blink 1s step-end infinite",
+                                            }}/>
+                                        )}
+                                    </div>
                                 </div>
                             ))}
                         </div>
@@ -244,31 +261,18 @@ export default function ReadmePage() {
                 {/* CONTACT */}
                 <div style={{ borderTop: "0.5px solid rgba(28,25,23,0.06)", padding: "48px 0 64px" }}>
                     <div style={{ maxWidth: "860px", margin: "0 auto", padding: "0 24px" }}>
-                        <div style={{
-                            fontFamily: "-apple-system, BlinkMacSystemFont, system-ui",
-                            fontSize: "13px", color: "#A89E99",
-                            letterSpacing: "0.06em", textTransform: "uppercase", marginBottom: "24px",
-                        }}>contact</div>
+                        <div style={{ fontFamily: "-apple-system, BlinkMacSystemFont, system-ui", fontSize: "13px", color: "#A89E99", letterSpacing: "0.06em", textTransform: "uppercase", marginBottom: "24px" }}>contact</div>
                         <div style={{ display: "flex", flexDirection: "column" }}>
                             {contact.map(({ label, href, display }) => (
-                                <a
-                                    key={label}
-                                    href={href}
-                                    target={label !== "Email" ? "_blank" : undefined}
-                                    rel="noopener noreferrer"
-                                    style={{
-                                        display: "flex", justifyContent: "space-between",
-                                        alignItems: "center", padding: "14px 0",
-                                        borderBottom: "0.5px solid rgba(28,25,23,0.06)",
-                                        textDecoration: "none",
-                                    }}
-                                    onMouseEnter={e => { (e.currentTarget.querySelector(".cv") as HTMLElement).style.color = "#D47BAD"; }}
-                                    onMouseLeave={e => { (e.currentTarget.querySelector(".cv") as HTMLElement).style.color = "#F0A8CF"; }}
+                                <a key={label} href={href} target={label !== "Email" ? "_blank" : undefined} rel="noopener noreferrer"
+                                   style={{ display: "flex", justifyContent: "space-between", alignItems: "center", padding: "14px 0", borderBottom: "0.5px solid rgba(28,25,23,0.06)", textDecoration: "none" }}
+                                   onMouseEnter={e => { (e.currentTarget.querySelector(".cv") as HTMLElement).style.color = "#D47BAD"; }}
+                                   onMouseLeave={e => { (e.currentTarget.querySelector(".cv") as HTMLElement).style.color = "#F0A8CF"; }}
                                 >
                                     <span style={{ fontFamily: "monospace", fontSize: "11px", color: "#A89E99", minWidth: "80px" }}>{label}</span>
                                     <span className="cv" style={{ fontFamily: "-apple-system,BlinkMacSystemFont,system-ui", fontSize: "12px", color: "#F0A8CF", transition: "color 0.2s ease" }}>
-                    {display} →
-                  </span>
+                                        {display} →
+                                    </span>
                                 </a>
                             ))}
                         </div>
