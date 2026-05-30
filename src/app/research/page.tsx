@@ -316,7 +316,7 @@ export default function ResearchPage() {
                     }}
                           onMouseEnter={e => ((e.currentTarget as HTMLElement).style.color = "#F0A8CF")}
                           onMouseLeave={e => ((e.currentTarget as HTMLElement).style.color = "#A89E99")}
-                    >back to desktop</Link>
+                    >← back to desktop</Link>
 
                     <div style={{ marginBottom: "64px" }}>
                         <div style={{
