@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 
 const navLinks = [
@@ -38,6 +38,28 @@ const mobileLinks = [
         icon: "M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253",
     },
 ];
+
+
+function MenuClock() {
+    const [time, setTime] = useState("");
+    useEffect(() => {
+        const update = () => {
+            const now = new Date();
+            setTime(now.toLocaleTimeString("en-US", {
+                hour: "numeric", minute: "2-digit", hour12: true,
+            }));
+        };
+        update();
+        const id = setInterval(update, 1000);
+        return () => clearInterval(id);
+    }, []);
+    return (
+        <span style={{
+            fontFamily: "-apple-system, BlinkMacSystemFont, system-ui",
+            fontSize: "11px", color: "#A89E99", letterSpacing: "0.01em",
+        }}>{time}</span>
+    );
+}
 
 export default function MenuBar() {
     const pathname = usePathname();
@@ -100,11 +122,12 @@ export default function MenuBar() {
                     })}
                 </nav>
 
-                {/* Right — availability, desktop only */}
-                <div className="hidden md:flex" style={{ justifyContent: "flex-end" }}>
+                {/* Right — availability + clock, desktop only */}
+                <div className="hidden md:flex" style={{ justifyContent: "flex-end", alignItems: "center", gap: "16px" }}>
           <span style={{ fontFamily: "-apple-system, BlinkMacSystemFont, system-ui", fontSize: "11px", color: "#A89E99", letterSpacing: "0.01em" }}>
             Boston, MA · available S&apos;28
           </span>
+                    <MenuClock />
                 </div>
             </div>
         </header>
