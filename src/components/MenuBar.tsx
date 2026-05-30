@@ -79,7 +79,7 @@ export default function MenuBar() {
                 display: "grid",
                 gridTemplateColumns: "1fr auto 1fr",
                 alignItems: "center",
-                padding: "8px 40px",
+                padding: "8px 16px",
             }}>
                 {/* Left — home icon + name */}
                 <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
