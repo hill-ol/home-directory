@@ -1,8 +1,93 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { useState } from "react";
 import Link from "next/link";
 import { projects } from "@/content/projects";
+
+function WorkRow({ project }: { project: (typeof projects)[0] }) {
+    const [hovered, setHovered] = useState(false);
+
+    return (
+        <motion.div
+            onHoverStart={() => setHovered(true)}
+            onHoverEnd={() => setHovered(false)}
+            animate={{ paddingLeft: hovered ? "10px" : "0px" }}
+            transition={{ duration: 0.2, ease: "easeOut" }}
+            style={{
+                padding: "24px 0",
+                borderBottom: "0.5px solid rgba(28,25,23,0.08)",
+                cursor: "pointer",
+            }}
+        >
+            <div style={{ display: "flex", alignItems: "flex-start", justifyContent: "space-between", gap: "16px" }}>
+                <div style={{ display: "flex", flexDirection: "column", gap: "6px", flex: 1 }}>
+
+                    {/* Filename + period */}
+                    <div style={{ display: "flex", alignItems: "center", gap: "12px", flexWrap: "wrap" }}>
+                        <motion.span
+                            animate={{ color: hovered ? "#D47BAD" : "#F0A8CF" }}
+                            transition={{ duration: 0.2 }}
+                            style={{
+                                fontFamily: "-apple-system, BlinkMacSystemFont, system-ui",
+                                fontSize: "10px", letterSpacing: "0.04em",
+                            }}
+                        >{project.filename}</motion.span>
+                        <span style={{
+                            fontFamily: "-apple-system, BlinkMacSystemFont, system-ui",
+                            fontSize: "10px", color: "#A89E99",
+                        }}>{project.period}</span>
+                    </div>
+
+                    {/* Title */}
+                    <motion.div
+                        animate={{ color: hovered ? "#F0A8CF" : "#1C1917" }}
+                        transition={{ duration: 0.2 }}
+                        style={{
+                            fontFamily: "var(--font-playfair)",
+                            fontSize: "clamp(18px, 3vw, 22px)",
+                            fontWeight: 400, lineHeight: 1.2,
+                        }}
+                    >{project.title}</motion.div>
+
+                    {/* Tagline */}
+                    <div style={{
+                        fontFamily: "var(--font-dm-sans)", fontSize: "13px",
+                        fontWeight: 300, color: "#6B6560", lineHeight: 1.5,
+                    }}>{project.tagline}</div>
+
+                    {/* Stack pills mobile */}
+                    <div className="flex md:hidden" style={{ flexWrap: "wrap", gap: "4px", marginTop: "4px" }}>
+                        {project.stack.slice(0, 3).map(s => (
+                            <span key={s} style={{
+                                fontFamily: "-apple-system, BlinkMacSystemFont, system-ui",
+                                fontSize: "10px", color: "#6B6560",
+                                backgroundColor: "rgba(28,25,23,0.04)",
+                                border: "0.5px solid rgba(28,25,23,0.08)",
+                                borderRadius: "20px", padding: "3px 10px",
+                                whiteSpace: "nowrap",
+                            }}>{s}</span>
+                        ))}
+                    </div>
+                </div>
+
+                {/* Stack pills desktop */}
+                <div className="hidden md:flex" style={{ flexWrap: "wrap", gap: "4px", justifyContent: "flex-end", maxWidth: "200px", flexShrink: 0 }}>
+                    {project.stack.slice(0, 3).map(s => (
+                        <span key={s} style={{
+                            fontFamily: "-apple-system, BlinkMacSystemFont, system-ui",
+                            fontSize: "10px", color: "#6B6560",
+                            backgroundColor: "rgba(28,25,23,0.04)",
+                            border: "0.5px solid rgba(28,25,23,0.08)",
+                            borderRadius: "20px", padding: "3px 10px",
+                            whiteSpace: "nowrap",
+                        }}>{s}</span>
+                    ))}
+                </div>
+            </div>
+        </motion.div>
+    );
+}
 
 export default function WorkPage() {
     return (
@@ -42,81 +127,13 @@ export default function WorkPage() {
                         {projects.map((project, i) => (
                             <motion.div
                                 key={project.slug}
-                                initial={{ opacity: 0, y: 16 }}
-                                animate={{ opacity: 1, y: 0 }}
-                                transition={{ delay: i * 0.07, duration: 0.4 }}
+                                initial={{ opacity: 0, y: 20 }}
+                                whileInView={{ opacity: 1, y: 0 }}
+                                viewport={{ once: true, margin: "-40px" }}
+                                transition={{ delay: i * 0.05, duration: 0.45, ease: "easeOut" }}
                             >
                                 <Link href={`/projects/${project.slug}`} style={{ textDecoration: "none" }}>
-                                    <div
-                                        style={{
-                                            padding: "24px 0",
-                                            borderBottom: "0.5px solid rgba(28,25,23,0.08)",
-                                            cursor: "pointer",
-                                            transition: "padding 0.2s ease",
-                                        }}
-                                        onMouseEnter={e => { (e.currentTarget as HTMLElement).style.paddingLeft = "8px"; }}
-                                        onMouseLeave={e => { (e.currentTarget as HTMLElement).style.paddingLeft = "0px"; }}
-                                    >
-                                        {/* Top row — filename + period + stack pills (stack pills hidden on mobile) */}
-                                        <div style={{ display: "flex", alignItems: "flex-start", justifyContent: "space-between", gap: "16px" }}>
-
-                                            <div style={{ display: "flex", flexDirection: "column", gap: "6px", flex: 1 }}>
-                                                {/* Filename + period */}
-                                                <div style={{ display: "flex", alignItems: "center", gap: "12px", flexWrap: "wrap" }}>
-                          <span style={{
-                              fontFamily: "-apple-system, BlinkMacSystemFont, system-ui",
-                              fontSize: "10px", color: "#F0A8CF", letterSpacing: "0.04em",
-                          }}>{project.filename}</span>
-                                                    <span style={{
-                                                        fontFamily: "-apple-system, BlinkMacSystemFont, system-ui",
-                                                        fontSize: "10px", color: "#A89E99",
-                                                    }}>{project.period}</span>
-                                                </div>
-
-                                                {/* Title */}
-                                                <div style={{
-                                                    fontFamily: "var(--font-playfair)",
-                                                    fontSize: "clamp(18px, 3vw, 22px)",
-                                                    fontWeight: 400, color: "#1C1917", lineHeight: 1.2,
-                                                }}>{project.title}</div>
-
-                                                {/* Tagline */}
-                                                <div style={{
-                                                    fontFamily: "var(--font-dm-sans)", fontSize: "13px",
-                                                    fontWeight: 300, color: "#6B6560", lineHeight: 1.5,
-                                                }}>{project.tagline}</div>
-
-                                                {/* Stack pills — visible on mobile below tagline */}
-                                                <div className="flex md:hidden" style={{ flexWrap: "wrap", gap: "4px", marginTop: "4px" }}>
-                                                    {project.stack.slice(0, 3).map(s => (
-                                                        <span key={s} style={{
-                                                            fontFamily: "-apple-system, BlinkMacSystemFont, system-ui",
-                                                            fontSize: "10px", color: "#6B6560",
-                                                            backgroundColor: "rgba(28,25,23,0.04)",
-                                                            border: "0.5px solid rgba(28,25,23,0.08)",
-                                                            borderRadius: "20px", padding: "3px 10px",
-                                                            whiteSpace: "nowrap",
-                                                        }}>{s}</span>
-                                                    ))}
-                                                </div>
-                                            </div>
-
-                                            {/* Stack pills — desktop only, right-aligned */}
-                                            <div className="hidden md:flex" style={{ flexWrap: "wrap", gap: "4px", justifyContent: "flex-end", maxWidth: "200px", flexShrink: 0 }}>
-                                                {project.stack.slice(0, 3).map(s => (
-                                                    <span key={s} style={{
-                                                        fontFamily: "-apple-system, BlinkMacSystemFont, system-ui",
-                                                        fontSize: "10px", color: "#6B6560",
-                                                        backgroundColor: "rgba(28,25,23,0.04)",
-                                                        border: "0.5px solid rgba(28,25,23,0.08)",
-                                                        borderRadius: "20px", padding: "3px 10px",
-                                                        whiteSpace: "nowrap",
-                                                    }}>{s}</span>
-                                                ))}
-                                            </div>
-
-                                        </div>
-                                    </div>
+                                    <WorkRow project={project} />
                                 </Link>
                             </motion.div>
                         ))}

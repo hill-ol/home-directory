@@ -3,11 +3,12 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
+import { motion } from "framer-motion";
 
 const navLinks = [
-    { href: "/work",     label: "work"     },
-    { href: "/readme",   label: "readme"   },
-    { href: "/research", label: "research" },
+    { href: "/work",       label: "work"     },
+    { href: "/readme",     label: "readme"   },
+    { href: "/research",   label: "research" },
 ];
 
 const mobileLinks = [
@@ -52,25 +53,17 @@ export default function MenuBar() {
                 borderBottom: "0.5px solid rgba(28, 25, 23, 0.08)",
             }}
         >
-            <div
-                style={{
-                    display: "grid",
-                    gridTemplateColumns: "1fr auto 1fr",
-                    alignItems: "center",
-                    padding: "8px 40px",
-                }}
-            >
+            <div style={{
+                display: "grid",
+                gridTemplateColumns: "1fr auto 1fr",
+                alignItems: "center",
+                padding: "8px 40px",
+            }}>
                 {/* Left — home icon + name */}
                 <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
                     <Link
                         href="/"
-                        style={{
-                            color: "#A89E99",
-                            textDecoration: "none",
-                            display: "flex",
-                            alignItems: "center",
-                            transition: "color 0.2s ease",
-                        }}
+                        style={{ color: "#A89E99", textDecoration: "none", display: "flex", alignItems: "center", transition: "color 0.2s ease" }}
                         onMouseEnter={e => ((e.currentTarget as HTMLElement).style.color = "#F0A8CF")}
                         onMouseLeave={e => ((e.currentTarget as HTMLElement).style.color = "#A89E99")}
                     >
@@ -79,16 +72,7 @@ export default function MenuBar() {
                             <path d="M9 21V12h6v9"/>
                         </svg>
                     </Link>
-                    <Link
-                        href="/"
-                        style={{
-                            fontFamily: "var(--font-dm-sans)",
-                            fontSize: "13px",
-                            color: "#1C1917",
-                            textDecoration: "none",
-                            letterSpacing: "0.02em",
-                        }}
-                    >
+                    <Link href="/" style={{ fontFamily: "var(--font-dm-sans)", fontSize: "13px", color: "#1C1917", textDecoration: "none", letterSpacing: "0.02em" }}>
                         Olivia Hill
                     </Link>
                 </div>
@@ -106,42 +90,11 @@ export default function MenuBar() {
                                 href={link.href}
                                 onMouseEnter={() => setHoveredLink(link.href)}
                                 onMouseLeave={() => setHoveredLink(null)}
-                                style={{
-                                    position: "relative",
-                                    paddingBottom: "3px",
-                                    textDecoration: "none",
-                                    display: "inline-block",
-                                }}
+                                style={{ position: "relative", paddingBottom: "3px", textDecoration: "none", display: "inline-block" }}
                             >
-                <span style={{
-                    fontFamily: "var(--font-playfair)",
-                    fontStyle: "italic",
-                    fontSize: "13px",
-                    color: "#F0A8CF",
-                    opacity: highlighted ? 1 : 0,
-                    transition: "opacity 0.35s ease",
-                    display: "block",
-                }}>{link.label}</span>
-                                <span style={{
-                                    fontFamily: "var(--font-dm-sans)",
-                                    fontSize: "13px",
-                                    color: "#6B6560",
-                                    opacity: highlighted ? 0 : 1,
-                                    transition: "opacity 0.35s ease",
-                                    position: "absolute",
-                                    top: 0, left: 0, right: 0,
-                                    whiteSpace: "nowrap",
-                                }}>{link.label}</span>
-                                <span style={{
-                                    position: "absolute",
-                                    bottom: 0,
-                                    left: highlighted ? (link.label === "readme" ? "-6px" : "0px") : "50%",
-                                    right: highlighted ? (link.label === "readme" ? "-6px" : "0px") : "50%",
-                                    height: "1.5px",
-                                    backgroundColor: "#F0A8CF",
-                                    transition: "left 0.35s ease, right 0.35s ease",
-                                    borderRadius: "1px",
-                                }}/>
+                                <span style={{ fontFamily: "var(--font-playfair)", fontStyle: "italic", fontSize: "13px", color: "#F0A8CF", opacity: highlighted ? 1 : 0, transition: "opacity 0.35s ease", display: "block" }}>{link.label}</span>
+                                <span style={{ fontFamily: "var(--font-dm-sans)", fontSize: "13px", color: "#6B6560", opacity: highlighted ? 0 : 1, transition: "opacity 0.35s ease", position: "absolute", top: 0, left: 0, right: 0, whiteSpace: "nowrap" }}>{link.label}</span>
+                                <span style={{ position: "absolute", bottom: 0, left: highlighted ? (link.label === "readme" ? "-6px" : "0px") : "50%", right: highlighted ? (link.label === "readme" ? "-6px" : "0px") : "50%", height: "1.5px", backgroundColor: "#F0A8CF", transition: "left 0.35s ease, right 0.35s ease", borderRadius: "1px" }}/>
                             </Link>
                         );
                     })}
@@ -149,13 +102,8 @@ export default function MenuBar() {
 
                 {/* Right — availability, desktop only */}
                 <div className="hidden md:flex" style={{ justifyContent: "flex-end" }}>
-          <span style={{
-              fontFamily: "-apple-system, BlinkMacSystemFont, system-ui",
-              fontSize: "11px",
-              color: "#A89E99",
-              letterSpacing: "0.01em",
-          }}>
-            Boston, MA · available S&apos;27
+          <span style={{ fontFamily: "-apple-system, BlinkMacSystemFont, system-ui", fontSize: "11px", color: "#A89E99", letterSpacing: "0.01em" }}>
+            Boston, MA · available S&apos;28
           </span>
                 </div>
             </div>
@@ -181,31 +129,39 @@ export function MobileNav() {
                 {mobileLinks.map(link => {
                     const isActive = pathname === link.href;
                     return (
-                        <Link
-                            key={link.href}
-                            href={link.href}
-                            style={{
-                                display: "flex", flexDirection: "column",
-                                alignItems: "center", gap: "3px",
-                                textDecoration: "none", padding: "4px 12px",
-                            }}
-                        >
-                            <svg
-                                width="20" height="20" viewBox="0 0 24 24"
-                                fill="none"
-                                stroke={isActive ? "#F0A8CF" : "#A89E99"}
-                                strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"
-                                style={{ transition: "stroke 0.2s ease" }}
+                        <Link key={link.href} href={link.href} style={{ textDecoration: "none" }}>
+                            <motion.div
+                                whileTap={{ scale: 0.88 }}
+                                transition={{ duration: 0.15, ease: "easeOut" }}
+                                style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: "3px", padding: "4px 12px" }}
                             >
-                                <path d={link.icon}/>
-                            </svg>
-                            <span style={{
-                                fontFamily: "-apple-system,BlinkMacSystemFont,system-ui",
-                                fontSize: "9px",
-                                color: isActive ? "#F0A8CF" : "#A89E99",
-                                letterSpacing: "0.03em",
-                                transition: "color 0.2s ease",
-                            }}>{link.label}</span>
+                                <motion.div
+                                    animate={{ scale: isActive ? 1.1 : 1 }}
+                                    transition={{ duration: 0.2 }}
+                                >
+                                    <svg
+                                        width="20" height="20" viewBox="0 0 24 24"
+                                        fill="none"
+                                        stroke={isActive ? "#F0A8CF" : "#A89E99"}
+                                        strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"
+                                        style={{ transition: "stroke 0.2s ease", display: "block" }}
+                                    >
+                                        <path d={link.icon}/>
+                                    </svg>
+                                </motion.div>
+                                <motion.span
+                                    animate={{
+                                        color: isActive ? "#F0A8CF" : "#A89E99",
+                                        fontStyle: isActive ? "italic" : "normal",
+                                    }}
+                                    transition={{ duration: 0.2 }}
+                                    style={{
+                                        fontFamily: isActive ? "var(--font-playfair)" : "-apple-system,BlinkMacSystemFont,system-ui",
+                                        fontSize: "9px",
+                                        letterSpacing: "0.03em",
+                                    }}
+                                >{link.label}</motion.span>
+                            </motion.div>
                         </Link>
                     );
                 })}

@@ -1,8 +1,9 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
+import { useState, useEffect } from "react";
 
 const entries = [
     {
@@ -49,6 +50,254 @@ const entries = [
     },
 ];
 
+function PosterImage({ entry }: { entry: typeof entries[0] }) {
+    const [hovered, setHovered] = useState(false);
+    const [zoomed, setZoomed] = useState(false);
+    const [zoomPos, setZoomPos] = useState({ x: 50, y: 50 });
+    const [isMobile, setIsMobile] = useState(false);
+
+    useEffect(() => {
+        setIsMobile(window.innerWidth < 768);
+        const handler = () => setIsMobile(window.innerWidth < 768);
+        window.addEventListener("resize", handler);
+        return () => window.removeEventListener("resize", handler);
+    }, []);
+
+    useEffect(() => {
+        if (!zoomed) return;
+        const handler = (e: KeyboardEvent) => { if (e.key === "Escape") setZoomed(false); };
+        window.addEventListener("keydown", handler);
+        return () => window.removeEventListener("keydown", handler);
+    }, [zoomed]);
+
+    useEffect(() => {
+        document.body.style.overflow = zoomed ? "hidden" : "";
+        return () => { document.body.style.overflow = ""; };
+    }, [zoomed]);
+
+    const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+        const rect = e.currentTarget.getBoundingClientRect();
+        const x = ((e.clientX - rect.left) / rect.width) * 100;
+        const y = ((e.clientY - rect.top) / rect.height) * 100;
+        setZoomPos({ x, y });
+    };
+
+    return (
+        <>
+            {/* Outer wrapper — scale only, no overflow:hidden */}
+            <div
+                onMouseEnter={() => setHovered(true)}
+                onMouseLeave={() => setHovered(false)}
+                onClick={() => setZoomed(true)}
+                style={{
+                    position: "relative",
+                    width: "100%",
+                    aspectRatio: "16/9",
+                    marginBottom: "10px",
+                    cursor: "zoom-in",
+                    borderRadius: "6px",
+                    transform: hovered ? "scale(1.02)" : "scale(1)",
+                    transition: "transform 0.3s ease",
+                }}
+            >
+                {/* Inner clip div */}
+                <div style={{
+                    position: "absolute",
+                    inset: 0,
+                    borderRadius: "6px",
+                    overflow: "hidden",
+                    backgroundColor: "#E8E4DC",
+                    border: "0.5px solid rgba(28,25,23,0.10)",
+                }}>
+                    <Image
+                        src={entry.poster}
+                        alt={entry.posterLabel}
+                        fill
+                        sizes="(max-width: 900px) 100vw, 900px"
+                        style={{ objectFit: "contain", pointerEvents: "none" }}
+                    />
+                </div>
+
+                {/* Zoom pill — desktop only */}
+                <div className="hidden md:flex" style={{
+                    position: "absolute",
+                    bottom: "12px",
+                    right: "12px",
+                    backgroundColor: "rgba(242,237,228,0.95)",
+                    backdropFilter: "blur(8px)",
+                    border: "0.5px solid rgba(28,25,23,0.10)",
+                    borderRadius: "20px",
+                    padding: "5px 10px",
+                    alignItems: "center",
+                    gap: "5px",
+                    zIndex: 3,
+                    pointerEvents: "none",
+                    opacity: hovered ? 1 : 0,
+                    transform: hovered ? "translateY(0px)" : "translateY(4px)",
+                    transition: "opacity 0.15s ease, transform 0.15s ease",
+                }}>
+                    <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#A89E99" strokeWidth="2" strokeLinecap="round">
+                        <circle cx="11" cy="11" r="8"/>
+                        <path d="M21 21l-4.35-4.35"/>
+                        <path d="M11 8v6M8 11h6"/>
+                    </svg>
+                    <span style={{ fontFamily: "monospace", fontSize: "9px", color: "#A89E99", whiteSpace: "nowrap" }}>
+                        click to zoom
+                    </span>
+                </div>
+
+                {/* Poster label badge */}
+                <div style={{
+                    position: "absolute", top: "12px", right: "12px",
+                    backgroundColor: "#F0A8CF", color: "#7A2D5A",
+                    fontFamily: "monospace", fontSize: "9px",
+                    padding: "3px 8px", borderRadius: "3px", zIndex: 2,
+                }}>{entry.posterLabel}</div>
+
+                {entry.award && (
+                    <div style={{
+                        position: "absolute", bottom: "12px", left: "12px",
+                        backgroundColor: "#FAC775", color: "#633806",
+                        fontFamily: "monospace", fontSize: "9px",
+                        padding: "3px 10px", borderRadius: "3px", zIndex: 2,
+                    }}>{entry.award}</div>
+                )}
+            </div>
+
+            {/* Lightbox */}
+            <AnimatePresence>
+                {zoomed && (
+                    <>
+                        {/* Backdrop */}
+                        <motion.div
+                            key="backdrop"
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
+                            exit={{ opacity: 0 }}
+                            transition={{ duration: 0.2 }}
+                            onClick={() => setZoomed(false)}
+                            style={{
+                                position: "fixed", inset: 0,
+                                backgroundColor: "rgba(28,25,23,0.88)",
+                                backdropFilter: "blur(10px)",
+                                WebkitBackdropFilter: "blur(10px)",
+                                zIndex: 200,
+                            }}
+                        />
+
+                        {isMobile ? (
+                            /* Mobile — full poster fitted to screen */
+                            <motion.div
+                                key="zoom-mobile"
+                                initial={{ opacity: 0, scale: 0.96 }}
+                                animate={{ opacity: 1, scale: 1 }}
+                                exit={{ opacity: 0, scale: 0.96 }}
+                                transition={{ duration: 0.25, ease: [0.32, 0.72, 0, 1] }}
+                                onClick={() => setZoomed(false)}
+                                style={{
+                                    position: "fixed",
+                                    inset: 0,
+                                    zIndex: 201,
+                                    display: "flex",
+                                    alignItems: "center",
+                                    justifyContent: "center",
+                                    padding: "24px",
+                                }}
+                            >
+                                <div style={{
+                                    width: "100%",
+                                    borderRadius: "8px",
+                                    overflow: "hidden",
+                                    boxShadow: "0 16px 48px rgba(28,25,23,0.5)",
+                                    backgroundColor: "#E8E4DC",
+                                }}>
+                                    <img
+                                        src={entry.poster}
+                                        alt={entry.posterLabel}
+                                        style={{
+                                            width: "100%",
+                                            height: "auto",
+                                            display: "block",
+                                            pointerEvents: "none",
+                                            userSelect: "none",
+                                        }}
+                                    />
+                                </div>
+                                <div style={{
+                                    position: "absolute",
+                                    bottom: "40px",
+                                    left: "50%",
+                                    transform: "translateX(-50%)",
+                                    backgroundColor: "rgba(242,237,228,0.92)",
+                                    borderRadius: "20px",
+                                    padding: "6px 16px",
+                                    fontFamily: "monospace",
+                                    fontSize: "10px",
+                                    color: "#6B6560",
+                                    whiteSpace: "nowrap",
+                                }}>
+                                    tap to close
+                                </div>
+                            </motion.div>
+                        ) : (
+                            /* Desktop — zoom + pan */
+                            <motion.div
+                                key="zoom-desktop"
+                                initial={{ opacity: 0, scale: 0.94 }}
+                                animate={{ opacity: 1, scale: 1 }}
+                                exit={{ opacity: 0, scale: 0.94 }}
+                                transition={{ duration: 0.25, ease: [0.32, 0.72, 0, 1] }}
+                                onMouseMove={handleMouseMove}
+                                onClick={() => setZoomed(false)}
+                                style={{
+                                    position: "fixed",
+                                    top: "50vh",
+                                    left: "50vw",
+                                    marginTop: "calc(min(92vw, 1100px) * -9 / 32)",
+                                    marginLeft: "calc(min(92vw, 1100px) * -1 / 2)",
+                                    width: "min(92vw, 1100px)",
+                                    aspectRatio: "16/9",
+                                    zIndex: 201,
+                                    borderRadius: "8px",
+                                    overflow: "hidden",
+                                    cursor: "zoom-out",
+                                    boxShadow: "0 32px 80px rgba(28,25,23,0.6)",
+                                    backgroundColor: "#E8E4DC",
+                                }}
+                            >
+                                <img
+                                    src={entry.poster}
+                                    alt={entry.posterLabel}
+                                    style={{
+                                        position: "absolute",
+                                        width: "250%",
+                                        height: "250%",
+                                        objectFit: "contain",
+                                        maxWidth: "none",
+                                        top: `${-zoomPos.y * 1.5}%`,
+                                        left: `${-zoomPos.x * 1.5}%`,
+                                        pointerEvents: "none",
+                                        userSelect: "none",
+                                    }}
+                                />
+                                <div style={{
+                                    position: "absolute", top: "14px", right: "14px",
+                                    backgroundColor: "rgba(242,237,228,0.92)",
+                                    borderRadius: "20px", padding: "4px 12px",
+                                    fontFamily: "monospace", fontSize: "9px", color: "#6B6560",
+                                    zIndex: 3, pointerEvents: "none",
+                                }}>
+                                    move to pan · click to close
+                                </div>
+                            </motion.div>
+                        )}
+                    </>
+                )}
+            </AnimatePresence>
+        </>
+    );
+}
+
 export default function ResearchPage() {
     return (
         <motion.div
@@ -59,7 +308,6 @@ export default function ResearchPage() {
             <main style={{ minHeight: "100vh", backgroundColor: "#F2EDE4", paddingTop: "80px", paddingBottom: "96px" }}>
                 <div style={{ maxWidth: "900px", margin: "0 auto", padding: "0 24px" }}>
 
-                    {/* Back */}
                     <Link href="/" style={{
                         fontFamily: "-apple-system,BlinkMacSystemFont,system-ui",
                         fontSize: "12px", color: "#A89E99", textDecoration: "none",
@@ -70,7 +318,6 @@ export default function ResearchPage() {
                           onMouseLeave={e => ((e.currentTarget as HTMLElement).style.color = "#A89E99")}
                     >back to desktop</Link>
 
-                    {/* Header */}
                     <div style={{ marginBottom: "64px" }}>
                         <div style={{
                             fontFamily: "-apple-system,BlinkMacSystemFont,system-ui",
@@ -91,13 +338,13 @@ export default function ResearchPage() {
                         </p>
                     </div>
 
-                    {/* Entries */}
                     {entries.map((entry, i) => (
                         <motion.div
                             key={entry.number}
-                            initial={{ opacity: 0, y: 16 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            transition={{ delay: i * 0.12, duration: 0.4 }}
+                            initial={{ opacity: 0, y: 24 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            viewport={{ once: true, margin: "-60px" }}
+                            transition={{ duration: 0.5, ease: "easeOut" }}
                             style={{ marginBottom: i < entries.length - 1 ? "80px" : 0 }}
                         >
                             {/* Rule */}
@@ -112,35 +359,8 @@ export default function ResearchPage() {
                                 }}>[ status: completed ]</span>
                             </div>
 
-                            {/* Poster */}
-                            <div style={{
-                                position: "relative", width: "100%", aspectRatio: "16/9",
-                                backgroundColor: "#E8E4DC",
-                                border: "0.5px solid rgba(28,25,23,0.10)",
-                                borderRadius: "6px", overflow: "hidden", marginBottom: "10px",
-                            }}>
-                                <Image
-                                    src={entry.poster}
-                                    alt={entry.posterLabel}
-                                    fill
-                                    style={{ objectFit: "contain" }}
-                                />
-
-                                <div style={{
-                                    position: "absolute", top: "12px", right: "12px",
-                                    backgroundColor: "#F0A8CF", color: "#7A2D5A",
-                                    fontFamily: "monospace", fontSize: "9px",
-                                    padding: "3px 8px", borderRadius: "3px", zIndex: 2,
-                                }}>{entry.posterLabel}</div>
-                                {entry.award && (
-                                    <div style={{
-                                        position: "absolute", bottom: "12px", left: "12px",
-                                        backgroundColor: "#FAC775", color: "#633806",
-                                        fontFamily: "monospace", fontSize: "9px",
-                                        padding: "3px 10px", borderRadius: "3px", zIndex: 2,
-                                    }}>{entry.award}</div>
-                                )}
-                            </div>
+                            {/* Poster with zoom */}
+                            <PosterImage entry={entry} />
 
                             {/* Credit */}
                             <div style={{
@@ -167,13 +387,12 @@ export default function ResearchPage() {
                                     margin: 0, fontStyle: "italic",
                                 }}>{entry.tagline}</p>
 
-                                {/* Meta */}
                                 <div style={{ display: "flex", alignItems: "center", gap: "8px", flexWrap: "wrap" }}>
                                     {entry.meta.map((m, idx) => (
                                         <span key={m} style={{ display: "flex", alignItems: "center", gap: "8px" }}>
-                      <span style={{ fontFamily: "var(--font-dm-sans)", fontSize: "11px", color: "#6B6560" }}>{m}</span>
+                                            <span style={{ fontFamily: "var(--font-dm-sans)", fontSize: "11px", color: "#6B6560" }}>{m}</span>
                                             {idx < entry.meta.length - 1 && <span style={{ color: "#D3CEC9" }}>·</span>}
-                    </span>
+                                        </span>
                                     ))}
                                 </div>
 
@@ -195,7 +414,6 @@ export default function ResearchPage() {
                                     ))}
                                 </div>
 
-                                {/* External link for Argonne */}
                                 {entry.link && (
                                     <a
                                         href={entry.link}
