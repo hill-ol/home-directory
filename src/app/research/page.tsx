@@ -17,6 +17,7 @@ const entries = [
         stack: ["Qiskit", "Pennylane", "Python", "PyTorch", "TensorFlow", "IBM Quantum"],
         award: null,
         credit: "Mills Institute · Spring 2025",
+        link: null,
     },
     {
         number: "02",
@@ -30,6 +31,21 @@ const entries = [
         stack: ["MySQL", "React", "Flask", "Python", "OpenAI API"],
         award: "Khoury Undergraduate Excellence Award",
         credit: "Northeastern Oakland · Spring 2025",
+        link: null,
+    },
+    {
+        number: "03",
+        poster: "/orgs/argonne1.png",
+        posterLabel: "ESRP 2024",
+        institution: "Argonne National Laboratory · ESRP",
+        title: "Not So \"Forever\" Chemicals",
+        tagline: "Investigating whether everyday materials like coffee grounds and biochar can filter PFAS 'Forever Chemicals' from contaminated water, using ATR-IR and HPLC spectroscopy at Argonne's Advanced Photon Source.",
+        meta: ["Team of 12", "Advisors: Dr. Elizabeth Laudadio, Dr. Debora Meira", "2024"],
+        abstract: "Per- and polyfluorinated substances (PFAS), known as 'Forever Chemicals', are synthetic organofluorine compounds increasingly present in everyday products. Toxic even at low concentrations, they damage the liver and immune system and increase cancer risk. Because they are not biodegradable, safe disposal is a significant environmental challenge. Our team investigated whether low-cost, accessible materials could effectively filter perfluorooctanoic acid (PFOA) from contaminated water. Six filtration materials were tested: coffee grounds, biochar, ground coconut, sawdust, rayon, and cut-up water bottles. Each 5g filter sample was applied to a solution of 0.5g PFOA dissolved in 0.5L distilled water, representing concentrations found in highly contaminated areas. Three trials were conducted per material, including a control trial using filter paper alone. Samples were analyzed using ATR-IR (Attenuated Total Internal Reflectance Infrared Spectroscopy) to confirm PFAS presence and HPLC (High-Performance Liquid Chromatography) to quantify the amount of PFOA removed. Biochar and coffee grounds were the most effective filtration materials, significantly reducing PFOA concentration. Plastic bottles and rayon performed no better than filter paper alone. Sawdust and coconut shell were similarly ineffective. No material achieved complete removal of PFOAs in a single pass. Research conducted through the Exemplary Student Research Program (ESRP) at Argonne National Laboratory.",
+        stack: ["HPLC", "ATIR Spectroscopy", "Advanced Photon Source", "Environmental Chemistry"],
+        award: null,
+        credit: "Argonne National Laboratory · ESRP 2024",
+        link: "https://www.anl.gov/education/lyons-township-high-school-esrp-2024",
     },
 ];
 
@@ -52,7 +68,7 @@ export default function ResearchPage() {
                     }}
                           onMouseEnter={e => ((e.currentTarget as HTMLElement).style.color = "#F0A8CF")}
                           onMouseLeave={e => ((e.currentTarget as HTMLElement).style.color = "#A89E99")}
-                    >← back to desktop</Link>
+                    >back to desktop</Link>
 
                     {/* Header */}
                     <div style={{ marginBottom: "64px" }}>
@@ -71,7 +87,7 @@ export default function ResearchPage() {
                             fontFamily: "var(--font-dm-sans)", fontSize: "13px",
                             fontWeight: 300, color: "#6B6560", lineHeight: 1.7, margin: 0,
                         }}>
-                            Two undergraduate research projects presented at Northeastern University symposia.
+                            Undergraduate and pre-collegiate research across quantum computing, database systems, and environmental chemistry.
                         </p>
                     </div>
 
@@ -84,7 +100,7 @@ export default function ResearchPage() {
                             transition={{ delay: i * 0.12, duration: 0.4 }}
                             style={{ marginBottom: i < entries.length - 1 ? "80px" : 0 }}
                         >
-                            {/* Entry rule */}
+                            {/* Rule */}
                             <div style={{ display: "flex", alignItems: "center", gap: "12px", marginBottom: "28px" }}>
                                 <span style={{ fontFamily: "monospace", fontSize: "11px", color: "#F0A8CF", letterSpacing: "0.04em" }}>{entry.number} ·</span>
                                 <div style={{ flex: 1, height: "0.5px", backgroundColor: "rgba(28,25,23,0.10)" }}/>
@@ -92,37 +108,46 @@ export default function ResearchPage() {
                                     fontFamily: "monospace", fontSize: "10px", color: "#A89E99",
                                     backgroundColor: "rgba(28,25,23,0.04)",
                                     border: "0.5px solid rgba(28,25,23,0.08)",
-                                    padding: "2px 8px", borderRadius: "20px",
-                                    whiteSpace: "nowrap",
+                                    padding: "2px 8px", borderRadius: "20px", whiteSpace: "nowrap",
                                 }}>[ status: completed ]</span>
                             </div>
 
-                            {/* Poster — full width */}
+                            {/* Poster */}
                             <div style={{
-                                position: "relative",
-                                width: "100%",
-                                aspectRatio: "16/9",
+                                position: "relative", width: "100%", aspectRatio: "16/9",
                                 backgroundColor: "#E8E4DC",
                                 border: "0.5px solid rgba(28,25,23,0.10)",
-                                borderRadius: "6px",
-                                overflow: "hidden",
-                                marginBottom: "10px",
+                                borderRadius: "6px", overflow: "hidden", marginBottom: "10px",
                             }}>
                                 <Image
                                     src={entry.poster}
                                     alt={entry.posterLabel}
                                     fill
-                                    style={{ objectFit: "contain" }}
+                                    style={{ objectFit: entry.number === "03" ? "cover" : "contain" }}
                                 />
+                                {/* Overlay for argonne entry since it's an org logo not a poster */}
+                                {entry.number === "03" && (
+                                    <div style={{
+                                        position: "absolute", inset: 0,
+                                        backgroundColor: "rgba(28,25,23,0.45)",
+                                        display: "flex", alignItems: "center", justifyContent: "center",
+                                    }}>
+                                        <div style={{ textAlign: "center" }}>
+                                            <div style={{ fontFamily: "monospace", fontSize: "13px", color: "rgba(255,255,255,0.9)", letterSpacing: "0.08em", textTransform: "uppercase", marginBottom: "8px" }}>
+                                                Argonne National Laboratory
+                                            </div>
+                                            <div style={{ fontFamily: "monospace", fontSize: "11px", color: "rgba(255,255,255,0.6)", letterSpacing: "0.04em" }}>
+                                                Exemplary Student Research Program · 2024
+                                            </div>
+                                        </div>
+                                    </div>
+                                )}
                                 <div style={{
-                                    position: "absolute", inset: 0,
-                                    display: "flex", alignItems: "center", justifyContent: "center",
-                                    pointerEvents: "none",
-                                }}>
-                  <span style={{ fontFamily: "monospace", fontSize: "11px", color: "#A89E99" }}>
-                    {entry.posterLabel}
-                  </span>
-                                </div>
+                                    position: "absolute", top: "12px", right: "12px",
+                                    backgroundColor: "#F0A8CF", color: "#7A2D5A",
+                                    fontFamily: "monospace", fontSize: "9px",
+                                    padding: "3px 8px", borderRadius: "3px", zIndex: 2,
+                                }}>{entry.posterLabel}</div>
                                 {entry.award && (
                                     <div style={{
                                         position: "absolute", bottom: "12px", left: "12px",
@@ -141,11 +166,9 @@ export default function ResearchPage() {
 
                             {/* Content */}
                             <div style={{ display: "flex", flexDirection: "column", gap: "14px" }}>
-
-                                <div style={{
-                                    fontFamily: "monospace", fontSize: "10px", color: "#A89E99",
-                                    letterSpacing: "0.06em", textTransform: "uppercase",
-                                }}>{entry.institution}</div>
+                                <div style={{ fontFamily: "monospace", fontSize: "10px", color: "#A89E99", letterSpacing: "0.06em", textTransform: "uppercase" }}>
+                                    {entry.institution}
+                                </div>
 
                                 <h2 style={{
                                     fontFamily: "var(--font-playfair)",
@@ -160,7 +183,7 @@ export default function ResearchPage() {
                                     margin: 0, fontStyle: "italic",
                                 }}>{entry.tagline}</p>
 
-                                {/* Meta — wraps naturally on mobile */}
+                                {/* Meta */}
                                 <div style={{ display: "flex", alignItems: "center", gap: "8px", flexWrap: "wrap" }}>
                                     {entry.meta.map((m, idx) => (
                                         <span key={m} style={{ display: "flex", alignItems: "center", gap: "8px" }}>
@@ -188,6 +211,33 @@ export default function ResearchPage() {
                                     ))}
                                 </div>
 
+                                {/* External link for Argonne */}
+                                {entry.link && (
+                                    <a
+                                        href={entry.link}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        style={{
+                                            fontFamily: "-apple-system,BlinkMacSystemFont,system-ui",
+                                            fontSize: "12px", color: "#1C1917", textDecoration: "none",
+                                            border: "0.5px solid rgba(28,25,23,0.20)",
+                                            borderRadius: "20px", padding: "6px 16px",
+                                            display: "inline-flex", alignItems: "center", gap: "6px",
+                                            width: "fit-content",
+                                            transition: "border-color 0.2s, color 0.2s",
+                                        }}
+                                        onMouseEnter={e => {
+                                            (e.currentTarget as HTMLElement).style.borderColor = "#F0A8CF";
+                                            (e.currentTarget as HTMLElement).style.color = "#F0A8CF";
+                                        }}
+                                        onMouseLeave={e => {
+                                            (e.currentTarget as HTMLElement).style.borderColor = "rgba(28,25,23,0.20)";
+                                            (e.currentTarget as HTMLElement).style.color = "#1C1917";
+                                        }}
+                                    >
+                                        View on Argonne.gov →
+                                    </a>
+                                )}
                             </div>
                         </motion.div>
                     ))}
