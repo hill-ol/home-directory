@@ -316,9 +316,13 @@ export default function CourseworkPage() {
                                                             Computer Science<br/>Mathematics<br/>Northeastern University
                                                         </div>
                                                     </div>
-                                                    <div style={{ fontFamily: "-apple-system,BlinkMacSystemFont,system-ui", fontSize: "10px", color: "#A89E99", letterSpacing: "0.05em" }}>
+                                                    <motion.div
+                                                        animate={{ x: [0, 6, 0] }}
+                                                        transition={{ duration: 1.8, repeat: Infinity, ease: "easeInOut" }}
+                                                        style={{ fontFamily: "-apple-system,BlinkMacSystemFont,system-ui", fontSize: "10px", color: "#A89E99", letterSpacing: "0.05em" }}
+                                                    >
                                                         select a semester →
-                                                    </div>
+                                                    </motion.div>
                                                 </motion.div>
                                             ) : (
                                                 <motion.div key={active!.id}
