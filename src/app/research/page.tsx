@@ -35,7 +35,7 @@ const entries = [
     },
     {
         number: "03",
-        poster: "/orgs/argonne1.png",
+        poster: "/research/argonne.png",
         posterLabel: "ESRP 2024",
         institution: "Argonne National Laboratory · ESRP",
         title: "Not So \"Forever\" Chemicals",
@@ -123,25 +123,9 @@ export default function ResearchPage() {
                                     src={entry.poster}
                                     alt={entry.posterLabel}
                                     fill
-                                    style={{ objectFit: entry.number === "03" ? "cover" : "contain" }}
+                                    style={{ objectFit: "contain" }}
                                 />
-                                {/* Overlay for argonne entry since it's an org logo not a poster */}
-                                {entry.number === "03" && (
-                                    <div style={{
-                                        position: "absolute", inset: 0,
-                                        backgroundColor: "rgba(28,25,23,0.45)",
-                                        display: "flex", alignItems: "center", justifyContent: "center",
-                                    }}>
-                                        <div style={{ textAlign: "center" }}>
-                                            <div style={{ fontFamily: "monospace", fontSize: "13px", color: "rgba(255,255,255,0.9)", letterSpacing: "0.08em", textTransform: "uppercase", marginBottom: "8px" }}>
-                                                Argonne National Laboratory
-                                            </div>
-                                            <div style={{ fontFamily: "monospace", fontSize: "11px", color: "rgba(255,255,255,0.6)", letterSpacing: "0.04em" }}>
-                                                Exemplary Student Research Program · 2024
-                                            </div>
-                                        </div>
-                                    </div>
-                                )}
+
                                 <div style={{
                                     position: "absolute", top: "12px", right: "12px",
                                     backgroundColor: "#F0A8CF", color: "#7A2D5A",
