@@ -4,6 +4,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
 import { useState, useEffect } from "react";
+import { useMediaQuery } from "@/hooks/useMediaQuery";
 
 const entries = [
     {
@@ -54,14 +55,7 @@ function PosterImage({ entry }: { entry: typeof entries[0] }) {
     const [hovered, setHovered] = useState(false);
     const [zoomed, setZoomed] = useState(false);
     const [zoomPos, setZoomPos] = useState({ x: 50, y: 50 });
-    const [isMobile, setIsMobile] = useState(false);
-
-    useEffect(() => {
-        setIsMobile(window.innerWidth < 768);
-        const handler = () => setIsMobile(window.innerWidth < 768);
-        window.addEventListener("resize", handler);
-        return () => window.removeEventListener("resize", handler);
-    }, []);
+    const isMobile = useMediaQuery("(max-width: 767px)");
 
     useEffect(() => {
         if (!zoomed) return;
