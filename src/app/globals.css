@@ -26,3 +26,43 @@ body {
   font-family: var(--font-dm-sans), sans-serif;
   -webkit-font-smoothing: antialiased;
 }
+
+/*
+* Keyboard users need a visible indication of where focus is located.
+* :focus-visible avoids showing the outline for ordinary mouse clicks.
+*/
+:focus-visible {
+  outline: 3px solid var(--color-pink-dark);
+  outline-offset: 3px;
+}
+
+/*
+* Keep transitions available for most users while respecting the OS preference.
+*/
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    animation-iternation-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+.skip-link {
+  position: fixed;
+  top: 8px;
+  left: 8px;
+  z-index: 1000;
+  padding: 8px 12px;
+  color: var(--color-ink);
+  background: var(--color-cream);
+  border: 2px solid var(--color-pink-dark);
+  border-radius: 6px;
+  transform: translateY(-150%);
+}
+
+.skip-link:focus {
+  transform: translateY(0);
+}
