@@ -12,6 +12,8 @@ import { getProject } from "@/content/projects";
 import ContextMenu from "@/components/ContextMenu";
 import type { Project } from "@/content/projects";
 
+const PROJECT_HISTORY_KEY = "portfolioProjectSlug";
+
 export default function Home() {
     const [activeProject, setActiveProject] = useState<Project | null>(null);
     const [folderRect, setFolderRect] = useState<DOMRect | null>(null);
@@ -19,28 +21,44 @@ export default function Home() {
     const openProject = useCallback((slug: string, rect: DOMRect) => {
         const project = getProject(slug);
         if (!project) return;
+        
         setFolderRect(rect);
         setActiveProject(project);
+
+        // Preserve any state Next.js already placed in the history entry 
+        const existingState =
+            typeof window.history.state === "object" && 
+            ? window.history.state
+            : {};
+        
         // Update URL without triggering Next.js navigation
-        window.history.pushState({ slug }, "", `/projects/${slug}`);
+        window.history.pushState({
+            ...existingState,
+            [PROJECT_HISTORY_KEY]: slug,
+        }, "", `/projects/${slug}`);
     }, []);
 
     const closeProject = useCallback(() => {
-        setActiveProject(null);
-        // Restore URL
-        window.history.pushState({}, "", "/");
+        // Opening an overlay always adds one history entry, so closing should
+        // return to the entry that preceded it instead of creating another.
+        window.history.back();
     }, []);
 
     // Handle browser back button — close overlay if open
     useEffect(() => {
-        const handler = (e: PopStateEvent) => {
-            if (activeProject) {
+        const handlePopState = (e: PopStateEvent) => {
+            const slug = event.state?.[PROJECT_HISTORY_KEY];
+            
+            if (typeof slug !== "string") {
                 setActiveProject(null);
+                return
             }
+
+            setActiveProject(getProject(slug) ?? null);
         };
-        window.addEventListener("popstate", handler);
-        return () => window.removeEventListener("popstate", handler);
-    }, [activeProject]);
+        window.addEventListener("popstate", handlePopState);
+        return () => window.removeEventListener("popstate", handlePopState);
+    }, []);
 
     return (
         <>
