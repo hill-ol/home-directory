@@ -61,7 +61,7 @@ export default function NotFound() {
                 fontWeight: 400, color: "#1C1917",
                 lineHeight: 1.1, letterSpacing: "-0.02em",
                 margin: "0 0 16px 0",
-            }}>this file doesn't exist</h1>
+            }}>this file doesn&apos;t exist</h1>
 
             {/* Subtext */}
             <p style={{
