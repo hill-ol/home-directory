@@ -18,7 +18,7 @@ interface DialogOptions {
   dialogRef: RefObject<HTMLElement | null>;
 }
 
-export function useDialogAlly({
+export function useDialogA11y({
   open,
   onClose,
   dialogRef,
@@ -53,7 +53,7 @@ export function useDialogAlly({
         return;
       }
       if (event.key !== "Tab") return;
-      const focusable = Array.form(
+      const focusable = Array.from(
         dialog.querySelectorAll<HTMLElement>(FOCUSABLE_SELECTOR),
       ).filter((element) => !element.hasAttribute("disabled"));
 

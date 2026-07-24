@@ -16,9 +16,9 @@ test("opens and closes a project through browser history", async ({ page }) => {
   await expect(page).toHaveURL("/");
   await expect(page.getByRole("dialog")).toBeHidden();
 
-  await page.goForward()
+  await page.goForward();
 
-  await expect(page).toHaveURL(/\/\projects\/styleboard$);
+  await expect(page).toHaveURL(/\/projects\/styleboard$/);
   await expect(page.getByRole("dialog")).toBeVisible();
 });
 

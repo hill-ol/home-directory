@@ -27,9 +27,9 @@ export default function Home() {
 
         // Preserve any state Next.js already placed in the history entry 
         const existingState =
-            typeof window.history.state === "object" && 
-            ? window.history.state
-            : {};
+            typeof window.history.state === "object"
+                ? window.history.state
+                : {};
         
         // Update URL without triggering Next.js navigation
         window.history.pushState({
@@ -47,7 +47,7 @@ export default function Home() {
     // Handle browser back button — close overlay if open
     useEffect(() => {
         const handlePopState = (e: PopStateEvent) => {
-            const slug = event.state?.[PROJECT_HISTORY_KEY];
+            const slug = e.state?.[PROJECT_HISTORY_KEY];
             
             if (typeof slug !== "string") {
                 setActiveProject(null);

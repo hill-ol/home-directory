@@ -10,7 +10,7 @@ const securityHeaders = [
     value: "DENY",
   },
   {
-    key: "Referref-Policy",
+    key: "Referrer-Policy",
     value: "strict-origin-when-cross-origin",
   },
   {
@@ -23,7 +23,7 @@ const nextConfig: NextConfig = {
   async headers() {
     return [
       {
-        scoure: "/(.*)",
+        source: "/(.*)",
         headers: securityHeaders,
       },
     ];
