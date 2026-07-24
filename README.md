@@ -4,7 +4,7 @@ My personal portfolio site!
 
 Built as a macOS desktop metaphor: project folders, scattered app icons, a pinned Polaroid, and a pink binder full of coursework. The concept is that my personal site is my desktop — everything on it is something I made or experienced.
 
-**Live:** [home-directory.vercel.app](https://home-directory.vercel.app) &nbsp;·&nbsp; **Built with:** Next.js 15 · TypeScript · Tailwind v4 · Framer Motion
+**Live:** [home-directory.vercel.app](https://home-directory.vercel.app) &nbsp;·&nbsp; **Built with:** Next.js 16 · TypeScript · Tailwind v4 · Framer Motion
 
 ---
 
@@ -12,7 +12,7 @@ Built as a macOS desktop metaphor: project folders, scattered app icons, a pinne
 
 | Layer | Choice |
 |---|---|
-| Framework | Next.js 15 (App Router) |
+| Framework | Next.js 16 (App Router) |
 | Language | TypeScript |
 | Styling | Tailwind CSS v4 (CSS-first config) |
 | Animation | Framer Motion |
@@ -69,7 +69,6 @@ src/
   components/
     FolderIcon.tsx        # Desktop project folder with hover state
     MobileHome.tsx        # Mobile homepage layout
-    MobileFolder.tsx      # Mobile folder with tap animation
     ProjectOverlay.tsx    # Animated overlay panel
     MenuBar.tsx           # Top nav + mobile bottom nav + live clock
     StackOrbit.tsx        # Tech stack icon scatter
