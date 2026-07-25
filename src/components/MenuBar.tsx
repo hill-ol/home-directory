@@ -90,7 +90,7 @@ function MenuClock() {
     return (
         <span
             style={{
-                color: "#A89E99",
+                color: "#6B6560",
                 fontFamily:
                     "-apple-system, BlinkMacSystemFont, system-ui",
                 fontSize: "11px",
@@ -141,7 +141,7 @@ export default function MenuBar() {
                         style={{
                             display: "flex",
                             alignItems: "center",
-                            color: "#A89E99",
+                            color: "#6B6560",
                             textDecoration: "none",
                             transition: "color 0.2s ease",
                         }}
@@ -151,7 +151,7 @@ export default function MenuBar() {
                         }}
                         onMouseLeave={(event) => {
                             event.currentTarget.style.color =
-                                "#A89E99";
+                                "#6B6560";
                         }}
                     >
                         <svg
@@ -308,7 +308,7 @@ export default function MenuBar() {
                 >
                     <span
                         style={{
-                            color: "#A89E99",
+                            color: "#6B6560",
                             fontFamily:
                                 "-apple-system, BlinkMacSystemFont, system-ui",
                             fontSize: "11px",
@@ -412,7 +412,7 @@ export function MobileNav() {
                                     animate={{
                                         color: isActive
                                             ? "#F0A8CF"
-                                            : "#A89E99",
+                                            : "#6B6560",
                                         fontStyle: isActive
                                             ? "italic"
                                             : "normal",

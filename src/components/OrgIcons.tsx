@@ -63,7 +63,7 @@ function OrgTile({
                 style={{
                     fontFamily: "-apple-system, BlinkMacSystemFont, system-ui",
                     fontSize: "10px",
-                    color: hovered ? "#1C1917" : "#A89E99",
+                    color: hovered ? "#1C1917" : "#6B6560",
                     transition: "color 0.2s ease",
                     whiteSpace: "nowrap",
                 }}

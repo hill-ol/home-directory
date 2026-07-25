@@ -22,7 +22,7 @@ export default function Loading() {
                 </div>
                 <div style={{
                     fontFamily: "-apple-system,BlinkMacSystemFont,system-ui",
-                    fontSize: "11px", color: "#A89E99",
+                    fontSize: "11px", color: "#6B6560",
                     letterSpacing: "0.06em",
                     animation: "pulse 1.6s ease-in-out infinite",
                 }}>loading</div>

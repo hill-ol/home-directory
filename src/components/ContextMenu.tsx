@@ -403,7 +403,7 @@ export default function ContextMenu() {
                                             aria-hidden="true"
                                             style={{
                                                 color:
-                                                    "#A89E99",
+                                                    "#6B6560",
                                                 fontSize:
                                                     "10px",
                                             }}
@@ -421,7 +421,7 @@ export default function ContextMenu() {
                                             justifyContent:
                                                 "space-between",
                                             padding: "6px 12px",
-                                            color: "#A89E99",
+                                            color: "#6B6560",
                                             borderRadius: "6px",
                                             fontFamily: isHeading
                                                 ? "var(--font-playfair)"

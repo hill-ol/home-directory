@@ -71,7 +71,7 @@ export default function StackOrbit() {
                             }}
                         >
                             <svg
-                                role="img"
+                                aria-hidden="true"
                                 viewBox="0 0 24 24"
                                 width="22"
                                 height="22"
@@ -85,7 +85,7 @@ export default function StackOrbit() {
                             style={{
                                 fontFamily: "-apple-system, BlinkMacSystemFont, system-ui",
                                 fontSize: "10px",
-                                color: isHovered ? "#1C1917" : "#A89E99",
+                                color: isHovered ? "#1C1917" : "#6B6560",
                                 transition: "color 0.25s ease",
                                 whiteSpace: "nowrap",
                             }}

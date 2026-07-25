@@ -243,7 +243,7 @@ function PosterImage({ entry }: { entry: ResearchEntry }) {
 
                     <span
                         style={{
-                            color: "#A89E99",
+                            color: "#6B6560",
                             fontFamily: "monospace",
                             fontSize: "9px",
                             whiteSpace: "nowrap",
@@ -578,7 +578,7 @@ export default function ResearchPage() {
                             alignItems: "center",
                             gap: "6px",
                             marginBottom: "48px",
-                            color: "#A89E99",
+                            color: "#6B6560",
                             fontFamily:
                                 "-apple-system, BlinkMacSystemFont, system-ui",
                             fontSize: "12px",
@@ -591,7 +591,7 @@ export default function ResearchPage() {
                         }}
                         onMouseLeave={(event) => {
                             event.currentTarget.style.color =
-                                "#A89E99";
+                                "#6B6560";
                         }}
                     >
                         ← back to desktop
@@ -706,7 +706,7 @@ export default function ResearchPage() {
                                 <span
                                     style={{
                                         padding: "2px 8px",
-                                        color: "#A89E99",
+                                        color: "#6B6560",
                                         backgroundColor:
                                             "rgba(28,25,23,0.04)",
                                         border:
@@ -726,7 +726,7 @@ export default function ResearchPage() {
                             <div
                                 style={{
                                     marginBottom: "28px",
-                                    color: "#A89E99",
+                                    color: "#6B6560",
                                     fontFamily:
                                         "-apple-system, BlinkMacSystemFont, system-ui",
                                     fontSize: "10px",
@@ -744,7 +744,7 @@ export default function ResearchPage() {
                             >
                                 <div
                                     style={{
-                                        color: "#A89E99",
+                                        color: "#6B6560",
                                         fontFamily: "monospace",
                                         fontSize: "10px",
                                         letterSpacing: "0.06em",
@@ -873,7 +873,7 @@ export default function ResearchPage() {
                                             style={{
                                                 padding:
                                                     "2px 10px",
-                                                color: "#A89E99",
+                                                color: "#6B6560",
                                                 backgroundColor:
                                                     "rgba(28,25,23,0.04)",
                                                 border:

@@ -86,7 +86,7 @@ export async function GET() {
                         {["TypeScript", "Next.js", "Java", "Python"].map(tag => (
                             <div key={tag} style={{
                                 fontSize: "16px",
-                                color: "#A89E99",
+                                color: "#6B6560",
                                 border: "1.5px solid rgba(28,25,23,0.14)",
                                 borderRadius: "40px",
                                 padding: "6px 18px",

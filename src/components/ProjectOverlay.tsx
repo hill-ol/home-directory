@@ -363,7 +363,7 @@ function MetadataLabel({
         <div
             style={{
                 marginBottom: "4px",
-                color: "#A89E99",
+                color: "#6B6560",
                 fontFamily:
                     "-apple-system, BlinkMacSystemFont, system-ui",
                 fontSize: "10px",

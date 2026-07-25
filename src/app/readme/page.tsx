@@ -168,9 +168,9 @@ export default function ReadmePage() {
                                     planning my next trip. Open to SWE co-ops where I can work on real problems and keep
                                     learning.
                                 </p>
-                                <Link href="/coursework" style={{ fontFamily: "-apple-system, BlinkMacSystemFont, system-ui", fontSize: "11px", color: "#A89E99", textDecoration: "none", marginTop: "4px", transition: "color 0.2s ease" }}
+                                <Link href="/coursework" style={{ fontFamily: "-apple-system, BlinkMacSystemFont, system-ui", fontSize: "11px", color: "#6B6560", textDecoration: "none", marginTop: "4px", transition: "color 0.2s ease" }}
                                       onMouseEnter={e => ((e.currentTarget as HTMLElement).style.color = "#F0A8CF")}
-                                      onMouseLeave={e => ((e.currentTarget as HTMLElement).style.color = "#A89E99")}
+                                      onMouseLeave={e => ((e.currentTarget as HTMLElement).style.color = "#6B6560")}
                                 >view coursework →</Link>
                             </div>
 
@@ -182,7 +182,7 @@ export default function ReadmePage() {
 
                         {/* Passport stamps — mobile */}
                         <div className="block md:hidden">
-                            <div style={{ fontFamily: "-apple-system, BlinkMacSystemFont, system-ui", fontSize: "10px", color: "#A89E99", letterSpacing: "0.06em", textTransform: "uppercase", marginBottom: "16px", marginTop: "8px" }}>global scholar</div>
+                            <div style={{ fontFamily: "-apple-system, BlinkMacSystemFont, system-ui", fontSize: "10px", color: "#6B6560", letterSpacing: "0.06em", textTransform: "uppercase", marginBottom: "16px", marginTop: "8px" }}>global scholar</div>
                             <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "12px" }}>
                                 {[
                                     { city: "London",   season: "Fall 2024",   color: "#C8B8E8" },
@@ -233,7 +233,7 @@ export default function ReadmePage() {
                 {/* CURRENTLY */}
                 <div style={{ padding: "0 0 64px" }}>
                     <div style={{ maxWidth: "860px", margin: "0 auto", padding: "0 24px" }}>
-                        <div style={{ fontFamily: "-apple-system, BlinkMacSystemFont, system-ui", fontSize: "13px", color: "#A89E99", letterSpacing: "0.06em", textTransform: "uppercase", marginBottom: "24px" }}>currently</div>
+                        <div style={{ fontFamily: "-apple-system, BlinkMacSystemFont, system-ui", fontSize: "13px", color: "#6B6560", letterSpacing: "0.06em", textTransform: "uppercase", marginBottom: "24px" }}>currently</div>
                         <div className="grid grid-cols-2 md:grid-cols-3" style={{ border: "0.5px solid rgba(28,25,23,0.08)", borderRadius: "8px", overflow: "hidden" }}>
                             {currently.map(({ field, value }) => (
                                 <div key={field} style={{ padding: "20px 22px", borderRight: "0.5px solid rgba(28,25,23,0.08)", borderBottom: "0.5px solid rgba(28,25,23,0.08)", backgroundColor: "#F2EDE4" }}>
@@ -261,7 +261,7 @@ export default function ReadmePage() {
                 {/* CONTACT */}
                 <div style={{ borderTop: "0.5px solid rgba(28,25,23,0.06)", padding: "48px 0 64px" }}>
                     <div style={{ maxWidth: "860px", margin: "0 auto", padding: "0 24px" }}>
-                        <div style={{ fontFamily: "-apple-system, BlinkMacSystemFont, system-ui", fontSize: "13px", color: "#A89E99", letterSpacing: "0.06em", textTransform: "uppercase", marginBottom: "24px" }}>contact</div>
+                        <div style={{ fontFamily: "-apple-system, BlinkMacSystemFont, system-ui", fontSize: "13px", color: "#6B6560", letterSpacing: "0.06em", textTransform: "uppercase", marginBottom: "24px" }}>contact</div>
                         <div style={{ display: "flex", flexDirection: "column" }}>
                             {contact.map(({ label, href, display }) => (
                                 <a key={label} href={href} target={label !== "Email" ? "_blank" : undefined} rel="noopener noreferrer"
@@ -269,7 +269,7 @@ export default function ReadmePage() {
                                    onMouseEnter={e => { (e.currentTarget.querySelector(".cv") as HTMLElement).style.color = "#D47BAD"; }}
                                    onMouseLeave={e => { (e.currentTarget.querySelector(".cv") as HTMLElement).style.color = "#F0A8CF"; }}
                                 >
-                                    <span style={{ fontFamily: "monospace", fontSize: "11px", color: "#A89E99", minWidth: "80px" }}>{label}</span>
+                                    <span style={{ fontFamily: "monospace", fontSize: "11px", color: "#6B6560", minWidth: "80px" }}>{label}</span>
                                     <span className="cv" style={{ fontFamily: "-apple-system,BlinkMacSystemFont,system-ui", fontSize: "12px", color: "#F0A8CF", transition: "color 0.2s ease" }}>
                                         {display} →
                                     </span>
@@ -282,8 +282,8 @@ export default function ReadmePage() {
                 {/* FOOTER */}
                 <div style={{ borderTop: "0.5px solid rgba(28,25,23,0.06)", padding: "16px 0" }}>
                     <div style={{ maxWidth: "860px", margin: "0 auto", padding: "0 24px", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-                        <span style={{ fontFamily: "monospace", fontSize: "10px", color: "#A89E99" }}>last modified: May 2026</span>
-                        <span style={{ fontFamily: "monospace", fontSize: "10px", color: "#A89E99" }}>uptime: <UptimeCounter /></span>
+                        <span style={{ fontFamily: "monospace", fontSize: "10px", color: "#6B6560" }}>last modified: May 2026</span>
+                        <span style={{ fontFamily: "monospace", fontSize: "10px", color: "#6B6560" }}>uptime: <UptimeCounter /></span>
                     </div>
                 </div>
 

@@ -107,12 +107,12 @@ export default function CourseworkPage() {
 
                     <Link href="/readme" style={{
                         fontFamily: "-apple-system,BlinkMacSystemFont,system-ui",
-                        fontSize: "12px", color: "#A89E99", textDecoration: "none",
+                        fontSize: "12px", color: "#6B6560", textDecoration: "none",
                         display: "inline-flex", alignItems: "center", gap: "6px",
                         marginBottom: "48px", transition: "color .2s",
                     }}
                           onMouseEnter={e => ((e.currentTarget as HTMLElement).style.color = "#F0A8CF")}
-                          onMouseLeave={e => ((e.currentTarget as HTMLElement).style.color = "#A89E99")}
+                          onMouseLeave={e => ((e.currentTarget as HTMLElement).style.color = "#6B6560")}
                     >← back to readme</Link>
 
                     <div style={{ marginBottom: "48px" }}>
@@ -195,7 +195,7 @@ export default function CourseworkPage() {
                                     <div style={{ fontFamily: "-apple-system,BlinkMacSystemFont,system-ui", fontSize: "11px", color: "#6B6560", lineHeight: 2 }}>
                                         Computer Science · Mathematics<br/>Northeastern University
                                     </div>
-                                    <div style={{ fontFamily: "-apple-system,BlinkMacSystemFont,system-ui", fontSize: "10px", color: "#A89E99" }}>
+                                    <div style={{ fontFamily: "-apple-system,BlinkMacSystemFont,system-ui", fontSize: "10px", color: "#6B6560" }}>
                                         select a semester above
                                     </div>
                                 </motion.div>
@@ -232,7 +232,7 @@ export default function CourseworkPage() {
                                         {/* Header — 2 lines */}
                                         <div style={{ height: `${L * 2}px`, display: "flex", alignItems: "flex-end", paddingBottom: "5px" }}>
                                             <span style={{ fontFamily: "var(--font-playfair)", fontStyle: "italic", fontSize: "16px", color: active!.darkColor, marginRight: "8px" }}>{active!.label}</span>
-                                            <span style={{ fontFamily: "-apple-system,BlinkMacSystemFont,system-ui", fontSize: "9px", color: "#A89E99" }}>{active!.vibe} · {active!.location}</span>
+                                            <span style={{ fontFamily: "-apple-system,BlinkMacSystemFont,system-ui", fontSize: "9px", color: "#6B6560" }}>{active!.vibe} · {active!.location}</span>
                                         </div>
 
                                         {/* Spacer */}
@@ -248,7 +248,7 @@ export default function CourseworkPage() {
                                                 <div style={{ height: `${L}px`, display: "flex", alignItems: "center", fontFamily: "var(--font-dm-sans)", fontSize: "12px", fontWeight: 400, color: "#1C1917" }}>
                                                     {course.name}
                                                 </div>
-                                                <div style={{ height: `${L}px`, display: "flex", alignItems: "center", fontFamily: "var(--font-playfair)", fontStyle: "italic", fontSize: "11px", color: "#A89E99" }}>
+                                                <div style={{ height: `${L}px`, display: "flex", alignItems: "center", fontFamily: "var(--font-playfair)", fontStyle: "italic", fontSize: "11px", color: "#6B6560" }}>
                                                     {course.note}
                                                 </div>
                                                 <div style={{ height: `${L}px` }}/>
@@ -257,7 +257,7 @@ export default function CourseworkPage() {
 
                                         {/* Footer */}
                                         <div style={{ height: `${L}px`, display: "flex", alignItems: "center", borderTop: "0.5px dashed rgba(28,25,23,0.10)" }}>
-                                            <span style={{ fontFamily: "-apple-system,BlinkMacSystemFont,system-ui", fontSize: "10px", color: "#A89E99" }}>{active!.courses.length} courses</span>
+                                            <span style={{ fontFamily: "-apple-system,BlinkMacSystemFont,system-ui", fontSize: "10px", color: "#6B6560" }}>{active!.courses.length} courses</span>
                                         </div>
                                     </div>
                                 </motion.div>
@@ -315,7 +315,7 @@ export default function CourseworkPage() {
                                                         <text x="128" y="22" fontFamily="Georgia,serif" fontStyle="italic" fontSize="12" fill="#D3CEC9">∂</text>
                                                         <text x="143" y="22" fontFamily="Georgia,serif" fontStyle="italic" fontSize="12" fill="#D3CEC9">∑</text>
                                                         <text x="158" y="22" fontFamily="Georgia,serif" fontStyle="italic" fontSize="12" fill="#D3CEC9">π</text>
-                                                        <text x="135" y="88" fontFamily="Georgia,serif" fontStyle="italic" fontSize="10" fill="#A89E99">f(x) = sin(x)</text>
+                                                        <text x="135" y="88" fontFamily="Georgia,serif" fontStyle="italic" fontSize="10" fill="#6B6560">f(x) = sin(x)</text>
                                                     </svg>
                                                     <div>
                                                         <div style={{ fontFamily: "var(--font-playfair)", fontSize: "28px", fontWeight: 400, color: "#1C1917", marginBottom: "10px" }}>Olivia Hill</div>
@@ -323,7 +323,7 @@ export default function CourseworkPage() {
                                                             Computer Science<br/>Mathematics<br/>Northeastern University
                                                         </div>
                                                     </div>
-                                                    <div style={{ fontFamily: "-apple-system,BlinkMacSystemFont,system-ui", fontSize: "10px", color: "#A89E99", letterSpacing: "0.05em" }}>
+                                                    <div style={{ fontFamily: "-apple-system,BlinkMacSystemFont,system-ui", fontSize: "10px", color: "#6B6560", letterSpacing: "0.05em" }}>
                                                         select a semester →
                                                     </div>
                                                 </motion.div>
@@ -340,7 +340,7 @@ export default function CourseworkPage() {
                                                     <div style={{ position: "relative" }}>
                                                         <div style={{ height: `${L * 2}px`, display: "flex", alignItems: "flex-end", paddingBottom: "5px" }}>
                                                             <span style={{ fontFamily: "var(--font-playfair)", fontStyle: "italic", fontSize: "20px", color: active!.darkColor, marginRight: "10px" }}>{active!.label}</span>
-                                                            <span style={{ fontFamily: "-apple-system,BlinkMacSystemFont,system-ui", fontSize: "10px", color: "#A89E99", letterSpacing: "0.04em" }}>{active!.vibe} · {active!.location}</span>
+                                                            <span style={{ fontFamily: "-apple-system,BlinkMacSystemFont,system-ui", fontSize: "10px", color: "#6B6560", letterSpacing: "0.04em" }}>{active!.vibe} · {active!.location}</span>
                                                         </div>
                                                         <div style={{ height: `${L}px` }}/>
                                                         {active!.courses.map((course, i) => (
@@ -350,12 +350,12 @@ export default function CourseworkPage() {
                                                                         transition={{ delay: i * 0.07, duration: 0.22 }}
                                                             >
                                                                 <div style={{ height: `${L}px`, display: "flex", alignItems: "center", fontFamily: "var(--font-dm-sans)", fontSize: "13px", fontWeight: 400, color: "#1C1917" }}>{course.name}</div>
-                                                                <div style={{ height: `${L}px`, display: "flex", alignItems: "center", fontFamily: "var(--font-playfair)", fontStyle: "italic", fontSize: "11px", color: "#A89E99" }}>{course.note}</div>
+                                                                <div style={{ height: `${L}px`, display: "flex", alignItems: "center", fontFamily: "var(--font-playfair)", fontStyle: "italic", fontSize: "11px", color: "#6B6560" }}>{course.note}</div>
                                                                 <div style={{ height: `${L}px` }}/>
                                                             </motion.div>
                                                         ))}
                                                         <div style={{ height: `${L}px`, display: "flex", alignItems: "center", borderTop: "0.5px dashed rgba(28,25,23,.10)" }}>
-                                                            <span style={{ fontFamily: "-apple-system,BlinkMacSystemFont,system-ui", fontSize: "10px", color: "#A89E99", letterSpacing: "0.04em" }}>{active!.courses.length} courses</span>
+                                                            <span style={{ fontFamily: "-apple-system,BlinkMacSystemFont,system-ui", fontSize: "10px", color: "#6B6560", letterSpacing: "0.04em" }}>{active!.courses.length} courses</span>
                                                         </div>
                                                     </div>
                                                 </motion.div>

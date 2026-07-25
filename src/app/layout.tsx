@@ -79,7 +79,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             <MotionProvider>
                 <MenuBar />
                 <MobileNav />
-                <TakeWhatYouNeed />
+                <aside aria-label="Quick contact links">
+                    <TakeWhatYouNeed />
+                </aside>
 
                 <div id="main-content" tabIndex={-1}>
                     {children}

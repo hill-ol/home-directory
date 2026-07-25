@@ -15,14 +15,14 @@ export default function ProjectContent({ project }: { project: Project }) {
                     onClick={() => router.push("/")}
                     style={{
                         fontFamily: "-apple-system, BlinkMacSystemFont, system-ui",
-                        fontSize: "12px", color: "#A89E99",
+                        fontSize: "12px", color: "#6B6560",
                         background: "none", border: "none", cursor: "pointer",
                         display: "inline-flex", alignItems: "center", gap: "6px",
                         marginBottom: "48px", padding: 0,
                         transition: "color 0.2s ease",
                     }}
                     onMouseEnter={e => ((e.currentTarget as HTMLElement).style.color = "#F0A8CF")}
-                    onMouseLeave={e => ((e.currentTarget as HTMLElement).style.color = "#A89E99")}
+                    onMouseLeave={e => ((e.currentTarget as HTMLElement).style.color = "#6B6560")}
                 >← back to desktop</button>
 
                 <motion.div
@@ -49,12 +49,12 @@ export default function ProjectContent({ project }: { project: Project }) {
                             style={{ display: "flex", gap: "32px", marginBottom: "40px", paddingBottom: "40px", borderBottom: "0.5px solid rgba(28,25,23,0.10)", flexWrap: "wrap" }}>
                     {[{ label: "Role", value: project.role }, { label: "Period", value: project.period }].map(({ label, value }) => (
                         <div key={label}>
-                            <div style={{ fontFamily: "-apple-system,BlinkMacSystemFont,system-ui", fontSize: "10px", color: "#A89E99", letterSpacing: "0.06em", textTransform: "uppercase", marginBottom: "4px" }}>{label}</div>
+                            <div style={{ fontFamily: "-apple-system,BlinkMacSystemFont,system-ui", fontSize: "10px", color: "#6B6560", letterSpacing: "0.06em", textTransform: "uppercase", marginBottom: "4px" }}>{label}</div>
                             <div style={{ fontFamily: "var(--font-dm-sans)", fontSize: "13px", color: "#1C1917" }}>{value}</div>
                         </div>
                     ))}
                     <div>
-                        <div style={{ fontFamily: "-apple-system,BlinkMacSystemFont,system-ui", fontSize: "10px", color: "#A89E99", letterSpacing: "0.06em", textTransform: "uppercase", marginBottom: "4px" }}>Stack</div>
+                        <div style={{ fontFamily: "-apple-system,BlinkMacSystemFont,system-ui", fontSize: "10px", color: "#6B6560", letterSpacing: "0.06em", textTransform: "uppercase", marginBottom: "4px" }}>Stack</div>
                         <div style={{ fontFamily: "-apple-system,BlinkMacSystemFont,system-ui", fontSize: "12px", color: "#6B6560", lineHeight: 1.7 }}>{project.stack.join(" · ")}</div>
                     </div>
                 </motion.div>

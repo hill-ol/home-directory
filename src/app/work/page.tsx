@@ -35,7 +35,7 @@ function WorkRow({ project }: { project: (typeof projects)[0] }) {
                         >{project.filename}</motion.span>
                         <span style={{
                             fontFamily: "-apple-system, BlinkMacSystemFont, system-ui",
-                            fontSize: "10px", color: "#A89E99",
+                            fontSize: "10px", color: "#6B6560",
                         }}>{project.period}</span>
                     </div>
 

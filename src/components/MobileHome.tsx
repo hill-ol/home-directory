@@ -101,7 +101,7 @@ function MobileStackIcon({ icon, label }: { icon: { path: string; hex: string };
             <span style={{
                 fontFamily: "-apple-system,BlinkMacSystemFont,system-ui",
                 fontSize: "9px",
-                color: active ? "#1C1917" : "#A89E99",
+                color: active ? "#1C1917" : "#6B6560",
                 whiteSpace: "nowrap",
                 transition: "color 0.2s ease",
             }}>{label}</span>
@@ -160,7 +160,7 @@ export default function MobileHome({ onFolderClick }: Props) {
                             fontFamily: "var(--font-playfair)",
                             fontStyle: "italic",
                             fontSize: "13px",
-                            color: "#A89E99",
+                            color: "#6B6560",
                             textAlign: "center",
                             marginTop: "10px",
                             letterSpacing: "0.01em",
@@ -194,7 +194,7 @@ export default function MobileHome({ onFolderClick }: Props) {
 
                 {/* Projects */}
                 <div>
-                    <div style={{ fontFamily: "-apple-system,BlinkMacSystemFont,system-ui", fontSize: "10px", color: "#A89E99", letterSpacing: "0.06em", textTransform: "uppercase", marginBottom: "16px" }}>projects</div>
+                    <div style={{ fontFamily: "-apple-system,BlinkMacSystemFont,system-ui", fontSize: "10px", color: "#6B6560", letterSpacing: "0.06em", textTransform: "uppercase", marginBottom: "16px" }}>projects</div>
                     <div style={{ display: "grid", gridTemplateColumns: "repeat(2, 1fr)", gap: "20px" }}>
                         {folders.map(folder => (
                             <MobileFolder
@@ -218,7 +218,7 @@ export default function MobileHome({ onFolderClick }: Props) {
 
                 {/* Stack */}
                 <div>
-                    <div style={{ fontFamily: "-apple-system,BlinkMacSystemFont,system-ui", fontSize: "10px", color: "#A89E99", letterSpacing: "0.06em", textTransform: "uppercase", marginBottom: "16px" }}>stack</div>
+                    <div style={{ fontFamily: "-apple-system,BlinkMacSystemFont,system-ui", fontSize: "10px", color: "#6B6560", letterSpacing: "0.06em", textTransform: "uppercase", marginBottom: "16px" }}>stack</div>
                     <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: "12px" }}>
                         {stackIcons.map(({ icon, label }) => (
                             <MobileStackIcon key={label} icon={icon} label={label} />
@@ -228,14 +228,14 @@ export default function MobileHome({ onFolderClick }: Props) {
 
                 {/* Orgs */}
                 <div>
-                    <div style={{ fontFamily: "-apple-system,BlinkMacSystemFont,system-ui", fontSize: "10px", color: "#A89E99", letterSpacing: "0.06em", textTransform: "uppercase", marginBottom: "16px" }}>experience</div>
+                    <div style={{ fontFamily: "-apple-system,BlinkMacSystemFont,system-ui", fontSize: "10px", color: "#6B6560", letterSpacing: "0.06em", textTransform: "uppercase", marginBottom: "16px" }}>experience</div>
                     <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: "12px" }}>
                         {orgs.map(org => (
                             <div key={org.label} style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: "4px" }}>
                                 <div style={{ width: "44px", height: "44px", borderRadius: "10px", backgroundColor: "white", border: "0.5px solid rgba(28,25,23,0.08)", display: "flex", alignItems: "center", justifyContent: "center", overflow: "hidden", position: "relative" }}>
                                     <Image src={org.src} alt={org.label} fill style={{ objectFit: "contain" }}/>
                                 </div>
-                                <span style={{ fontFamily: "-apple-system,BlinkMacSystemFont,system-ui", fontSize: "9px", color: "#A89E99", textAlign: "center", lineHeight: 1.3 }}>{org.label}</span>
+                                <span style={{ fontFamily: "-apple-system,BlinkMacSystemFont,system-ui", fontSize: "9px", color: "#6B6560", textAlign: "center", lineHeight: 1.3 }}>{org.label}</span>
                             </div>
                         ))}
                     </div>

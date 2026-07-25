@@ -115,7 +115,7 @@ export default function TakeWhatYouNeed() {
                                 {c.icon ? (
                                     <Image
                                         src={c.icon}
-                                        alt={c.label}
+                                        alt=""
                                         width={80}
                                         height={80}
                                         style={{ objectFit: "contain", borderRadius: "18px" }}
