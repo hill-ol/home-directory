@@ -117,15 +117,15 @@ export default function Home() {
                     </div>
                 </div>
 
-                <ProjectOverlay project={activeProject} folderRect={folderRect} onClose={closeProject} />
                 <ContextMenu />
             </main>
 
             {/* Mobile */}
             <div className="block md:hidden">
                 <MobileHome onFolderClick={openProject} />
-                <ProjectOverlay project={activeProject} folderRect={folderRect} onClose={closeProject} />
             </div>
+
+            <ProjectOverlay project={activeProject} folderRect={folderRect} onClose={closeProject} />
         </>
     );
 }
