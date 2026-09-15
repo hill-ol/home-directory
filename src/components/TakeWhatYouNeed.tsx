@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Image from "next/image";
+import { usePathname } from "next/navigation";
 
 const contacts = [
     { label: "Email",    href: "mailto:hill.ol@northeastern.edu",      icon: "/contact/outlook.png",  hasBg: false },
@@ -15,6 +16,13 @@ const rotations = [-14, -5, 5, 15];
 export default function TakeWhatYouNeed() {
     const [open, setOpen] = useState(false);
     const [hovered, setHovered] = useState<string | null>(null);
+    const pathname = usePathname();
+    const [lastPathname, setLastPathname] = useState(pathname);
+
+    if (pathname !== lastPathname) {
+        setLastPathname(pathname);
+        setOpen(false);
+    }
 
     return (
         <>
