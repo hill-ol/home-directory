@@ -10,12 +10,6 @@ export type Semester = {
     label: string;
     vibe: string;
     location: string;
-    /*
-     * Tab and margin color, and the darker shade used for its label. This
-     * palette belongs to the coursework page rather than the design system:
-     * it exists to make five semesters tell apart at a glance, so it is not
-     * in theme.ts.
-     */
     color: string;
     darkColor: string;
     courses: Course[];

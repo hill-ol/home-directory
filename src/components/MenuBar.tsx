@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
+import { bio } from "@/content/bio";
 import { accentText } from "@/lib/hover";
 import { color, font, hairline, line } from "@/lib/theme";
 
@@ -310,7 +311,7 @@ export default function MenuBar() {
                             letterSpacing: "0.01em",
                         }}
                     >
-                        Boston, MA · available S&apos;28
+                        {`${bio.location} · available ${bio.availableFrom}`}
                     </span>
 
                     <MenuClock />

@@ -9,6 +9,7 @@ import FolderIcon from "@/components/FolderIcon";
 import HoverLabel from "@/components/HoverLabel";
 import IconTile from "@/components/IconTile";
 import PdfGlyph from "@/components/glyphs/PdfGlyph";
+import { bio, intro } from "@/content/bio";
 import { contact } from "@/content/contact";
 import { orgs } from "@/content/orgs";
 import { projects } from "@/content/projects";
@@ -108,7 +109,7 @@ export default function MobileHome({ onFolderClick }: Props) {
                             lineHeight: 1.0,
                             letterSpacing: "-0.02em",
                             margin: "0 0 10px 0",
-                        }}>Olivia Hill</h1>
+                        }}>{bio.name}</h1>
                         <p style={{
                             fontFamily: font.body,
                             fontSize: "13px",
@@ -118,7 +119,7 @@ export default function MobileHome({ onFolderClick }: Props) {
                             margin: 0,
                             maxWidth: "280px",
                         }}>
-                            CS + Math @ Northeastern. Building full-stack products and software that makes a meaningful impact.
+                            {intro}
                         </p>
                     </div>
                 </div>

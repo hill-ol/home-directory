@@ -8,6 +8,7 @@ import CourseworkCover from "@/components/coursework/CourseworkCover";
 import SemesterPage, {
     LINE_HEIGHT,
 } from "@/components/coursework/SemesterPage";
+import { bio } from "@/content/bio";
 import { semesters } from "@/content/coursework";
 import { accentText, hoverSwap } from "@/lib/hover";
 import { color, font, hairline, line } from "@/lib/theme";
@@ -51,7 +52,7 @@ export default function CourseworkPage() {
                     <div style={{ marginBottom: "48px" }}>
                         <div style={{ fontFamily: font.system, fontSize: "10px", color: color.pink, letterSpacing: "0.06em", textTransform: "uppercase", marginBottom: "12px" }}>coursework/</div>
                         <h1 style={{ fontFamily: font.display, fontSize: "clamp(32px,5vw,48px)", fontWeight: 400, color: color.ink, lineHeight: 1.1, letterSpacing: "-0.02em", margin: "0 0 12px 0" }}>Coursework</h1>
-                        <p style={{ fontFamily: font.body, fontSize: "13px", fontWeight: 300, color: color.inkSecondary, lineHeight: 1.7, margin: 0 }}>Computer Science and Mathematics combined major · Northeastern University · Class of 2028</p>
+                        <p style={{ fontFamily: font.body, fontSize: "13px", fontWeight: 300, color: color.inkSecondary, lineHeight: 1.7, margin: 0 }}>{`${bio.majors.join(" and ")} combined major · ${bio.school} · ${bio.gradClass}`}</p>
                     </div>
 
                     {/* ── MOBILE ── */}

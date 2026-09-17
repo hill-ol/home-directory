@@ -121,6 +121,26 @@ client directive would break that route. For the same reason the fill transition
 is applied only when the `hovered` prop is passed, so static folders emit no CSS
 that satori has no use for.
 
+### Focus handling on transient surfaces
+`useRestoreFocus` moves focus into a surface when it opens and puts focus back
+where it was on close. Three places use it: `ProjectOverlay` and `PosterImage`
+through `useDialogA11y`, and `ContextMenu` directly.
+
+`useDialogA11y` keeps what is specific to a modal dialog: the body scroll lock
+and the Tab trap. It calls `useRestoreFocus` **last on purpose**, because React
+runs cleanups in the order effects were declared and the scroll lock has to be
+released before focus returns. Moving that call earlier can make restoring
+focus scroll a still-locked body.
+
+Focus is taken on the next animation frame, since these surfaces are mounted by
+AnimatePresence and are not in the document when the effect first runs. A
+consequence worth knowing while debugging: if `requestAnimationFrame` is
+throttled, such as in a background tab, focus will not move.
+
+`ContextMenu` does not lock scroll and does not trap Tab. It uses roving focus
+instead: arrow keys, Home, and End move between rows, and Tab closes the menu
+and lets focus continue past it, which is how a transient menu should behave.
+
 ### The coursework binder
 `/coursework` renders the same binder twice, gated on `md` like the homepage.
 The pieces live in `src/components/coursework/`, switched by `variant`:
@@ -165,6 +185,7 @@ scale stays with each parent.
 | `project/*` | Header, metadata row, and link pills shared by the two above |
 | `glyphs/*` | `FolderGlyph` and `PdfGlyph` — the two reused SVG shapes |
 | `ContextMenu` | Right-click menu on desktop canvas only — shows bio info + quick links |
+| `useRestoreFocus` | Focus a transient surface on open, put focus back on close |
 | `MenuBar` | Top nav with live clock · `MobileNav` export for bottom mobile nav |
 | `StackOrbit` | 11 scattered tech icons with brand color on hover |
 | `PosterImage` | Research poster that opens a full-screen viewer, panning on desktop |
@@ -184,6 +205,7 @@ declare their own copies: the desktop and mobile layouts render the same arrays.
 | `contact.ts` | Every outbound personal link | `ContextMenu`, `TakeWhatYouNeed`, `ResumeIcon`, `MobileHome`, `/readme` |
 | `research.ts` | Poster entries, resolved against `projects` | `/research` |
 | `coursework.ts` | 5 semesters, their courses, and their palette | `/coursework` |
+| `bio.ts` | Identity facts and the composed intro sentences | `layout.tsx`, `/og`, homepage, `MenuBar`, `ContextMenu`, `/readme`, `/coursework` |
 
 Each project entry:
 ```ts
@@ -211,6 +233,27 @@ grid, and at `/projects/<slug>`.
 The `projects` array order drives `/work`, the mobile home grid, and
 `sitemap.ts`. It is currently reverse chronological. Reordering changes all three.
 Desktop canvas order is irrelevant since those folders are absolutely positioned.
+
+### Bio copy is stored as atoms, not sentences
+`bio.ts` holds the facts (`name`, `study`, `school`, `majors`, `gradClass`,
+`coop`, `location`) and composes the intro three ways, because the same
+sentence was written six times in four different phrasings:
+
+| Export | Used by | Shape |
+|---|---|---|
+| `intro` | Homepage hero, desktop and mobile | `study. tagline` |
+| `introInline` | OG image, where a middot keeps it on one line | `study · tagline` |
+| `introWithClass` | openGraph and twitter descriptions | `study, gradClass. tagline` |
+| `metaDescription` | Root search description | adds co-op and scholar cities |
+
+Facts stay atoms so each surface keeps its own voice: the context menu says
+`Co-op at ${bio.coop}`, the readme terminal says `on co-op @ ${bio.coop}`, and
+the metadata says `Software engineer co-op at ${bio.coop}`. Changing employer
+is one edit without flattening those into identical wording.
+
+The per-route `layout.tsx` descriptions are deliberately left as prose. They
+are bespoke SEO copy, and interpolating fragments into flowing sentences costs
+readability without buying safety. Only the repeated name is tokenized there.
 
 ### Research entries resolve against projects
 Two of the three research entries are also projects. Those name the project with
@@ -256,9 +299,11 @@ link had silently gone stale.
 - The `overflow: "hidden"` / `transform: scale()` separation in `PosterImage` (`src/components/PosterImage.tsx`) — they must be on separate elements or scale won't render
 - Tailwind v4 uses CSS-first config — do not create a `tailwind.config.js`
 - The `md` breakpoint gates mobile vs desktop layout on the homepage — do not change to `lg`
-- Content lives in `src/content/` and is read by both layouts — do not re-declare project, stack, org, or contact data inside a component
+- Content lives in `src/content/` and is read by both layouts — do not re-declare project, stack, org, contact, or bio data inside a component
 - `ProjectOverlay` and `ProjectContent` share `src/components/project/` — do not restyle one view in isolation, change the variant instead
 - `FolderGlyph` must not gain `"use client"` or any hook — the edge-runtime OG route imports it
 - Tokens in `src/lib/theme.ts` must stay literal hex — satori cannot resolve `var()` in the OG image
 - Do not type a brand hex literal in a component — import the token so the two never drift
 - Hover handlers mutate `element.style` on purpose — do not convert them to state or `motion`
+- `useDialogA11y` must call `useRestoreFocus` last — cleanup order releases the scroll lock before focus returns
+- `ContextMenu` clamps itself with a measured `offsetHeight`, not a constant — do not reintroduce a guessed `MENU_HEIGHT`

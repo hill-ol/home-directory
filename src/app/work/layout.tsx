@@ -1,10 +1,12 @@
 import type { Metadata } from "next";
 
+import { bio } from "@/content/bio";
+
 export const metadata: Metadata = {
     title: "Work",
     description: "Projects by Olivia Hill: StyleBoard (AI fashion curation), CoopScout (co-op job aggregator), Toggo (trip planning app at Generate), Child Therapist Training Database (Khoury Excellence Award), and quantum computing research at The Mills Institute.",
     openGraph: {
-        title: "Work · Olivia Hill",
+        title: `Work · ${bio.name}`,
         description: "Full-stack products and research tools by Olivia Hill, CS + Math student at Northeastern.",
         images: [{ url: "/og", width: 1200, height: 630 }],
     },

@@ -8,6 +8,7 @@ import OrgIcons from "@/components/OrgIcons";
 import ResumeIcon from "@/components/ResumeIcon";
 import MobileHome from "@/components/MobileHome";
 import ProjectOverlay from "@/components/ProjectOverlay";
+import { bio, intro } from "@/content/bio";
 import { desktopProjects, getProject } from "@/content/projects";
 import ContextMenu from "@/components/ContextMenu";
 import type { Project } from "@/content/projects";
@@ -110,16 +111,13 @@ export default function Home() {
                             fontSize: "clamp(48px, 7vw, 88px)",
                             fontWeight: 400, color: color.ink,
                             lineHeight: 1.05, letterSpacing: "-0.02em", margin: 0,
-                        }}>Olivia Hill</h1>
+                        }}>{bio.name}</h1>
                         <p style={{
                             fontFamily: font.body,
                             fontSize: "13px", fontWeight: 300,
                             color: color.inkSecondary, lineHeight: 1.7,
                             maxWidth: "340px", margin: 0,
-                        }}>
-                            CS + Math @ Northeastern. Building full-stack products
-                            and software that makes a meaningful impact.
-                        </p>
+                        }}>{intro}</p>
                     </div>
                 </div>
 

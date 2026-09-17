@@ -5,6 +5,7 @@ import Link from "next/link";
 import { useEffect, useState, useRef } from "react";
 import Image from "next/image";
 import PassportStamps from "@/components/PassportStamps";
+import { bio } from "@/content/bio";
 import { contactLinks } from "@/content/contact";
 import { accentText, hoverSwapChild } from "@/lib/hover";
 import { color, font, hairline, line } from "@/lib/theme";
@@ -19,13 +20,13 @@ const currently = [
 ];
 
 const neofetch = [
-    { key: "OS",        value: "Northeastern University",         isUptime: false, isTypewriter: false },
-    { key: "Host",      value: "CS + Math, Class of 2028",        isUptime: false, isTypewriter: false },
+    { key: "OS",        value: bio.school,                        isUptime: false, isTypewriter: false },
+    { key: "Host",      value: `CS + Math, ${bio.gradClass}`,     isUptime: false, isTypewriter: false },
     { key: "Uptime",    value: "",                                isUptime: true,  isTypewriter: false },
     { key: "Shell",     value: "TypeScript · Python",             isUptime: false, isTypewriter: false },
     { key: "Editor",    value: "VS Code",                         isUptime: false, isTypewriter: false },
-    { key: "Location",  value: "Boston, MA",                      isUptime: false, isTypewriter: false },
-    { key: "Status",    value: "on co-op @ Chewy",                isUptime: false, isTypewriter: false },
+    { key: "Location",  value: bio.location,                      isUptime: false, isTypewriter: false },
+    { key: "Status",    value: `on co-op @ ${bio.coop}`,          isUptime: false, isTypewriter: false },
     { key: "Interests", value: "fashion · traveling · running",   isUptime: false, isTypewriter: true  },
 ];
 

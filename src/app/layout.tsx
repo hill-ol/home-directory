@@ -3,6 +3,11 @@ import { Playfair_Display, DM_Sans } from "next/font/google";
 import MenuBar, { MobileNav } from "@/components/MenuBar";
 import TakeWhatYouNeed from "@/components/TakeWhatYouNeed";
 import MotionProvider from "@/components/MotionProvider";
+import {
+    bio,
+    introWithClass,
+    metaDescription,
+} from "@/content/bio";
 import "./globals.css";
 
 const playfair = Playfair_Display({
@@ -20,15 +25,14 @@ const dmSans = DM_Sans({
 
 export const metadata: Metadata = {
     title: {
-        default: "Olivia Hill",
-        template: "%s · Olivia Hill",
+        default: bio.name,
+        template: `%s · ${bio.name}`,
     },
-    description:
-        "CS + Math @ Northeastern, Class of 2028. Building full-stack products and software that makes a meaningful impact. Software engineer co-op at Chewy. Global Scholar: London, Oakland, Budapest.",
+    description: metaDescription,
     keywords: [
-        "Olivia Hill",
+        bio.name,
         "software engineer",
-        "Northeastern University",
+        bio.school,
         "CS Math",
         "full-stack",
         "Next.js",
@@ -36,30 +40,28 @@ export const metadata: Metadata = {
         "quantum computing",
         "co-op",
     ],
-    authors: [{ name: "Olivia Hill", url: "https://home-directory.vercel.app" }],
-    creator: "Olivia Hill",
+    authors: [{ name: bio.name, url: "https://home-directory.vercel.app" }],
+    creator: bio.name,
     openGraph: {
         type: "website",
         locale: "en_US",
         url: "https://home-directory.vercel.app",
-        siteName: "Olivia Hill",
-        title: "Olivia Hill",
-        description:
-            "CS + Math @ Northeastern, Class of 2028. Building full-stack products and software that makes a meaningful impact.",
+        siteName: bio.name,
+        title: bio.name,
+        description: introWithClass,
         images: [
             {
                 url: "/og",
                 width: 1200,
                 height: 630,
-                alt: "Olivia Hill — CS + Math @ Northeastern",
+                alt: `${bio.name}: ${bio.study}`,
             },
         ],
     },
     twitter: {
         card: "summary_large_image",
-        title: "Olivia Hill",
-        description:
-            "CS + Math @ Northeastern, Class of 2028. Building full-stack products and software that makes a meaningful impact.",
+        title: bio.name,
+        description: introWithClass,
         images: ["/og"],
     },
     icons: {

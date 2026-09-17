@@ -1,4 +1,5 @@
 import CourseworkEmblem from "@/components/coursework/CourseworkEmblem";
+import { bio } from "@/content/bio";
 import { color, font } from "@/lib/theme";
 
 /*
@@ -23,7 +24,7 @@ export default function CourseworkCover({
                 fontWeight: isDesktop ? 400 : undefined,
             }}
         >
-            Olivia Hill
+            {bio.name}
         </div>
     );
 
@@ -37,21 +38,24 @@ export default function CourseworkCover({
                 lineHeight: 2,
             }}
         >
+            {/*
+             * Desktop has the height for one major per line; mobile joins
+             * them onto a single line.
+             */}
             {isDesktop ? (
-                <>
-                    Computer Science
-                    <br />
-                    Mathematics
-                    <br />
-                    Northeastern University
-                </>
+                bio.majors.map((major) => (
+                    <span key={major}>
+                        {major}
+                        <br />
+                    </span>
+                ))
             ) : (
                 <>
-                    Computer Science · Mathematics
+                    {bio.majors.join(" · ")}
                     <br />
-                    Northeastern University
                 </>
             )}
+            {bio.school}
         </div>
     );
 

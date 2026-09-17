@@ -1,6 +1,7 @@
 import { ImageResponse } from "next/og";
 
 import FolderGlyph from "@/components/glyphs/FolderGlyph";
+import { bio, introInline } from "@/content/bio";
 import { color } from "@/lib/theme";
 
 export const runtime = "edge";
@@ -71,7 +72,7 @@ export async function GET() {
                         marginBottom: "24px",
                         fontFamily: "Georgia, 'Times New Roman', serif",
                     }}>
-                        Olivia Hill
+                        {bio.name}
                     </div>
 
                     {/* Role */}
@@ -83,7 +84,7 @@ export async function GET() {
                         fontWeight: 300,
                         marginBottom: "40px",
                     }}>
-                        CS + Math @ Northeastern · Building full-stack products and software that makes a meaningful impact.
+                        {introInline}
                     </div>
 
                     {/* Tags */}

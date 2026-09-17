@@ -17,16 +17,6 @@ type InlineStyle = Partial<
 
 type StyleEvent<T extends HTMLElement> = MouseEvent<T> | FocusEvent<T>;
 
-/*
- * Assigns inline styles to whichever element fired the event.
- *
- * These helpers mutate element.style directly instead of routing hover
- * through React state, which is deliberate: hover then costs no re-render,
- * and the easing is handled by the CSS transition already declared on the
- * element. Exported separately so a component can reuse one set of styles
- * across several handlers, which is what the context menu needs for hover
- * and keyboard focus.
- */
 export function applyStyle<T extends HTMLElement = HTMLElement>(
     styles: InlineStyle,
 ) {
@@ -35,7 +25,6 @@ export function applyStyle<T extends HTMLElement = HTMLElement>(
     };
 }
 
-/** Spread onto an element to swap styles while the pointer is over it. */
 export function hoverSwap<T extends HTMLElement = HTMLElement>(
     on: InlineStyle,
     off: InlineStyle,
@@ -46,11 +35,6 @@ export function hoverSwap<T extends HTMLElement = HTMLElement>(
     };
 }
 
-/*
- * Same idea, but styles a descendant rather than the element itself. The
- * readme contact rows use this: hovering the whole row darkens only the
- * value on the right.
- */
 export function hoverSwapChild<T extends HTMLElement = HTMLElement>(
     selector: string,
     on: InlineStyle,
@@ -69,13 +53,11 @@ export function hoverSwapChild<T extends HTMLElement = HTMLElement>(
     };
 }
 
-/** Secondary text that takes the accent on hover: nav items, back links. */
 export const accentText = hoverSwap(
     { color: color.pink },
     { color: color.inkSecondary },
 );
 
-/** Outlined pill links, where the border and the label both take the accent. */
 export const accentPill = hoverSwap(
     { borderColor: color.pink, color: color.pink },
     { borderColor: line.pill, color: color.ink },
