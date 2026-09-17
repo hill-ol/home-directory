@@ -287,11 +287,17 @@ link had silently gone stale.
 
 ## Metadata
 
-`metadataBase` is set to `https://home-directory.vercel.app` in `src/app/layout.tsx`. When the custom domain `oliviahill.dev` is connected, find and replace `home-directory.vercel.app` with `oliviahill.dev` in:
-- `src/app/layout.tsx`
-- `src/app/og/route.tsx`
-- `src/app/robots.ts`
-- `src/app/sitemap.ts`
+The canonical origin lives in `src/lib/site.ts` as `siteUrl`. Three files read
+it: `layout.tsx` (author URL, `openGraph.url`, and `metadataBase`), `robots.ts`,
+and `sitemap.ts`.
+
+**Connecting the custom domain is one edit.** Change `siteUrl` to
+`https://oliviahill.dev` and the metadata, sitemap, and robots.txt all follow.
+No trailing slash: Next resolves relative metadata URLs such as `/og` against
+`metadataBase`.
+
+Page descriptions come from `src/content/bio.ts`. The per-route
+`layout.tsx` files hold their own bespoke descriptions, which is deliberate.
 
 ## What not to change
 
@@ -304,6 +310,7 @@ link had silently gone stale.
 - `FolderGlyph` must not gain `"use client"` or any hook — the edge-runtime OG route imports it
 - Tokens in `src/lib/theme.ts` must stay literal hex — satori cannot resolve `var()` in the OG image
 - Do not type a brand hex literal in a component — import the token so the two never drift
+- Do not hardcode the site origin — import `siteUrl` from `src/lib/site.ts`
 - Hover handlers mutate `element.style` on purpose — do not convert them to state or `motion`
 - `useDialogA11y` must call `useRestoreFocus` last — cleanup order releases the scroll lock before focus returns
 - `ContextMenu` clamps itself with a measured `offsetHeight`, not a constant — do not reintroduce a guessed `MENU_HEIGHT`

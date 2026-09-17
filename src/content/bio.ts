@@ -9,14 +9,12 @@
  */
 export const bio = {
     name: "Olivia Hill",
-    /** Shorthand for the combined major, used in running copy. */
     study: "CS + Math @ Northeastern",
     school: "Northeastern University",
     majors: ["Computer Science", "Mathematics"],
     gradClass: "Class of 2028",
     coop: "Chewy",
     location: "Boston, MA",
-    /** Semester the co-op search is aimed at. */
     availableFrom: "S'28",
     scholarCities: ["London", "Oakland", "Budapest"],
 } as const;

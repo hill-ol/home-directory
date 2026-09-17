@@ -8,6 +8,7 @@ import {
     introWithClass,
     metaDescription,
 } from "@/content/bio";
+import { siteUrl } from "@/lib/site";
 import "./globals.css";
 
 const playfair = Playfair_Display({
@@ -40,12 +41,12 @@ export const metadata: Metadata = {
         "quantum computing",
         "co-op",
     ],
-    authors: [{ name: bio.name, url: "https://home-directory.vercel.app" }],
+    authors: [{ name: bio.name, url: siteUrl }],
     creator: bio.name,
     openGraph: {
         type: "website",
         locale: "en_US",
-        url: "https://home-directory.vercel.app",
+        url: siteUrl,
         siteName: bio.name,
         title: bio.name,
         description: introWithClass,
@@ -67,7 +68,7 @@ export const metadata: Metadata = {
     icons: {
         icon: "/favicon.svg",
     },
-    metadataBase: new URL("https://home-directory.vercel.app"),
+    metadataBase: new URL(siteUrl),
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
