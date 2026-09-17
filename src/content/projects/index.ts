@@ -9,6 +9,7 @@ export type Project = {
     live?: string;
     period: string;
     role: string;
+    home?: { top: string; left: string };
 };
 
 export const projects: Project[] = [
@@ -24,6 +25,7 @@ export const projects: Project[] = [
         live: "https://styleboard-two.vercel.app/",
         period: "Spring 2026",
         role: "Project Developer",
+        home: { top: "47%", left: "4%" },
     },
     {
         slug: "toggo",
@@ -36,7 +38,8 @@ export const projects: Project[] = [
         github: "",
         live: "",
         period: "Spring 2026",
-        role: "Software Engineer — Generate",
+        role: "Software Engineer - Generate",
+        home: { top: "78%", left: "43%" },
     },
     {
         slug: "coopscout",
@@ -50,6 +53,7 @@ export const projects: Project[] = [
         live: "",
         period: "Fall 2025",
         role: "Project Developer",
+        home: { top: "15%", left: "85%" },
     },
     {
         slug: "therapydb",
@@ -63,6 +67,7 @@ export const projects: Project[] = [
         live: "",
         period: "Spring 2025",
         role: "Full-Stack Engineer, Northeastern Oakland",
+        home: { top: "70%", left: "14%" },
     },
     {
         slug: "mills",
@@ -76,9 +81,20 @@ export const projects: Project[] = [
         live: "",
         period: "Spring 2025",
         role: "Undergraduate Researcher, The Mills Institute",
+        home: { top: "40%", left: "77%" },
     },
 ];
 
 export function getProject(slug: string): Project | undefined {
     return projects.find((p) => p.slug === slug);
 }
+
+export type PlacedProject = Project & {
+    home: NonNullable<Project["home"]>;
+};
+
+export const desktopProjects:
+    PlacedProject[] = projects.filter(
+    (project): project is PlacedProject =>
+        project.home !== undefined,
+);

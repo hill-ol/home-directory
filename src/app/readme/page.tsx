@@ -5,6 +5,7 @@ import Link from "next/link";
 import { useEffect, useState, useRef } from "react";
 import Image from "next/image";
 import PassportStamps from "@/components/PassportStamps";
+import { contactLinks } from "@/content/contact";
 
 const currently = [
     { field: "building",  value: "this portfolio"           },
@@ -13,13 +14,6 @@ const currently = [
     { field: "wearing",   value: "new work bag"              },
     { field: "eating",    value: "peanut butter pretzels"   },
     { field: "watching",  value: "Claude YouTube videos"    },
-];
-
-const contact = [
-    { label: "Email",    href: "mailto:hill.ol@northeastern.edu",      display: "hill.ol@northeastern.edu"     },
-    { label: "LinkedIn", href: "https://linkedin.com/in/olivia-hill0", display: "linkedin.com/in/olivia-hill0" },
-    { label: "GitHub",   href: "https://github.com/hill-ol",           display: "github.com/hill-ol"           },
-    { label: "Resume",   href: "/resume_2026.pdf",                     display: "resume_2026.pdf"              },
 ];
 
 const neofetch = [
@@ -263,8 +257,8 @@ export default function ReadmePage() {
                     <div style={{ maxWidth: "860px", margin: "0 auto", padding: "0 24px" }}>
                         <div style={{ fontFamily: "-apple-system, BlinkMacSystemFont, system-ui", fontSize: "13px", color: "#6B6560", letterSpacing: "0.06em", textTransform: "uppercase", marginBottom: "24px" }}>contact</div>
                         <div style={{ display: "flex", flexDirection: "column" }}>
-                            {contact.map(({ label, href, display }) => (
-                                <a key={label} href={href} target={label !== "Email" ? "_blank" : undefined} rel="noopener noreferrer"
+                            {contactLinks.map(({ label, href, display, external }) => (
+                                <a key={label} href={href} target={external ? "_blank" : undefined} rel={external ? "noopener noreferrer" : undefined}
                                    style={{ display: "flex", justifyContent: "space-between", alignItems: "center", padding: "14px 0", borderBottom: "0.5px solid rgba(28,25,23,0.06)", textDecoration: "none" }}
                                    onMouseEnter={e => { (e.currentTarget.querySelector(".cv") as HTMLElement).style.color = "#D47BAD"; }}
                                    onMouseLeave={e => { (e.currentTarget.querySelector(".cv") as HTMLElement).style.color = "#F0A8CF"; }}

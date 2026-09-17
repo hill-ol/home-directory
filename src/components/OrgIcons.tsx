@@ -3,19 +3,9 @@
 import Image from "next/image";
 import { useState } from "react";
 
-function OrgTile({
-                     label,
-                     top,
-                     left,
-                     src,
-                     bg = "white",
-                 }: {
-    label: string;
-    top: string;
-    left: string;
-    src: string;
-    bg?: string;
-}) {
+import { orgs, type Org } from "@/content/orgs";
+
+function OrgTile({ label, src, desktop }: Org) {
     const [hovered, setHovered] = useState(false);
 
     return (
@@ -24,8 +14,8 @@ function OrgTile({
             onMouseLeave={() => setHovered(false)}
             style={{
                 position: "absolute",
-                top,
-                left,
+                top: desktop.top,
+                left: desktop.left,
                 display: "flex",
                 flexDirection: "column",
                 alignItems: "center",
@@ -43,7 +33,7 @@ function OrgTile({
                     width: "44px",
                     height: "44px",
                     borderRadius: "10px",
-                    backgroundColor: bg,
+                    backgroundColor: "white",
                     border: "0.5px solid rgba(28,25,23,0.08)",
                     display: "flex",
                     alignItems: "center",
@@ -59,6 +49,7 @@ function OrgTile({
                     style={{ objectFit: "contain" }}
                 />
             </div>
+
             <span
                 style={{
                     fontFamily: "-apple-system, BlinkMacSystemFont, system-ui",
@@ -68,8 +59,8 @@ function OrgTile({
                     whiteSpace: "nowrap",
                 }}
             >
-        {label}
-      </span>
+                {label}
+            </span>
         </div>
     );
 }
@@ -77,34 +68,9 @@ function OrgTile({
 export default function OrgIcons() {
     return (
         <>
-            <OrgTile
-                label="Chewy"
-                top="57%"
-                left="88%"
-                src="/orgs/chewy.png"
-                bg="white"
-            />
-            <OrgTile
-                label="Generate"
-                top="36%"
-                left="91%"
-                src="/orgs/generate.png"
-                bg="white"
-            />
-            <OrgTile
-                label="Argonne"
-                top="80%"
-                left="74%"
-                src="/orgs/argonne1.png"
-                bg="white"
-            />
-            <OrgTile
-                label="Girls Who Code"
-                top="86%"
-                left="57%"
-                src="/orgs/girlswhocode.png"
-                bg="white"
-            />
+            {orgs.map((org) => (
+                <OrgTile key={org.label} {...org} />
+            ))}
         </>
     );
 }

@@ -1,40 +1,15 @@
 "use client";
 
-import {
-    siTypescript,
-    siPython,
-    siReact,
-    siNextdotjs,
-    siNodedotjs,
-    siPostgresql,
-    siSupabase,
-    siGit,
-    siMongodb,
-    siOpenjdk,
-    siGo,
-} from "simple-icons";
 import { useState } from "react";
 
-const icons = [
-    { icon: siTypescript, label: "TypeScript", top: "34%", left: "24%" },
-    { icon: siPython,     label: "Python",     top: "27%", left: "71%" },
-    { icon: siReact,      label: "React",      top: "54%", left: "20%" },
-    { icon: siNextdotjs,  label: "Next.js",    top: "60%", left: "76%" },
-    { icon: siNodedotjs,  label: "Node.js",    top: "25%", left: "36%" },
-    { icon: siPostgresql, label: "SQL",        top: "70%", left: "34%" },
-    { icon: siSupabase,   label: "Supabase",   top: "68%", left: "64%" },
-    { icon: siGit,        label: "Git",        top: "20%", left: "62%" },
-    { icon: siMongodb,    label: "MongoDB",    top: "80%", left: "25%" },
-    { icon: siOpenjdk,    label: "Java",       top: "15%", left: "27%" },
-    { icon: siGo,         label: "Go",         top: "72%", left: "84%" },
-];
+import { stack } from "@/content/stack";
 
 export default function StackOrbit() {
     const [hovered, setHovered] = useState<string | null>(null);
 
     return (
         <>
-            {icons.map(({ icon, label, top, left }) => {
+            {stack.map(({ icon, label, desktop }) => {
                 const isHovered = hovered === label;
 
                 return (
@@ -44,8 +19,8 @@ export default function StackOrbit() {
                         onMouseLeave={() => setHovered(null)}
                         style={{
                             position: "absolute",
-                            top,
-                            left,
+                            top: desktop.top,
+                            left: desktop.left,
                             display: "flex",
                             flexDirection: "column",
                             alignItems: "center",
@@ -81,6 +56,7 @@ export default function StackOrbit() {
                                 <path d={icon.path} />
                             </svg>
                         </div>
+
                         <span
                             style={{
                                 fontFamily: "-apple-system, BlinkMacSystemFont, system-ui",
@@ -90,8 +66,8 @@ export default function StackOrbit() {
                                 whiteSpace: "nowrap",
                             }}
                         >
-              {label}
-            </span>
+                            {label}
+                        </span>
                     </div>
                 );
             })}

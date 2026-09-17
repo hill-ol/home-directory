@@ -4,12 +4,7 @@ import { useState } from "react";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
 
-const contacts = [
-    { label: "Email",    href: "mailto:hill.ol@northeastern.edu",      icon: "/contact/outlook.png",  hasBg: false },
-    { label: "LinkedIn", href: "https://linkedin.com/in/olivia-hill0", icon: "/contact/linkedin.png", hasBg: false },
-    { label: "GitHub",   href: "https://github.com/hill-ol",           icon: "/contact/github.png",   hasBg: false },
-    { label: "Resume",   href: "/resume_2026.pdf",                     icon: null,                    hasBg: true  },
-];
+import { contactLinks } from "@/content/contact";
 
 const rotations = [-14, -5, 5, 15];
 
@@ -84,14 +79,14 @@ export default function TakeWhatYouNeed() {
                         paddingLeft: "16px",
                     }}
                 >
-                    {contacts.map((c, i) => {
+                    {contactLinks.map((c, i) => {
                         const isHov = hovered === c.label;
                         return (
                             <a
                                 key={c.label}
                                 href={c.href}
-                                target={c.label !== "Email" ? "_blank" : undefined}
-                                rel="noopener noreferrer"
+                                target={c.external ? "_blank" : undefined}
+                                rel={c.external ? "noopener noreferrer" : undefined}
                                 onMouseEnter={() => setHovered(c.label)}
                                 onMouseLeave={() => setHovered(null)}
                                 style={{

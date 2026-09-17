@@ -8,7 +8,7 @@ import OrgIcons from "@/components/OrgIcons";
 import ResumeIcon from "@/components/ResumeIcon";
 import MobileHome from "@/components/MobileHome";
 import ProjectOverlay from "@/components/ProjectOverlay";
-import { getProject } from "@/content/projects";
+import { desktopProjects, getProject } from "@/content/projects";
 import ContextMenu from "@/components/ContextMenu";
 import type { Project } from "@/content/projects";
 
@@ -85,11 +85,16 @@ export default function Home() {
                     <OrgIcons />
                     <ResumeIcon />
 
-                    <FolderIcon label="StyleBoard.jsx"  slug="styleboard" top="47%" left="4%"  onClick={openProject} />
-                    <FolderIcon label="therapy_db.sql"  slug="therapydb"  top="70%" left="14%" onClick={openProject} />
-                    <FolderIcon label="toggo.ts"        slug="toggo"      top="78%" left="43%" onClick={openProject} />
-                    <FolderIcon label="mills_research/" slug="mills"      top="40%" left="77%" onClick={openProject} />
-                    <FolderIcon label="CoopScout.py"    slug="coopscout"  top="15%" left="85%" onClick={openProject} />
+                    {desktopProjects.map((project) => (
+                        <FolderIcon
+                            key={project.slug}
+                            label={project.filename}
+                            slug={project.slug}
+                            top={project.home.top}
+                            left={project.home.left}
+                            onClick={openProject}
+                        />
+                    ))}
 
                     <div style={{
                         textAlign: "center",

@@ -2,12 +2,14 @@
 
 import { useState } from "react";
 
+import { contact } from "@/content/contact";
+
 export default function ResumeIcon() {
     const [hovered, setHovered] = useState(false);
 
     return (
         <a
-            href="/resume_2026.pdf"
+            href={contact.resume.href}
             target="_blank"
             rel="noopener noreferrer"
             onMouseEnter={() => setHovered(true)}
@@ -64,7 +66,7 @@ export default function ResumeIcon() {
                     whiteSpace: "nowrap",
                 }}
             >
-        resume_2026.pdf
+        {contact.resume.display}
       </span>
         </a>
     );

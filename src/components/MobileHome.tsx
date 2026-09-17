@@ -3,40 +3,12 @@
 import Image from "next/image";
 import { motion } from "framer-motion";
 import { useState } from "react";
-import {
-    siTypescript, siPython, siReact, siNextdotjs,
-    siNodedotjs, siPostgresql, siSupabase, siGit,
-    siMongodb, siOpenjdk, siGo,
-} from "simple-icons";
+import type { SimpleIcon } from "simple-icons";
 
-const stackIcons = [
-    { icon: siTypescript, label: "TypeScript" },
-    { icon: siPython,     label: "Python"     },
-    { icon: siReact,      label: "React"      },
-    { icon: siNextdotjs,  label: "Next.js"    },
-    { icon: siNodedotjs,  label: "Node.js"    },
-    { icon: siPostgresql, label: "SQL"        },
-    { icon: siSupabase,   label: "Supabase"   },
-    { icon: siGit,        label: "Git"        },
-    { icon: siMongodb,    label: "MongoDB"    },
-    { icon: siOpenjdk,    label: "Java"       },
-    { icon: siGo,         label: "Go"         },
-];
-
-const folders = [
-    { label: "StyleBoard.jsx",  slug: "styleboard" },
-    { label: "CoopScout.py",    slug: "coopscout"  },
-    { label: "toggo.ts",        slug: "toggo"      },
-    { label: "therapy_db.sql",  slug: "therapydb"  },
-    { label: "mills_research/", slug: "mills"      },
-];
-
-const orgs = [
-    { label: "Chewy",          src: "/orgs/chewy.png"        },
-    { label: "Generate",       src: "/orgs/generate.png"     },
-    { label: "Argonne",        src: "/orgs/argonne1.png"     },
-    { label: "Girls Who Code", src: "/orgs/girlswhocode.png" },
-];
+import { contact } from "@/content/contact";
+import { orgs } from "@/content/orgs";
+import { projects } from "@/content/projects";
+import { stack } from "@/content/stack";
 
 function MobileFolder({ label, slug, onClick }: { label: string; slug: string; onClick: (slug: string, rect: DOMRect) => void }) {
     const [hovered, setHovered] = useState(false);
@@ -72,7 +44,7 @@ function MobileFolder({ label, slug, onClick }: { label: string; slug: string; o
     );
 }
 
-function MobileStackIcon({ icon, label }: { icon: { path: string; hex: string }; label: string }) {
+function MobileStackIcon({ icon, label }: { icon: SimpleIcon; label: string }) {
     const [active, setActive] = useState(false);
     return (
         <motion.div
@@ -196,22 +168,22 @@ export default function MobileHome({ onFolderClick }: Props) {
                 <div>
                     <div style={{ fontFamily: "-apple-system,BlinkMacSystemFont,system-ui", fontSize: "10px", color: "#6B6560", letterSpacing: "0.06em", textTransform: "uppercase", marginBottom: "16px" }}>projects</div>
                     <div style={{ display: "grid", gridTemplateColumns: "repeat(2, 1fr)", gap: "20px" }}>
-                        {folders.map(folder => (
+                        {projects.map(project => (
                             <MobileFolder
-                                key={folder.slug}
-                                label={folder.label}
-                                slug={folder.slug}
+                                key={project.slug}
+                                label={project.filename}
+                                slug={project.slug}
                                 onClick={onFolderClick}
                             />
                         ))}
 
                         {/* Resume */}
-                        <a href="/resume_2026.pdf" target="_blank" rel="noopener noreferrer" style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: "6px", textDecoration: "none" }}>
+                        <a href={contact.resume.href} target="_blank" rel="noopener noreferrer" style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: "6px", textDecoration: "none" }}>
                             <div style={{ width: "44px", height: "52px", backgroundColor: "white", border: "0.5px solid rgba(28,25,23,0.10)", borderRadius: "4px", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", position: "relative" }}>
                                 <div style={{ position: "absolute", top: 0, right: 0, width: "10px", height: "10px", backgroundColor: "#F2EDE4", borderLeft: "0.5px solid rgba(28,25,23,0.10)", borderBottom: "0.5px solid rgba(28,25,23,0.10)" }}/>
                                 <span style={{ fontFamily: "monospace", fontSize: "9px", color: "#D47BAD", fontWeight: 600 }}>PDF</span>
                             </div>
-                            <span style={{ fontFamily: "-apple-system,BlinkMacSystemFont,system-ui", fontSize: "10px", color: "#6B6560", textAlign: "center" }}>resume_2026.pdf</span>
+                            <span style={{ fontFamily: "-apple-system,BlinkMacSystemFont,system-ui", fontSize: "10px", color: "#6B6560", textAlign: "center" }}>{contact.resume.display}</span>
                         </a>
                     </div>
                 </div>
@@ -220,7 +192,7 @@ export default function MobileHome({ onFolderClick }: Props) {
                 <div>
                     <div style={{ fontFamily: "-apple-system,BlinkMacSystemFont,system-ui", fontSize: "10px", color: "#6B6560", letterSpacing: "0.06em", textTransform: "uppercase", marginBottom: "16px" }}>stack</div>
                     <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: "12px" }}>
-                        {stackIcons.map(({ icon, label }) => (
+                        {stack.map(({ icon, label }) => (
                             <MobileStackIcon key={label} icon={icon} label={label} />
                         ))}
                     </div>

@@ -8,6 +8,8 @@ import {
     useState,
 } from "react";
 
+import { contact } from "@/content/contact";
+
 interface MenuItem {
     label: string;
     dividerAfter?: boolean;
@@ -67,21 +69,19 @@ export default function ContextMenu() {
         {
             label: "View Resume",
             action: () => {
-                openInNewTab("/resume_2026.pdf");
+                openInNewTab(contact.resume.href);
             },
         },
         {
             label: "GitHub",
             action: () => {
-                openInNewTab("https://github.com/hill-ol");
+                openInNewTab(contact.github.href);
             },
         },
         {
             label: "LinkedIn",
             action: () => {
-                openInNewTab(
-                    "https://linkedin.com/in/oliviahill0",
-                );
+                openInNewTab(contact.linkedin.href);
             },
             dividerAfter: true,
         },
