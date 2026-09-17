@@ -13,15 +13,15 @@ import {
 import type { Project } from "@/content/projects";
 import { useDialogA11y } from "@/hooks/useDialogA11y";
 import { hoverSwap } from "@/lib/hover";
-import { color } from "@/lib/theme";
+import { color, onAccent } from "@/lib/theme";
 
 /*
  * The close button sits on the pink header, so it brightens its own white
  * scrim rather than taking the accent like the rest of the site's links.
  */
 const closeButtonHover = hoverSwap<HTMLButtonElement>(
-    { backgroundColor: "rgba(255,255,255,0.4)" },
-    { backgroundColor: "rgba(255,255,255,0.25)" },
+    { backgroundColor: onAccent.scrimHover },
+    { backgroundColor: onAccent.scrim },
 );
 
 interface ProjectOverlayProps {
@@ -174,7 +174,7 @@ export default function ProjectOverlay({
                                         cursor: "pointer",
                                         color: "white",
                                         backgroundColor:
-                                            "rgba(255,255,255,0.25)",
+                                            onAccent.scrim,
                                         border: "none",
                                         borderRadius: "50%",
                                         transition:

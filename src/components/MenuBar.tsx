@@ -6,7 +6,7 @@ import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import { bio } from "@/content/bio";
 import { accentText } from "@/lib/hover";
-import { color, font, hairline, line } from "@/lib/theme";
+import { color, font, hairline, line, surface } from "@/lib/theme";
 
 const navLinks = [
     { href: "/work", label: "work" },
@@ -115,7 +115,7 @@ export default function MenuBar() {
         <header
             className="fixed top-0 left-0 right-0 z-50"
             style={{
-                backgroundColor: "rgba(242, 237, 228, 0.92)",
+                backgroundColor: surface.panel,
                 backdropFilter: "blur(12px)",
                 WebkitBackdropFilter: "blur(12px)",
                 borderBottom:
@@ -330,7 +330,7 @@ export function MobileNav() {
             className="fixed bottom-0 left-0 right-0 md:hidden z-50"
             style={{
                 paddingBottom: "env(safe-area-inset-bottom)",
-                backgroundColor: "rgba(242,237,228,0.95)",
+                backgroundColor: surface.bar,
                 backdropFilter: "blur(12px)",
                 WebkitBackdropFilter: "blur(12px)",
                 borderTop: hairline(line.tile),

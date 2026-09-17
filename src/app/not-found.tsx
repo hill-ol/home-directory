@@ -5,7 +5,7 @@ import Link from "next/link";
 
 import FolderGlyph from "@/components/glyphs/FolderGlyph";
 import { accentPill } from "@/lib/hover";
-import { color, font, hairline, line } from "@/lib/theme";
+import { color, font, hairline, line, onAccent } from "@/lib/theme";
 
 export default function NotFound() {
     return (
@@ -40,7 +40,7 @@ export default function NotFound() {
                         fontFamily="Georgia, serif"
                         fontSize="28"
                         fontStyle="italic"
-                        fill="rgba(255,255,255,0.7)"
+                        fill={onAccent.muted}
                     >?</text>
                 </FolderGlyph>
             </motion.div>

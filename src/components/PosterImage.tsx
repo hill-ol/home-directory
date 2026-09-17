@@ -12,7 +12,7 @@ import {
 import type { ResearchEntry } from "@/content/research";
 import { useDialogA11y } from "@/hooks/useDialogA11y";
 import { useMediaQuery } from "@/hooks/useMediaQuery";
-import { color, hairline, line } from "@/lib/theme";
+import { color, hairline, line, surface } from "@/lib/theme";
 
 function ClosePosterButton({
     onClose,
@@ -40,7 +40,7 @@ function ClosePosterButton({
                 padding: 0,
                 cursor: "pointer",
                 color: color.ink,
-                backgroundColor: "rgba(242,237,228,0.92)",
+                backgroundColor: surface.panel,
                 border: "none",
                 borderRadius: "50%",
             }}
@@ -176,7 +176,7 @@ export default function PosterImage({
                         padding: "5px 10px",
                         pointerEvents: "none",
                         backgroundColor:
-                            "rgba(242,237,228,0.95)",
+                            surface.bar,
                         backdropFilter: "blur(8px)",
                         border: hairline(line.card),
                         borderRadius: "20px",
@@ -351,7 +351,7 @@ export default function PosterImage({
                                         padding: "6px 16px",
                                         color: color.inkSecondary,
                                         backgroundColor:
-                                            "rgba(242,237,228,0.92)",
+                                            surface.panel,
                                         borderRadius: "20px",
                                         fontFamily: "monospace",
                                         fontSize: "10px",
@@ -442,7 +442,7 @@ export default function PosterImage({
                                         padding: "4px 12px",
                                         color: color.inkSecondary,
                                         backgroundColor:
-                                            "rgba(242,237,228,0.92)",
+                                            surface.panel,
                                         borderRadius: "20px",
                                         fontFamily: "monospace",
                                         fontSize: "9px",

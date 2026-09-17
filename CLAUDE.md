@@ -33,13 +33,32 @@ literal: `import { color, font, hairline, line } from "@/lib/theme"`.
 | `color.rule` | `#D3CEC9` | Coursework diagram rules |
 
 Borders are the ink color at low alpha, named by role: `line.divider` (0.06),
-`line.tile` (0.08), `line.card` (0.10), `line.pill` (0.20). Wrap them in
-`hairline()` for the standard `0.5px solid` border.
+`line.tile` (0.08), `line.card` (0.10), `line.pill` (0.20), plus `line.wash`
+(0.04) for the faint fill behind pills and passport stamps. Wrap the border
+ones in `hairline()` for the standard `0.5px solid`.
 
-Deeper alphas of the same ink are drop shadows. Those stay inline, since they
-are per-component depth choices rather than a shared scale. The same goes for
-one-off palettes that belong to a single component: the passport stamp colors
-and the macOS traffic lights.
+`surface.*` is the cream at alpha, for anything floating over page content with
+a backdrop blur: `panel` (0.92) for menus, chips, and buttons, `bar` (0.95) for
+the nav bars, and `scrim` / `scrimClear` for the reach-out backdrop fade.
+
+`onAccent.*` is white at alpha for content on the pink: `muted` (0.7) for
+filenames and labels, `scrim` / `scrimHover` for the overlay close button.
+
+### What stays inline, and why
+Three categories deliberately keep literal colors:
+
+1. **Drop shadows.** `0 24px 80px rgba(28,25,23,0.22)` and friends are
+   per-component depth, each used once. Their alphas only coincide with the
+   border alphas by accident, so tokenizing them would imply a relationship
+   that is not there.
+2. **One-component palettes.** The passport stamp colors, the readme terminal's
+   four-step white ramp, the macOS traffic lights, the coursework binder depth
+   ramp, and the award badge colors. Each belongs to one component.
+3. **Colors inside composite shorthands.** A value buried in a `box-shadow`,
+   `drop-shadow`, or `repeating-linear-gradient` string cannot be swapped for a
+   token without interpolating the whole shorthand. Where the value is genuinely
+   a border role it is interpolated anyway, as in `SemesterPage`'s dashed footer
+   rule, which `hairline()` could not express.
 
 **Fonts:** `font.display` (Playfair Display) + `font.body` (DM Sans) +
 `font.system` for filenames and monospace labels.
@@ -179,6 +198,7 @@ scale stays with each parent.
 | `FolderIcon` | Folder for both layouts — hover darkens, click passes `DOMRect` to `openProject` |
 | `IconTile` | The 44px rounded white square behind every tech and org icon |
 | `HoverLabel` | Small caption that darkens when its parent is hovered |
+| `Pill` | Outlined tag for stack entries and the research status badge |
 | `MobileHome` | Mobile homepage — grid of folders, stack icons, org icons |
 | `ProjectOverlay` | Full-screen overlay panel — animates from folder position using DOMRect offset |
 | `ProjectContent` | Standalone `/projects/<slug>` body — same content, staggered fade-in |
@@ -283,7 +303,7 @@ link had silently gone stale.
 - Filenames use real extensions that match the project type (`.jsx`, `.py`, `.ts`, `.sql`)
 - All copy uses DM Sans at `fontWeight: 300`
 - Playfair italic is used for active/hover states and display headings only
-- Stack pills use `monospace` or system-ui at `fontSize: "10px"`
+- Stack pills come from the `Pill` component: `monospace` at `fontSize: "10px"`, `padding: "2px 10px"`. Do not hand-roll one
 
 ## Metadata
 

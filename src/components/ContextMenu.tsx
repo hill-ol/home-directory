@@ -13,7 +13,7 @@ import { bio } from "@/content/bio";
 import { contact } from "@/content/contact";
 import { useRestoreFocus } from "@/hooks/useRestoreFocus";
 import { applyStyle } from "@/lib/hover";
-import { color, font, line } from "@/lib/theme";
+import { color, font, line, surface } from "@/lib/theme";
 
 interface MenuItem {
     label: string;
@@ -355,7 +355,7 @@ export default function ContextMenu() {
                         maxHeight: `calc(100vh - ${VIEWPORT_PADDING * 2}px)`,
                         padding: "4px",
                         overflowY: "auto",
-                        backgroundColor: "rgba(242,237,228,0.92)",
+                        backgroundColor: surface.panel,
                         backdropFilter: "blur(20px)",
                         WebkitBackdropFilter: "blur(20px)",
                         border: "0.5px solid rgba(28,25,23,0.12)",

@@ -6,7 +6,7 @@ import { usePathname } from "next/navigation";
 
 import PdfGlyph from "@/components/glyphs/PdfGlyph";
 import { contactLinks } from "@/content/contact";
-import { color, font, hairline, line } from "@/lib/theme";
+import { color, font, hairline, line, surface } from "@/lib/theme";
 
 const rotations = [-14, -5, 5, 15];
 
@@ -31,7 +31,7 @@ export default function TakeWhatYouNeed() {
                     inset: 0,
                     backdropFilter: open ? "blur(10px)" : "blur(0px)",
                     WebkitBackdropFilter: open ? "blur(10px)" : "blur(0px)",
-                    backgroundColor: open ? "rgba(242,237,228,0.45)" : "rgba(242,237,228,0)",
+                    backgroundColor: open ? surface.scrim : surface.scrimClear,
                     zIndex: 40,
                     pointerEvents: open ? "auto" : "none",
                     transition: "backdrop-filter 0.5s ease, background-color 0.5s ease",

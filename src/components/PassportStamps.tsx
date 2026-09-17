@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { color, font } from "@/lib/theme";
+import { color, font, line } from "@/lib/theme";
 
 const stamps = [
     {
@@ -124,7 +124,7 @@ function StampSVG({ city, country, detail, season, color: stampColor, darkColor,
     const w = 130;
     const h = 150;
     const fill = hovered ? darkColor : "#C8C4BF";
-    const bg   = hovered ? `${stampColor}60` : "rgba(28,25,23,0.04)";
+    const bg   = hovered ? `${stampColor}60` : line.wash;
 
     return (
         <svg width={w} height={h} viewBox={`0 0 ${w} ${h}`} fill="none" xmlns="http://www.w3.org/2000/svg">

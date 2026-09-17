@@ -1,7 +1,7 @@
 import type { ReactNode } from "react";
 
 import { projectVariants, type ProjectVariant } from "./variants";
-import { color, font } from "@/lib/theme";
+import { color, font, onAccent } from "@/lib/theme";
 
 interface ProjectHeaderProps {
     filename: string;
@@ -37,7 +37,7 @@ export default function ProjectHeader({
             <div
                 style={{
                     marginBottom: "8px",
-                    color: "rgba(255,255,255,0.7)",
+                    color: onAccent.muted,
                     fontFamily:
                         font.system,
                     fontSize: "11px",

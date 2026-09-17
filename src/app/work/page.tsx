@@ -3,6 +3,7 @@
 import { motion } from "framer-motion";
 import { useState } from "react";
 import Link from "next/link";
+import Pill from "@/components/Pill";
 import { projects } from "@/content/projects";
 import { color, font, hairline, line } from "@/lib/theme";
 
@@ -60,14 +61,7 @@ function WorkRow({ project }: { project: (typeof projects)[0] }) {
                     {/* Stack pills mobile */}
                     <div className="flex md:hidden" style={{ flexWrap: "wrap", gap: "4px", marginTop: "4px" }}>
                         {project.stack.slice(0, 3).map(s => (
-                            <span key={s} style={{
-                                fontFamily: font.system,
-                                fontSize: "10px", color: color.inkSecondary,
-                                backgroundColor: "rgba(28,25,23,0.04)",
-                                border: hairline(line.tile),
-                                borderRadius: "20px", padding: "3px 10px",
-                                whiteSpace: "nowrap",
-                            }}>{s}</span>
+                            <Pill key={s}>{s}</Pill>
                         ))}
                     </div>
                 </div>
@@ -75,14 +69,7 @@ function WorkRow({ project }: { project: (typeof projects)[0] }) {
                 {/* Stack pills desktop */}
                 <div className="hidden md:flex" style={{ flexWrap: "wrap", gap: "4px", justifyContent: "flex-end", maxWidth: "200px", flexShrink: 0 }}>
                     {project.stack.slice(0, 3).map(s => (
-                        <span key={s} style={{
-                            fontFamily: font.system,
-                            fontSize: "10px", color: color.inkSecondary,
-                            backgroundColor: "rgba(28,25,23,0.04)",
-                            border: hairline(line.tile),
-                            borderRadius: "20px", padding: "3px 10px",
-                            whiteSpace: "nowrap",
-                        }}>{s}</span>
+                        <Pill key={s}>{s}</Pill>
                     ))}
                 </div>
             </div>

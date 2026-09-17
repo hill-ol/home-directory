@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import Link from "next/link";
 
 import PosterImage from "@/components/PosterImage";
+import Pill from "@/components/Pill";
 import { research } from "@/content/research";
 import { accentPill, accentText } from "@/lib/hover";
 import { color, font, hairline, line } from "@/lib/theme";
@@ -141,21 +142,9 @@ export default function ResearchPage() {
                                     }}
                                 />
 
-                                <span
-                                    style={{
-                                        padding: "2px 8px",
-                                        color: color.inkSecondary,
-                                        backgroundColor:
-                                            "rgba(28,25,23,0.04)",
-                                        border: hairline(line.tile),
-                                        borderRadius: "20px",
-                                        fontFamily: "monospace",
-                                        fontSize: "10px",
-                                        whiteSpace: "nowrap",
-                                    }}
-                                >
+                                <Pill padding="2px 8px">
                                     [ status: completed ]
-                                </span>
+                                </Pill>
                             </div>
 
                             <PosterImage entry={entry} />
@@ -298,24 +287,7 @@ export default function ResearchPage() {
                                     }}
                                 >
                                     {entry.stack.map((tag) => (
-                                        <span
-                                            key={tag}
-                                            style={{
-                                                padding: "2px 10px",
-                                                color: color.inkSecondary,
-                                                backgroundColor:
-                                                    "rgba(28,25,23,0.04)",
-                                                border: hairline(
-                                                    line.tile,
-                                                ),
-                                                borderRadius: "20px",
-                                                fontFamily:
-                                                    "monospace",
-                                                fontSize: "10px",
-                                            }}
-                                        >
-                                            {tag}
-                                        </span>
+                                        <Pill key={tag}>{tag}</Pill>
                                     ))}
                                 </div>
 

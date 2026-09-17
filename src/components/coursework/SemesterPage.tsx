@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 import type { CSSProperties } from "react";
 
 import type { Semester } from "@/content/coursework";
-import { color, font } from "@/lib/theme";
+import { color, font, line } from "@/lib/theme";
 
 /*
  * The ruled line height. Every block on the page is a whole multiple of it so
@@ -194,7 +194,8 @@ export default function SemesterPage({
                 <div
                     style={{
                         ...row,
-                        borderTop: "0.5px dashed rgba(28,25,23,0.10)",
+                        // A dashed hairline, so hairline() does not fit.
+                        borderTop: `0.5px dashed ${line.card}`,
                     }}
                 >
                     <span
