@@ -121,6 +121,22 @@ client directive would break that route. For the same reason the fill transition
 is applied only when the `hovered` prop is passed, so static folders emit no CSS
 that satori has no use for.
 
+### The coursework binder
+`/coursework` renders the same binder twice, gated on `md` like the homepage.
+The pieces live in `src/components/coursework/`, switched by `variant`:
+`SemesterPage` is the ruled page, `CourseworkCover` is what shows before a
+semester is picked, and `CourseworkEmblem` is the graph and sine wave mark.
+
+**`LINE_HEIGHT` in `SemesterPage.tsx` governs the whole ruled grid.** Every
+block on the page is a whole multiple of it, which is what keeps the text
+sitting on the rules rather than floating between them. The desktop page also
+pads its scroll container by `LINE_HEIGHT * 2`. Change it and the grid has to
+be rechecked at both breakpoints.
+
+The desktop cover groups the name with the majors so the cover's 24px gap falls
+around the pair; mobile leaves all four blocks sharing one 16px gap. That is
+why `CourseworkCover` varies its structure and not just its sizes.
+
 ### Mobile vs desktop
 The homepage renders two separate layouts gated by `className="hidden md:block"` / `className="block md:hidden"`. Both share the same `openProject` callback and `ProjectOverlay`. The breakpoint is `md` (768px).
 
@@ -151,6 +167,8 @@ scale stays with each parent.
 | `ContextMenu` | Right-click menu on desktop canvas only — shows bio info + quick links |
 | `MenuBar` | Top nav with live clock · `MobileNav` export for bottom mobile nav |
 | `StackOrbit` | 11 scattered tech icons with brand color on hover |
+| `PosterImage` | Research poster that opens a full-screen viewer, panning on desktop |
+| `coursework/*` | Binder cover, emblem, and the ruled semester page for both layouts |
 | `PassportStamps` | 4 inline SVG landmark stamps for global scholar cities |
 
 ## Content
@@ -164,6 +182,8 @@ declare their own copies: the desktop and mobile layouts render the same arrays.
 | `stack.ts` | 11 tech icons + desktop positions | `StackOrbit`, `MobileHome` |
 | `orgs.ts` | 4 org logos + desktop positions | `OrgIcons`, `MobileHome` |
 | `contact.ts` | Every outbound personal link | `ContextMenu`, `TakeWhatYouNeed`, `ResumeIcon`, `MobileHome`, `/readme` |
+| `research.ts` | Poster entries, resolved against `projects` | `/research` |
+| `coursework.ts` | 5 semesters, their courses, and their palette | `/coursework` |
 
 Each project entry:
 ```ts
@@ -192,6 +212,21 @@ The `projects` array order drives `/work`, the mobile home grid, and
 `sitemap.ts`. It is currently reverse chronological. Reordering changes all three.
 Desktop canvas order is irrelevant since those folders are absolutely positioned.
 
+### Research entries resolve against projects
+Two of the three research entries are also projects. Those name the project with
+a `project: "<slug>"` field, and `research.ts` reads the title, tagline,
+abstract, and stack off that entry. The third is pre-collegiate work with no
+project page, so it carries its own prose inline.
+
+Before this, two roughly 800 character abstracts were duplicated verbatim
+between `/research` and `projects/index.ts`. Editing one silently left the
+other stale, with no broken link to give it away.
+
+A `project` slug that matches nothing throws at module load, which fails the
+build rather than rendering a blank entry. Add poster-specific fields
+(`poster`, `posterLabel`, `institution`, `meta`, `award`, `credit`, `link`) to
+`research.ts`; add prose to `projects/index.ts`.
+
 ### Changing a link
 Edit `contact.ts` only. Four components and the readme page read from it. The
 record is keyed for components that need one specific link, and `contactLinks` is
@@ -218,7 +253,7 @@ link had silently gone stale.
 ## What not to change
 
 - The `window.history.pushState` approach for overlay URL sync — do not replace with `router.push`
-- The `overflow: "hidden"` / `transform: scale()` separation in `PosterImage` — they must be on separate elements or scale won't render
+- The `overflow: "hidden"` / `transform: scale()` separation in `PosterImage` (`src/components/PosterImage.tsx`) — they must be on separate elements or scale won't render
 - Tailwind v4 uses CSS-first config — do not create a `tailwind.config.js`
 - The `md` breakpoint gates mobile vs desktop layout on the homepage — do not change to `lg`
 - Content lives in `src/content/` and is read by both layouts — do not re-declare project, stack, org, or contact data inside a component
