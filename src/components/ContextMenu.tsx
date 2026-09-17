@@ -9,12 +9,26 @@ import {
 } from "react";
 
 import { contact } from "@/content/contact";
+import { applyStyle } from "@/lib/hover";
+import { color, font, line } from "@/lib/theme";
 
 interface MenuItem {
     label: string;
     dividerAfter?: boolean;
     action?: () => void;
 }
+
+/*
+ * Menu items highlight on hover and on keyboard focus, so both handlers
+ * share one pair of style setters.
+ */
+const highlight = applyStyle<HTMLButtonElement>({
+    backgroundColor: color.pink,
+});
+
+const clearHighlight = applyStyle<HTMLButtonElement>({
+    backgroundColor: "transparent",
+});
 
 const MENU_WIDTH = 240;
 const MENU_HEIGHT = 280;
@@ -356,23 +370,18 @@ export default function ContextMenu() {
                                         onClick={() => {
                                             runAction(item.action!);
                                         }}
+                                        /*
+                                         * Hovering moves focus as well, so
+                                         * the pointer and the arrow keys
+                                         * agree on which item is current.
+                                         */
                                         onMouseEnter={(event) => {
                                             event.currentTarget.focus();
-                                            event.currentTarget.style.backgroundColor =
-                                                "#F0A8CF";
+                                            highlight(event);
                                         }}
-                                        onMouseLeave={(event) => {
-                                            event.currentTarget.style.backgroundColor =
-                                                "transparent";
-                                        }}
-                                        onFocus={(event) => {
-                                            event.currentTarget.style.backgroundColor =
-                                                "#F0A8CF";
-                                        }}
-                                        onBlur={(event) => {
-                                            event.currentTarget.style.backgroundColor =
-                                                "transparent";
-                                        }}
+                                        onMouseLeave={clearHighlight}
+                                        onFocus={highlight}
+                                        onBlur={clearHighlight}
                                         style={{
                                             width: "100%",
                                             display: "flex",
@@ -382,13 +391,13 @@ export default function ContextMenu() {
                                                 "space-between",
                                             padding: "6px 12px",
                                             cursor: "pointer",
-                                            color: "#1C1917",
+                                            color: color.ink,
                                             backgroundColor:
                                                 "transparent",
                                             border: "none",
                                             borderRadius: "6px",
                                             fontFamily:
-                                                "-apple-system, BlinkMacSystemFont, system-ui",
+                                                font.system,
                                             fontSize: "12px",
                                             fontWeight: 300,
                                             textAlign: "left",
@@ -403,7 +412,7 @@ export default function ContextMenu() {
                                             aria-hidden="true"
                                             style={{
                                                 color:
-                                                    "#6B6560",
+                                                    color.inkSecondary,
                                                 fontSize:
                                                     "10px",
                                             }}
@@ -421,11 +430,11 @@ export default function ContextMenu() {
                                             justifyContent:
                                                 "space-between",
                                             padding: "6px 12px",
-                                            color: "#6B6560",
+                                            color: color.inkSecondary,
                                             borderRadius: "6px",
                                             fontFamily: isHeading
-                                                ? "var(--font-playfair)"
-                                                : "-apple-system, BlinkMacSystemFont, system-ui",
+                                                ? font.display
+                                                : font.system,
                                             fontSize: isHeading
                                                 ? "13px"
                                                 : "12px",
@@ -449,7 +458,7 @@ export default function ContextMenu() {
                                             height: "0.5px",
                                             margin: "4px 0",
                                             backgroundColor:
-                                                "rgba(28,25,23,0.10)",
+                                                line.card,
                                         }}
                                     />
                                 )}

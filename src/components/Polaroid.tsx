@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { color, hairline, line } from "@/lib/theme";
 
 export default function Polaroid() {
     return (
@@ -25,13 +26,13 @@ export default function Polaroid() {
                     {/* Needle — thin, straight down */}
                     <line x1="18" y1="26" x2="18" y2="35" stroke="#BF6090" strokeWidth="1" strokeLinecap="round"/>
                     {/* Stem — short cylinder */}
-                    <rect x="15" y="18" width="6" height="9" rx="3" fill="#D47BAD"/>
+                    <rect x="15" y="18" width="6" height="9" rx="3" fill={color.pinkDark}/>
                     {/* Disc underside — thin rim for depth */}
-                    <ellipse cx="18" cy="18" rx="15" ry="5" fill="#D47BAD"/>
+                    <ellipse cx="18" cy="18" rx="15" ry="5" fill={color.pinkDark}/>
                     {/* Disc top face — wide and flat */}
-                    <ellipse cx="18" cy="15" rx="15" ry="5" fill="#F0A8CF"/>
+                    <ellipse cx="18" cy="15" rx="15" ry="5" fill={color.pink}/>
                     {/* Center dimple */}
-                    <ellipse cx="18" cy="15" rx="4" ry="1.8" fill="#D47BAD" opacity="0.4"/>
+                    <ellipse cx="18" cy="15" rx="4" ry="1.8" fill={color.pinkDark} opacity="0.4"/>
                     {/* Highlight — off-center glint */}
                     <ellipse cx="11" cy="12.5" rx="5" ry="1.8" fill="white" opacity="0.25"/>
                 </svg>
@@ -42,7 +43,7 @@ export default function Polaroid() {
                 style={{
                     backgroundColor: "white",
                     padding: "10px 10px 36px 10px",
-                    border: "0.5px solid rgba(28, 25, 23, 0.10)",
+                    border: hairline(line.card),
                     transform: "rotate(-4deg)",
                     width: "148px",
                 }}

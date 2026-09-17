@@ -1,6 +1,8 @@
 "use client";
 
 import type { Project } from "@/content/projects";
+import { accentPill } from "@/lib/hover";
+import { color, font, hairline, line } from "@/lib/theme";
 
 interface ProjectLinkProps {
     href: string;
@@ -15,24 +17,16 @@ function ProjectLink({ href, label }: ProjectLinkProps) {
             rel="noopener noreferrer"
             style={{
                 padding: "6px 16px",
-                color: "#1C1917",
+                color: color.ink,
                 fontFamily:
-                    "-apple-system, BlinkMacSystemFont, system-ui",
+                    font.system,
                 fontSize: "12px",
                 textDecoration: "none",
-                border: "0.5px solid rgba(28,25,23,0.20)",
+                border: hairline(line.pill),
                 borderRadius: "20px",
                 transition: "border-color 0.2s, color 0.2s",
             }}
-            onMouseEnter={(event) => {
-                event.currentTarget.style.borderColor = "#F0A8CF";
-                event.currentTarget.style.color = "#F0A8CF";
-            }}
-            onMouseLeave={(event) => {
-                event.currentTarget.style.borderColor =
-                    "rgba(28,25,23,0.20)";
-                event.currentTarget.style.color = "#1C1917";
-            }}
+            {...accentPill}
         >
             {label} →
         </a>

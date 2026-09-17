@@ -1,8 +1,11 @@
+import FolderGlyph from "@/components/glyphs/FolderGlyph";
+import { color, font } from "@/lib/theme";
+
 export default function Loading() {
     return (
         <div style={{
             minHeight: "100vh",
-            backgroundColor: "#F2EDE4",
+            backgroundColor: color.cream,
             display: "flex",
             alignItems: "center",
             justifyContent: "center",
@@ -12,17 +15,11 @@ export default function Loading() {
                 <div style={{
                     animation: "pulse 1.6s ease-in-out infinite",
                 }}>
-                    <svg width="64" height="52" viewBox="0 0 96 78" fill="none">
-                        <path
-                            d="M6,78 Q2,78 2,74 L2,8 Q2,2 8,2 L34,2 Q40,2 42,6 L44,12 Q46,16 50,16 L90,16 Q94,16 94,20 L94,74 Q94,78 90,78 Z"
-                            fill="#D47BAD" opacity="0.5"
-                        />
-                        <rect x="2" y="18" width="92" height="58" rx="6" fill="#F0A8CF" opacity="0.5"/>
-                    </svg>
+                    <FolderGlyph width={64} height={52} opacity={0.5} />
                 </div>
                 <div style={{
-                    fontFamily: "-apple-system,BlinkMacSystemFont,system-ui",
-                    fontSize: "11px", color: "#6B6560",
+                    fontFamily: font.system,
+                    fontSize: "11px", color: color.inkSecondary,
                     letterSpacing: "0.06em",
                     animation: "pulse 1.6s ease-in-out infinite",
                 }}>loading</div>

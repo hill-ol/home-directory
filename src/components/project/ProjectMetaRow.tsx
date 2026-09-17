@@ -3,15 +3,16 @@ import type { ReactNode } from "react";
 import type { Project } from "@/content/projects";
 
 import { projectVariants, type ProjectVariant } from "./variants";
+import { color, font, hairline, line } from "@/lib/theme";
 
 function MetadataLabel({ children }: { children: ReactNode }) {
     return (
         <div
             style={{
                 marginBottom: "4px",
-                color: "#6B6560",
+                color: color.inkSecondary,
                 fontFamily:
-                    "-apple-system, BlinkMacSystemFont, system-ui",
+                    font.system,
                 fontSize: "10px",
                 letterSpacing: "0.06em",
                 textTransform: "uppercase",
@@ -41,7 +42,7 @@ export default function ProjectMetaRow({
                 gap: "32px",
                 marginBottom: rhythm,
                 paddingBottom: rhythm,
-                borderBottom: "0.5px solid rgba(28,25,23,0.10)",
+                borderBottom: hairline(line.card),
             }}
         >
             {[
@@ -53,8 +54,8 @@ export default function ProjectMetaRow({
 
                     <div
                         style={{
-                            color: "#1C1917",
-                            fontFamily: "var(--font-dm-sans)",
+                            color: color.ink,
+                            fontFamily: font.body,
                             fontSize: "13px",
                         }}
                     >
@@ -68,9 +69,9 @@ export default function ProjectMetaRow({
 
                 <div
                     style={{
-                        color: "#6B6560",
+                        color: color.inkSecondary,
                         fontFamily:
-                            "-apple-system, BlinkMacSystemFont, system-ui",
+                            font.system,
                         fontSize: "12px",
                         lineHeight: 1.7,
                     }}

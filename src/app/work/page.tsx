@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import { useState } from "react";
 import Link from "next/link";
 import { projects } from "@/content/projects";
+import { color, font, hairline, line } from "@/lib/theme";
 
 function WorkRow({ project }: { project: (typeof projects)[0] }) {
     const [hovered, setHovered] = useState(false);
@@ -16,7 +17,7 @@ function WorkRow({ project }: { project: (typeof projects)[0] }) {
             transition={{ duration: 0.2, ease: "easeOut" }}
             style={{
                 padding: "24px 0",
-                borderBottom: "0.5px solid rgba(28,25,23,0.08)",
+                borderBottom: hairline(line.tile),
                 cursor: "pointer",
             }}
         >
@@ -26,25 +27,25 @@ function WorkRow({ project }: { project: (typeof projects)[0] }) {
                     {/* Filename + period */}
                     <div style={{ display: "flex", alignItems: "center", gap: "12px", flexWrap: "wrap" }}>
                         <motion.span
-                            animate={{ color: hovered ? "#D47BAD" : "#F0A8CF" }}
+                            animate={{ color: hovered ? color.pinkDark : color.pink }}
                             transition={{ duration: 0.2 }}
                             style={{
-                                fontFamily: "-apple-system, BlinkMacSystemFont, system-ui",
+                                fontFamily: font.system,
                                 fontSize: "10px", letterSpacing: "0.04em",
                             }}
                         >{project.filename}</motion.span>
                         <span style={{
-                            fontFamily: "-apple-system, BlinkMacSystemFont, system-ui",
-                            fontSize: "10px", color: "#6B6560",
+                            fontFamily: font.system,
+                            fontSize: "10px", color: color.inkSecondary,
                         }}>{project.period}</span>
                     </div>
 
                     {/* Title */}
                     <motion.div
-                        animate={{ color: hovered ? "#F0A8CF" : "#1C1917" }}
+                        animate={{ color: hovered ? color.pink : color.ink }}
                         transition={{ duration: 0.2 }}
                         style={{
-                            fontFamily: "var(--font-playfair)",
+                            fontFamily: font.display,
                             fontSize: "clamp(18px, 3vw, 22px)",
                             fontWeight: 400, lineHeight: 1.2,
                         }}
@@ -52,18 +53,18 @@ function WorkRow({ project }: { project: (typeof projects)[0] }) {
 
                     {/* Tagline */}
                     <div style={{
-                        fontFamily: "var(--font-dm-sans)", fontSize: "13px",
-                        fontWeight: 300, color: "#6B6560", lineHeight: 1.5,
+                        fontFamily: font.body, fontSize: "13px",
+                        fontWeight: 300, color: color.inkSecondary, lineHeight: 1.5,
                     }}>{project.tagline}</div>
 
                     {/* Stack pills mobile */}
                     <div className="flex md:hidden" style={{ flexWrap: "wrap", gap: "4px", marginTop: "4px" }}>
                         {project.stack.slice(0, 3).map(s => (
                             <span key={s} style={{
-                                fontFamily: "-apple-system, BlinkMacSystemFont, system-ui",
-                                fontSize: "10px", color: "#6B6560",
+                                fontFamily: font.system,
+                                fontSize: "10px", color: color.inkSecondary,
                                 backgroundColor: "rgba(28,25,23,0.04)",
-                                border: "0.5px solid rgba(28,25,23,0.08)",
+                                border: hairline(line.tile),
                                 borderRadius: "20px", padding: "3px 10px",
                                 whiteSpace: "nowrap",
                             }}>{s}</span>
@@ -75,10 +76,10 @@ function WorkRow({ project }: { project: (typeof projects)[0] }) {
                 <div className="hidden md:flex" style={{ flexWrap: "wrap", gap: "4px", justifyContent: "flex-end", maxWidth: "200px", flexShrink: 0 }}>
                     {project.stack.slice(0, 3).map(s => (
                         <span key={s} style={{
-                            fontFamily: "-apple-system, BlinkMacSystemFont, system-ui",
-                            fontSize: "10px", color: "#6B6560",
+                            fontFamily: font.system,
+                            fontSize: "10px", color: color.inkSecondary,
                             backgroundColor: "rgba(28,25,23,0.04)",
-                            border: "0.5px solid rgba(28,25,23,0.08)",
+                            border: hairline(line.tile),
                             borderRadius: "20px", padding: "3px 10px",
                             whiteSpace: "nowrap",
                         }}>{s}</span>
@@ -96,25 +97,25 @@ export default function WorkPage() {
             animate={{ opacity: 1 }}
             transition={{ duration: 0.4, ease: "easeOut" }}
         >
-            <main style={{ minHeight: "100vh", backgroundColor: "#F2EDE4", paddingTop: "80px", paddingBottom: "96px" }}>
+            <main style={{ minHeight: "100vh", backgroundColor: color.cream, paddingTop: "80px", paddingBottom: "96px" }}>
                 <div style={{ maxWidth: "900px", margin: "0 auto", padding: "0 24px" }}>
 
                     {/* Header */}
                     <div style={{ marginBottom: "56px" }}>
                         <div style={{
-                            fontFamily: "-apple-system, BlinkMacSystemFont, system-ui",
-                            fontSize: "11px", color: "#F0A8CF",
+                            fontFamily: font.system,
+                            fontSize: "11px", color: color.pink,
                             letterSpacing: "0.06em", textTransform: "uppercase", marginBottom: "12px",
                         }}>work/</div>
                         <h1 style={{
-                            fontFamily: "var(--font-playfair)",
+                            fontFamily: font.display,
                             fontSize: "clamp(32px, 5vw, 52px)",
-                            fontWeight: 400, color: "#1C1917",
+                            fontWeight: 400, color: color.ink,
                             lineHeight: 1.1, letterSpacing: "-0.02em", margin: "0 0 16px 0",
                         }}>Projects</h1>
                         <p style={{
-                            fontFamily: "var(--font-dm-sans)", fontSize: "14px",
-                            fontWeight: 300, color: "#6B6560",
+                            fontFamily: font.body, fontSize: "14px",
+                            fontWeight: 300, color: color.inkSecondary,
                             margin: 0, lineHeight: 1.7, maxWidth: "480px",
                         }}>
                             A selection of things I&apos;ve built: full-stack products,

@@ -1,4 +1,5 @@
 import type { CSSProperties } from "react";
+import { color, font } from "@/lib/theme";
 
 export type ProjectVariant = "overlay" | "page";
 
@@ -38,8 +39,8 @@ export function projectTaglineStyle(
 
     return {
         margin: `0 0 ${rhythm}`,
-        color: "#6B6560",
-        fontFamily: "var(--font-dm-sans)",
+        color: color.inkSecondary,
+        fontFamily: font.body,
         fontSize: taglineSize,
         fontStyle: "italic",
         fontWeight: 300,
@@ -54,8 +55,8 @@ export function projectDescriptionStyle(
 
     return {
         margin: `0 0 ${rhythm}`,
-        color: "#1C1917",
-        fontFamily: "var(--font-dm-sans)",
+        color: color.ink,
+        fontFamily: font.body,
         fontSize: descriptionSize,
         fontWeight: 300,
         lineHeight: 1.8,

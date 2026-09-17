@@ -12,6 +12,17 @@ import {
 } from "@/components/project/variants";
 import type { Project } from "@/content/projects";
 import { useDialogA11y } from "@/hooks/useDialogA11y";
+import { hoverSwap } from "@/lib/hover";
+import { color } from "@/lib/theme";
+
+/*
+ * The close button sits on the pink header, so it brightens its own white
+ * scrim rather than taking the accent like the rest of the site's links.
+ */
+const closeButtonHover = hoverSwap<HTMLButtonElement>(
+    { backgroundColor: "rgba(255,255,255,0.4)" },
+    { backgroundColor: "rgba(255,255,255,0.25)" },
+);
 
 interface ProjectOverlayProps {
     project: Project | null;
@@ -133,7 +144,7 @@ export default function ProjectOverlay({
                                 width: "100%",
                                 maxHeight: "90vh",
                                 overflow: "hidden",
-                                backgroundColor: "#FAF7F2",
+                                backgroundColor: color.card,
                                 borderRadius: "12px",
                                 boxShadow:
                                     "0 24px 80px rgba(28,25,23,0.22), " +
@@ -169,14 +180,7 @@ export default function ProjectOverlay({
                                         transition:
                                             "background-color 0.2s ease",
                                     }}
-                                    onMouseEnter={(event) => {
-                                        event.currentTarget.style.backgroundColor =
-                                            "rgba(255,255,255,0.4)";
-                                    }}
-                                    onMouseLeave={(event) => {
-                                        event.currentTarget.style.backgroundColor =
-                                            "rgba(255,255,255,0.25)";
-                                    }}
+                                    {...closeButtonHover}
                                 >
                                     <svg
                                         aria-hidden="true"

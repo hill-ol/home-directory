@@ -11,6 +11,8 @@ import {
     projectTaglineStyle,
 } from "@/components/project/variants";
 import type { Project } from "@/content/projects";
+import { accentText } from "@/lib/hover";
+import { color, font } from "@/lib/theme";
 
 const fadeUp = {
     initial: { opacity: 0, y: 12 },
@@ -28,7 +30,7 @@ export default function ProjectContent({
         <main
             style={{
                 minHeight: "100vh",
-                backgroundColor: "#F2EDE4",
+                backgroundColor: color.cream,
                 paddingTop: "80px",
                 paddingBottom: "96px",
             }}
@@ -50,30 +52,20 @@ export default function ProjectContent({
                         marginBottom: "48px",
                         padding: 0,
                         cursor: "pointer",
-                        color: "#6B6560",
+                        color: color.inkSecondary,
                         background: "none",
                         border: "none",
                         fontFamily:
-                            "-apple-system, BlinkMacSystemFont, system-ui",
+                            font.system,
                         fontSize: "12px",
                         transition: "color 0.2s ease",
                     }}
-                    onMouseEnter={(event) => {
-                        event.currentTarget.style.color = "#F0A8CF";
-                    }}
-                    onMouseLeave={(event) => {
-                        event.currentTarget.style.color = "#6B6560";
-                    }}
+                    {...accentText}
                 >
                     ← back to desktop
                 </button>
 
-                <motion.div
-                    layoutId={`folder-${project.slug}`}
-                    transition={{
-                        duration: 0.45,
-                        ease: [0.32, 0.72, 0, 1],
-                    }}
+                <div
                     style={{
                         marginBottom: "32px",
                         overflow: "hidden",
@@ -85,7 +77,7 @@ export default function ProjectContent({
                         title={project.title}
                         variant="page"
                     />
-                </motion.div>
+                </div>
 
                 <motion.p
                     {...fadeUp}

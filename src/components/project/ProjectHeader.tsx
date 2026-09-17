@@ -1,6 +1,7 @@
 import type { ReactNode } from "react";
 
 import { projectVariants, type ProjectVariant } from "./variants";
+import { color, font } from "@/lib/theme";
 
 interface ProjectHeaderProps {
     filename: string;
@@ -27,7 +28,7 @@ export default function ProjectHeader({
             style={{
                 position: "relative",
                 padding: headerPadding,
-                backgroundColor: "#F0A8CF",
+                backgroundColor: color.pink,
                 borderRadius: headerRadius,
             }}
         >
@@ -38,7 +39,7 @@ export default function ProjectHeader({
                     marginBottom: "8px",
                     color: "rgba(255,255,255,0.7)",
                     fontFamily:
-                        "-apple-system, BlinkMacSystemFont, system-ui",
+                        font.system,
                     fontSize: "11px",
                     letterSpacing: "0.06em",
                 }}
@@ -51,7 +52,7 @@ export default function ProjectHeader({
                 style={{
                     margin: 0,
                     color: "white",
-                    fontFamily: "var(--font-playfair)",
+                    fontFamily: font.display,
                     fontSize: titleSize,
                     fontWeight: 400,
                     lineHeight: 1.1,

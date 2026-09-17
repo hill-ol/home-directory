@@ -4,7 +4,9 @@ import { useState } from "react";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
 
+import PdfGlyph from "@/components/glyphs/PdfGlyph";
 import { contactLinks } from "@/content/contact";
+import { color, font, hairline, line } from "@/lib/theme";
 
 const rotations = [-14, -5, 5, 15];
 
@@ -60,7 +62,7 @@ export default function TakeWhatYouNeed() {
                 >
                     <path
                         d="M16,300 Q4,300 4,288 L4,48 Q4,36 16,36 L108,36 Q116,36 120,44 L130,60 Q134,68 142,68 L324,68 Q336,68 336,80 L336,288 Q336,300 324,300 Z"
-                        fill="#D47BAD"
+                        fill={color.pinkDark}
                     />
                 </svg>
 
@@ -105,9 +107,9 @@ export default function TakeWhatYouNeed() {
                                 {/* Label above icon */}
                                 <span
                                     style={{
-                                        fontFamily: "-apple-system, BlinkMacSystemFont, system-ui",
+                                        fontFamily: font.system,
                                         fontSize: "10px",
-                                        color: "#6B6560",
+                                        color: color.inkSecondary,
                                         whiteSpace: "nowrap",
                                     }}
                                 >
@@ -129,8 +131,8 @@ export default function TakeWhatYouNeed() {
                                             width: "80px",
                                             height: "80px",
                                             borderRadius: "18px",
-                                            backgroundColor: "#FAF7F2",
-                                            border: "0.5px solid rgba(28,25,23,0.10)",
+                                            backgroundColor: color.card,
+                                            border: hairline(line.card),
                                             display: "flex",
                                             alignItems: "center",
                                             justifyContent: "center",
@@ -138,24 +140,7 @@ export default function TakeWhatYouNeed() {
                                             flexShrink: 0,
                                         }}
                                     >
-                                        <svg
-                                            width="44" height="52"
-                                            viewBox="0 0 44 52"
-                                            fill="none"
-                                            style={{ display: "block" }}
-                                        >
-                                            <rect x="2" y="2" width="40" height="48" rx="4"
-                                                  fill="white" stroke="rgba(28,25,23,0.15)" strokeWidth="0.5"/>
-                                            <path d="M30,2 L42,14 L30,14 Z"
-                                                  fill="#F2EDE4" stroke="rgba(28,25,23,0.15)" strokeWidth="0.5"/>
-                                            <rect x="8" y="20" width="20" height="1.5" rx="1" fill="rgba(28,25,23,0.12)"/>
-                                            <rect x="8" y="24" width="14" height="1.5" rx="1" fill="rgba(28,25,23,0.12)"/>
-                                            <text x="22" y="36" textAnchor="middle"
-                                                  fontSize="9" fontWeight="600"
-                                                  fontFamily="Arial, sans-serif" fill="#D47BAD">
-                                                PDF
-                                            </text>
-                                        </svg>
+                                        <PdfGlyph />
                                     </div>
                                 )}
                             </a>
@@ -168,7 +153,7 @@ export default function TakeWhatYouNeed() {
                     width="340" height="300" viewBox="0 0 340 300" fill="none"
                     style={{ position: "absolute", top: 0, left: 0, zIndex: 3, pointerEvents: "none" }}
                 >
-                    <rect x="4" y="72" width="332" height="228" rx="10" fill="#F0A8CF"/>
+                    <rect x="4" y="72" width="332" height="228" rx="10" fill={color.pink}/>
                     <text
                         x="170" y="192"
                         textAnchor="middle"
@@ -193,13 +178,13 @@ export default function TakeWhatYouNeed() {
                     display: "flex",
                     alignItems: "center",
                     gap: "8px",
-                    backgroundColor: "#1C1917",
-                    color: "#F2EDE4",
+                    backgroundColor: color.ink,
+                    color: color.cream,
                     border: "none",
                     borderRadius: "20px",
                     padding: "8px 16px",
                     cursor: "pointer",
-                    fontFamily: "var(--font-dm-sans)",
+                    fontFamily: font.body,
                     fontSize: "12px",
                     fontWeight: 300,
                     letterSpacing: "0.01em",
@@ -212,7 +197,7 @@ export default function TakeWhatYouNeed() {
                 width: "8px",
                 height: "8px",
                 borderRadius: "50%",
-                backgroundColor: "#F0A8CF",
+                backgroundColor: color.pink,
                 flexShrink: 0,
             }}
         />

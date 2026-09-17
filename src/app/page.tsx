@@ -11,6 +11,7 @@ import ProjectOverlay from "@/components/ProjectOverlay";
 import { desktopProjects, getProject } from "@/content/projects";
 import ContextMenu from "@/components/ContextMenu";
 import type { Project } from "@/content/projects";
+import { color, font } from "@/lib/theme";
 
 const PROJECT_HISTORY_KEY = "portfolioProjectSlug";
 
@@ -67,7 +68,7 @@ export default function Home() {
                 className="hidden md:block"
                 style={{
                     minHeight: "100vh",
-                    backgroundColor: "#F2EDE4",
+                    backgroundColor: color.cream,
                     position: "relative",
                     overflow: "hidden",
                 }}
@@ -90,8 +91,8 @@ export default function Home() {
                             key={project.slug}
                             label={project.filename}
                             slug={project.slug}
-                            top={project.home.top}
-                            left={project.home.left}
+                            variant="desktop"
+                            position={project.home}
                             onClick={openProject}
                         />
                     ))}
@@ -105,15 +106,15 @@ export default function Home() {
                         zIndex: 10,
                     }}>
                         <h1 style={{
-                            fontFamily: "var(--font-playfair)",
+                            fontFamily: font.display,
                             fontSize: "clamp(48px, 7vw, 88px)",
-                            fontWeight: 400, color: "#1C1917",
+                            fontWeight: 400, color: color.ink,
                             lineHeight: 1.05, letterSpacing: "-0.02em", margin: 0,
                         }}>Olivia Hill</h1>
                         <p style={{
-                            fontFamily: "var(--font-dm-sans)",
+                            fontFamily: font.body,
                             fontSize: "13px", fontWeight: 300,
-                            color: "#6B6560", lineHeight: 1.7,
+                            color: color.inkSecondary, lineHeight: 1.7,
                             maxWidth: "340px", margin: 0,
                         }}>
                             CS + Math @ Northeastern. Building full-stack products

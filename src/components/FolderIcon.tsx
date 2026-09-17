@@ -3,64 +3,120 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
 
+import FolderGlyph from "@/components/glyphs/FolderGlyph";
+import { color, font } from "@/lib/theme";
+
+export type FolderVariant = "desktop" | "mobile";
+
+/*
+ * The desktop canvas places folders by hand and draws them large; the mobile
+ * grid lays them out in flow at a smaller size and adds tap feedback, since
+ * there is no hover on touch.
+ */
+const variants: Record<
+    FolderVariant,
+    {
+        width: number;
+        height: number;
+        labelSize: string;
+        letterSpacing?: string;
+        tapScale?: number;
+        zIndex?: number;
+    }
+> = {
+    desktop: {
+        width: 96,
+        height: 78,
+        labelSize: "11px",
+        letterSpacing: "0.01em",
+        zIndex: 6,
+    },
+    mobile: {
+        width: 64,
+        height: 52,
+        labelSize: "10px",
+        tapScale: 0.95,
+    },
+};
+
 interface FolderIconProps {
     label: string;
     slug: string;
-    top: string;
-    left: string;
     onClick: (slug: string, rect: DOMRect) => void;
+    variant: FolderVariant;
+    /*
+     * Absolute placement on the desktop canvas. The mobile grid omits this
+     * and lets the folder sit in normal flow.
+     */
+    position?: { top: string; left: string };
 }
 
-export default function FolderIcon({ label, slug, top, left, onClick }: FolderIconProps) {
+export default function FolderIcon({
+    label,
+    slug,
+    onClick,
+    variant,
+    position,
+}: FolderIconProps) {
     const [hovered, setHovered] = useState(false);
+
+    const { width, height, labelSize, letterSpacing, tapScale, zIndex } =
+        variants[variant];
 
     return (
         <button
-            onClick={(e) => {
-                const rect = e.currentTarget.getBoundingClientRect();
+            onClick={(event) => {
+                const rect =
+                    event.currentTarget.getBoundingClientRect();
+
                 onClick(slug, rect);
             }}
-            onMouseEnter={() => setHovered(true)}
-            onMouseLeave={() => setHovered(false)}
+            /*
+             * Pointer events rather than mouse events so a stylus or touch
+             * drag reports the same hover state as a mouse.
+             */
+            onPointerEnter={() => setHovered(true)}
+            onPointerLeave={() => setHovered(false)}
             style={{
-                position: "absolute",
-                top, left,
+                position: position ? "absolute" : undefined,
+                top: position?.top,
+                left: position?.left,
+                zIndex,
                 display: "flex",
                 flexDirection: "column",
                 alignItems: "center",
                 gap: "6px",
+                padding: 0,
+                cursor: "pointer",
                 background: "none",
                 border: "none",
-                cursor: "pointer",
-                padding: 0,
-                zIndex: 6,
             }}
         >
             <motion.div
                 animate={{ scale: hovered ? 1.06 : 1 }}
+                whileTap={tapScale ? { scale: tapScale } : undefined}
                 transition={{ duration: 0.2, ease: "easeOut" }}
             >
-                <svg width="96" height="78" viewBox="0 0 96 78" fill="none">
-                    <path
-                        d="M6,78 Q2,78 2,74 L2,8 Q2,2 8,2 L34,2 Q40,2 42,6 L44,12 Q46,16 50,16 L90,16 Q94,16 94,20 L94,74 Q94,78 90,78 Z"
-                        fill={hovered ? "#C966A0" : "#D47BAD"}
-                        style={{ transition: "fill 0.2s ease" }}
-                    />
-                    <rect
-                        x="2" y="18" width="92" height="58" rx="6"
-                        fill={hovered ? "#F5BADB" : "#F0A8CF"}
-                        style={{ transition: "fill 0.2s ease" }}
-                    />
-                </svg>
+                <FolderGlyph
+                    width={width}
+                    height={height}
+                    hovered={hovered}
+                />
             </motion.div>
-            <span style={{
-                fontFamily: "-apple-system, BlinkMacSystemFont, system-ui",
-                fontSize: "11px",
-                color: hovered ? "#1C1917" : "#6B6560",
-                transition: "color 0.2s ease",
-                whiteSpace: "nowrap",
-                letterSpacing: "0.01em",
-            }}>{label}</span>
+
+            <span
+                style={{
+                    color: hovered ? color.ink : color.inkSecondary,
+                    fontFamily:
+                        font.system,
+                    fontSize: labelSize,
+                    letterSpacing,
+                    whiteSpace: "nowrap",
+                    transition: "color 0.2s ease",
+                }}
+            >
+                {label}
+            </span>
         </button>
     );
 }

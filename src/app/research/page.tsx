@@ -12,6 +12,8 @@ import {
 
 import { useDialogA11y } from "@/hooks/useDialogA11y";
 import { useMediaQuery } from "@/hooks/useMediaQuery";
+import { accentPill, accentText } from "@/lib/hover";
+import { color, font, hairline, line } from "@/lib/theme";
 
 const entries = [
     {
@@ -182,9 +184,9 @@ function PosterImage({ entry }: { entry: ResearchEntry }) {
                         position: "absolute",
                         inset: 0,
                         overflow: "hidden",
-                        backgroundColor: "#E8E4DC",
+                        backgroundColor: color.imagePlaceholder,
                         border:
-                            "0.5px solid rgba(28,25,23,0.10)",
+                            hairline(line.card),
                         borderRadius: "6px",
                     }}
                 >
@@ -217,7 +219,7 @@ function PosterImage({ entry }: { entry: ResearchEntry }) {
                             "rgba(242,237,228,0.95)",
                         backdropFilter: "blur(8px)",
                         border:
-                            "0.5px solid rgba(28,25,23,0.10)",
+                            hairline(line.card),
                         borderRadius: "20px",
                         opacity: hovered ? 1 : 0,
                         transform: hovered
@@ -232,7 +234,7 @@ function PosterImage({ entry }: { entry: ResearchEntry }) {
                         height="11"
                         viewBox="0 0 24 24"
                         fill="none"
-                        stroke="#A89E99"
+                        stroke={color.inkMuted}
                         strokeWidth="2"
                         strokeLinecap="round"
                     >
@@ -243,7 +245,7 @@ function PosterImage({ entry }: { entry: ResearchEntry }) {
 
                     <span
                         style={{
-                            color: "#6B6560",
+                            color: color.inkSecondary,
                             fontFamily: "monospace",
                             fontSize: "9px",
                             whiteSpace: "nowrap",
@@ -262,7 +264,7 @@ function PosterImage({ entry }: { entry: ResearchEntry }) {
                         zIndex: 2,
                         padding: "3px 8px",
                         color: "#7A2D5A",
-                        backgroundColor: "#F0A8CF",
+                        backgroundColor: color.pink,
                         borderRadius: "3px",
                         fontFamily: "monospace",
                         fontSize: "9px",
@@ -358,7 +360,7 @@ function PosterImage({ entry }: { entry: ResearchEntry }) {
                                     style={{
                                         width: "100%",
                                         overflow: "hidden",
-                                        backgroundColor: "#E8E4DC",
+                                        backgroundColor: color.imagePlaceholder,
                                         borderRadius: "8px",
                                         boxShadow:
                                             "0 16px 48px rgba(28,25,23,0.5)",
@@ -387,7 +389,7 @@ function PosterImage({ entry }: { entry: ResearchEntry }) {
                                         bottom: "40px",
                                         left: "50%",
                                         padding: "6px 16px",
-                                        color: "#6B6560",
+                                        color: color.inkSecondary,
                                         backgroundColor:
                                             "rgba(242,237,228,0.92)",
                                         borderRadius: "20px",
@@ -441,7 +443,7 @@ function PosterImage({ entry }: { entry: ResearchEntry }) {
                                         "calc(min(92vw, 1100px) * -1 / 2)",
                                     overflow: "hidden",
                                     cursor: "zoom-out",
-                                    backgroundColor: "#E8E4DC",
+                                    backgroundColor: color.imagePlaceholder,
                                     borderRadius: "8px",
                                     boxShadow:
                                         "0 32px 80px rgba(28,25,23,0.6)",
@@ -478,7 +480,7 @@ function PosterImage({ entry }: { entry: ResearchEntry }) {
                                         right: "54px",
                                         zIndex: 3,
                                         padding: "4px 12px",
-                                        color: "#6B6560",
+                                        color: color.inkSecondary,
                                         backgroundColor:
                                             "rgba(242,237,228,0.92)",
                                         borderRadius: "20px",
@@ -525,7 +527,7 @@ function ClosePosterButton({
                 justifyContent: "center",
                 padding: 0,
                 cursor: "pointer",
-                color: "#1C1917",
+                color: color.ink,
                 backgroundColor: "rgba(242,237,228,0.92)",
                 border: "none",
                 borderRadius: "50%",
@@ -561,7 +563,7 @@ export default function ResearchPage() {
                     minHeight: "100vh",
                     paddingTop: "80px",
                     paddingBottom: "96px",
-                    backgroundColor: "#F2EDE4",
+                    backgroundColor: color.cream,
                 }}
             >
                 <div
@@ -578,21 +580,14 @@ export default function ResearchPage() {
                             alignItems: "center",
                             gap: "6px",
                             marginBottom: "48px",
-                            color: "#6B6560",
+                            color: color.inkSecondary,
                             fontFamily:
-                                "-apple-system, BlinkMacSystemFont, system-ui",
+                                font.system,
                             fontSize: "12px",
                             textDecoration: "none",
                             transition: "color 0.2s",
                         }}
-                        onMouseEnter={(event) => {
-                            event.currentTarget.style.color =
-                                "#F0A8CF";
-                        }}
-                        onMouseLeave={(event) => {
-                            event.currentTarget.style.color =
-                                "#6B6560";
-                        }}
+                        {...accentText}
                     >
                         ← back to desktop
                     </Link>
@@ -605,9 +600,9 @@ export default function ResearchPage() {
                         <div
                             style={{
                                 marginBottom: "12px",
-                                color: "#F0A8CF",
+                                color: color.pink,
                                 fontFamily:
-                                    "-apple-system, BlinkMacSystemFont, system-ui",
+                                    font.system,
                                 fontSize: "10px",
                                 letterSpacing: "0.06em",
                                 textTransform: "uppercase",
@@ -619,9 +614,9 @@ export default function ResearchPage() {
                         <h1
                             style={{
                                 margin: "0 0 12px",
-                                color: "#1C1917",
+                                color: color.ink,
                                 fontFamily:
-                                    "var(--font-playfair)",
+                                    font.display,
                                 fontSize:
                                     "clamp(32px, 5vw, 48px)",
                                 fontWeight: 400,
@@ -635,9 +630,9 @@ export default function ResearchPage() {
                         <p
                             style={{
                                 margin: 0,
-                                color: "#6B6560",
+                                color: color.inkSecondary,
                                 fontFamily:
-                                    "var(--font-dm-sans)",
+                                    font.body,
                                 fontSize: "13px",
                                 fontWeight: 300,
                                 lineHeight: 1.7,
@@ -685,7 +680,7 @@ export default function ResearchPage() {
                             >
                                 <span
                                     style={{
-                                        color: "#F0A8CF",
+                                        color: color.pink,
                                         fontFamily: "monospace",
                                         fontSize: "11px",
                                         letterSpacing: "0.04em",
@@ -699,18 +694,18 @@ export default function ResearchPage() {
                                         flex: 1,
                                         height: "0.5px",
                                         backgroundColor:
-                                            "rgba(28,25,23,0.10)",
+                                            line.card,
                                     }}
                                 />
 
                                 <span
                                     style={{
                                         padding: "2px 8px",
-                                        color: "#6B6560",
+                                        color: color.inkSecondary,
                                         backgroundColor:
                                             "rgba(28,25,23,0.04)",
                                         border:
-                                            "0.5px solid rgba(28,25,23,0.08)",
+                                            hairline(line.tile),
                                         borderRadius: "20px",
                                         fontFamily: "monospace",
                                         fontSize: "10px",
@@ -726,9 +721,9 @@ export default function ResearchPage() {
                             <div
                                 style={{
                                     marginBottom: "28px",
-                                    color: "#6B6560",
+                                    color: color.inkSecondary,
                                     fontFamily:
-                                        "-apple-system, BlinkMacSystemFont, system-ui",
+                                        font.system,
                                     fontSize: "10px",
                                 }}
                             >
@@ -744,7 +739,7 @@ export default function ResearchPage() {
                             >
                                 <div
                                     style={{
-                                        color: "#6B6560",
+                                        color: color.inkSecondary,
                                         fontFamily: "monospace",
                                         fontSize: "10px",
                                         letterSpacing: "0.06em",
@@ -757,9 +752,9 @@ export default function ResearchPage() {
                                 <h2
                                     style={{
                                         margin: 0,
-                                        color: "#1C1917",
+                                        color: color.ink,
                                         fontFamily:
-                                            "var(--font-playfair)",
+                                            font.display,
                                         fontSize:
                                             "clamp(18px, 3vw, 22px)",
                                         fontWeight: 400,
@@ -772,9 +767,9 @@ export default function ResearchPage() {
                                 <p
                                     style={{
                                         margin: 0,
-                                        color: "#6B6560",
+                                        color: color.inkSecondary,
                                         fontFamily:
-                                            "var(--font-dm-sans)",
+                                            font.body,
                                         fontSize: "14px",
                                         fontStyle: "italic",
                                         fontWeight: 300,
@@ -806,9 +801,9 @@ export default function ResearchPage() {
                                                 <span
                                                     style={{
                                                         color:
-                                                            "#6B6560",
+                                                            color.inkSecondary,
                                                         fontFamily:
-                                                            "var(--font-dm-sans)",
+                                                            font.body,
                                                         fontSize:
                                                             "11px",
                                                     }}
@@ -824,7 +819,7 @@ export default function ResearchPage() {
                                                         aria-hidden="true"
                                                         style={{
                                                             color:
-                                                                "#D3CEC9",
+                                                                color.rule,
                                                         }}
                                                     >
                                                         ·
@@ -840,16 +835,16 @@ export default function ResearchPage() {
                                     style={{
                                         height: "0.5px",
                                         backgroundColor:
-                                            "rgba(28,25,23,0.08)",
+                                            line.tile,
                                     }}
                                 />
 
                                 <p
                                     style={{
                                         margin: 0,
-                                        color: "#6B6560",
+                                        color: color.inkSecondary,
                                         fontFamily:
-                                            "var(--font-dm-sans)",
+                                            font.body,
                                         fontSize: "13px",
                                         fontWeight: 300,
                                         lineHeight: 1.8,
@@ -873,11 +868,11 @@ export default function ResearchPage() {
                                             style={{
                                                 padding:
                                                     "2px 10px",
-                                                color: "#6B6560",
+                                                color: color.inkSecondary,
                                                 backgroundColor:
                                                     "rgba(28,25,23,0.04)",
                                                 border:
-                                                    "0.5px solid rgba(28,25,23,0.08)",
+                                                    hairline(line.tile),
                                                 borderRadius:
                                                     "20px",
                                                 fontFamily:
@@ -903,37 +898,20 @@ export default function ResearchPage() {
                                             gap: "6px",
                                             padding:
                                                 "6px 16px",
-                                            color: "#1C1917",
+                                            color: color.ink,
                                             fontFamily:
-                                                "-apple-system, BlinkMacSystemFont, system-ui",
+                                                font.system,
                                             fontSize: "12px",
                                             textDecoration:
                                                 "none",
                                             border:
-                                                "0.5px solid rgba(28,25,23,0.20)",
+                                                hairline(line.pill),
                                             borderRadius:
                                                 "20px",
                                             transition:
                                                 "border-color 0.2s, color 0.2s",
                                         }}
-                                        onMouseEnter={(
-                                            event,
-                                        ) => {
-                                            event.currentTarget.style.borderColor =
-                                                "#F0A8CF";
-
-                                            event.currentTarget.style.color =
-                                                "#F0A8CF";
-                                        }}
-                                        onMouseLeave={(
-                                            event,
-                                        ) => {
-                                            event.currentTarget.style.borderColor =
-                                                "rgba(28,25,23,0.20)";
-
-                                            event.currentTarget.style.color =
-                                                "#1C1917";
-                                        }}
+                                        {...accentPill}
                                     >
                                         View on Argonne.gov →
                                     </a>

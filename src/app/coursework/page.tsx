@@ -3,6 +3,8 @@
 import { motion, AnimatePresence } from "framer-motion";
 import { useState } from "react";
 import Link from "next/link";
+import { accentText, hoverSwap } from "@/lib/hover";
+import { color, font, hairline, line } from "@/lib/theme";
 
 const semesters = [
     {
@@ -10,8 +12,8 @@ const semesters = [
         label: "Fall 2024",
         vibe: "the beginning",
         location: "Boston",
-        color: "#F0A8CF",
-        darkColor: "#D47BAD",
+        color: color.pink,
+        darkColor: color.pinkDark,
         courses: [
             { name: "CS 1802 Fundamentals of Computer Science I",  note: "where it all started"              },
             { name: "PHIL 1145 Technology and Human Values",       note: "asking why before asking how"      },
@@ -67,7 +69,7 @@ const semesters = [
         label: "Spring 2026",
         vibe: "in it now",
         location: "Boston",
-        color: "#D47BAD",
+        color: color.pinkDark,
         darkColor: "#A8547E",
         courses: [
             { name: "CS 4550 Web Development",                       note: "built StyleBoard in this one"           },
@@ -102,23 +104,22 @@ export default function CourseworkPage() {
 
     return (
         <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.4 }}>
-            <main style={{ minHeight: "100vh", backgroundColor: "#F2EDE4", paddingTop: "80px", paddingBottom: "96px" }}>
+            <main style={{ minHeight: "100vh", backgroundColor: color.cream, paddingTop: "80px", paddingBottom: "96px" }}>
                 <div style={{ maxWidth: "760px", margin: "0 auto", padding: "0 24px" }}>
 
                     <Link href="/readme" style={{
-                        fontFamily: "-apple-system,BlinkMacSystemFont,system-ui",
-                        fontSize: "12px", color: "#6B6560", textDecoration: "none",
+                        fontFamily: font.system,
+                        fontSize: "12px", color: color.inkSecondary, textDecoration: "none",
                         display: "inline-flex", alignItems: "center", gap: "6px",
                         marginBottom: "48px", transition: "color .2s",
                     }}
-                          onMouseEnter={e => ((e.currentTarget as HTMLElement).style.color = "#F0A8CF")}
-                          onMouseLeave={e => ((e.currentTarget as HTMLElement).style.color = "#6B6560")}
+                          {...accentText}
                     >← back to readme</Link>
 
                     <div style={{ marginBottom: "48px" }}>
-                        <div style={{ fontFamily: "-apple-system,BlinkMacSystemFont,system-ui", fontSize: "10px", color: "#F0A8CF", letterSpacing: "0.06em", textTransform: "uppercase", marginBottom: "12px" }}>coursework/</div>
-                        <h1 style={{ fontFamily: "var(--font-playfair)", fontSize: "clamp(32px,5vw,48px)", fontWeight: 400, color: "#1C1917", lineHeight: 1.1, letterSpacing: "-0.02em", margin: "0 0 12px 0" }}>Coursework</h1>
-                        <p style={{ fontFamily: "var(--font-dm-sans)", fontSize: "13px", fontWeight: 300, color: "#6B6560", lineHeight: 1.7, margin: 0 }}>Computer Science and Mathematics combined major · Northeastern University · Class of 2028</p>
+                        <div style={{ fontFamily: font.system, fontSize: "10px", color: color.pink, letterSpacing: "0.06em", textTransform: "uppercase", marginBottom: "12px" }}>coursework/</div>
+                        <h1 style={{ fontFamily: font.display, fontSize: "clamp(32px,5vw,48px)", fontWeight: 400, color: color.ink, lineHeight: 1.1, letterSpacing: "-0.02em", margin: "0 0 12px 0" }}>Coursework</h1>
+                        <p style={{ fontFamily: font.body, fontSize: "13px", fontWeight: 300, color: color.inkSecondary, lineHeight: 1.7, margin: 0 }}>Computer Science and Mathematics combined major · Northeastern University · Class of 2028</p>
                     </div>
 
                     {/* ── MOBILE ── */}
@@ -129,12 +130,12 @@ export default function CourseworkPage() {
                                 display: "flex", gap: "8px",
                                 overflowX: "auto", paddingBottom: "8px",
                                 scrollbarWidth: "thin",
-                                scrollbarColor: "#F0A8CF #EDE8DF",
+                                scrollbarColor: `${color.pink} #EDE8DF`,
                             }} className="pill-scroll">
                                 <style>{`
                   .pill-scroll::-webkit-scrollbar { height: 3px; }
                   .pill-scroll::-webkit-scrollbar-track { background: #EDE8DF; border-radius: 2px; }
-                  .pill-scroll::-webkit-scrollbar-thumb { background: #F0A8CF; border-radius: 2px; }
+                  .pill-scroll::-webkit-scrollbar-thumb { background: ${color.pink}; border-radius: 2px; }
                 `}</style>
                                 {semesters.map((sem, idx) => {
                                     const isActive = activeIdx === idx;
@@ -146,12 +147,12 @@ export default function CourseworkPage() {
                                                 flexShrink: 0,
                                                 padding: "6px 14px",
                                                 borderRadius: "20px",
-                                                border: `0.5px solid ${isActive ? sem.darkColor : "rgba(28,25,23,0.10)"}`,
+                                                border: `0.5px solid ${isActive ? sem.darkColor : line.card}`,
                                                 backgroundColor: isActive ? sem.color : "transparent",
-                                                fontFamily: isActive ? "var(--font-playfair)" : "-apple-system,BlinkMacSystemFont,system-ui",
+                                                fontFamily: isActive ? font.display : font.system,
                                                 fontStyle: isActive ? "italic" : "normal",
                                                 fontSize: "12px",
-                                                color: isActive ? sem.darkColor : "#6B6560",
+                                                color: isActive ? sem.darkColor : color.inkSecondary,
                                                 cursor: "pointer",
                                                 transition: "all 0.2s ease",
                                                 whiteSpace: "nowrap",
@@ -169,8 +170,8 @@ export default function CourseworkPage() {
                                     key="cover-mobile"
                                     initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
                                     style={{
-                                        backgroundColor: "#FAF7F2",
-                                        border: "0.5px solid rgba(28,25,23,0.10)",
+                                        backgroundColor: color.card,
+                                        border: hairline(line.card),
                                         borderRadius: "8px",
                                         padding: "40px 24px",
                                         textAlign: "center",
@@ -179,23 +180,23 @@ export default function CourseworkPage() {
                                     }}
                                 >
                                     <svg width="120" height="60" viewBox="0 0 200 100" fill="none">
-                                        <line x1="100" y1="8" x2="100" y2="92" stroke="#D3CEC9" strokeWidth="0.5" strokeDasharray="4 3"/>
-                                        <circle cx="28" cy="50" r="6" fill="none" stroke="#F0A8CF" strokeWidth="1.5"/>
-                                        <circle cx="52" cy="30" r="6" fill="none" stroke="#F0A8CF" strokeWidth="1.5"/>
-                                        <circle cx="52" cy="70" r="6" fill="none" stroke="#F0A8CF" strokeWidth="1.5"/>
-                                        <circle cx="76" cy="50" r="6" fill="none" stroke="#F0A8CF" strokeWidth="1.5"/>
-                                        <line x1="34" y1="46" x2="46" y2="34" stroke="#F0A8CF" strokeWidth="1"/>
-                                        <line x1="34" y1="54" x2="46" y2="66" stroke="#F0A8CF" strokeWidth="1"/>
-                                        <line x1="58" y1="30" x2="70" y2="46" stroke="#F0A8CF" strokeWidth="1"/>
-                                        <line x1="58" y1="70" x2="70" y2="54" stroke="#F0A8CF" strokeWidth="1"/>
-                                        <path d="M112,50 Q120,28 128,50 Q136,72 144,50 Q152,28 160,50 Q168,72 176,50 Q184,28 192,50" stroke="#D47BAD" strokeWidth="1.8" fill="none" strokeLinecap="round"/>
-                                        <line x1="110" y1="50" x2="194" y2="50" stroke="#D3CEC9" strokeWidth="0.5"/>
+                                        <line x1="100" y1="8" x2="100" y2="92" stroke={color.rule} strokeWidth="0.5" strokeDasharray="4 3"/>
+                                        <circle cx="28" cy="50" r="6" fill="none" stroke={color.pink} strokeWidth="1.5"/>
+                                        <circle cx="52" cy="30" r="6" fill="none" stroke={color.pink} strokeWidth="1.5"/>
+                                        <circle cx="52" cy="70" r="6" fill="none" stroke={color.pink} strokeWidth="1.5"/>
+                                        <circle cx="76" cy="50" r="6" fill="none" stroke={color.pink} strokeWidth="1.5"/>
+                                        <line x1="34" y1="46" x2="46" y2="34" stroke={color.pink} strokeWidth="1"/>
+                                        <line x1="34" y1="54" x2="46" y2="66" stroke={color.pink} strokeWidth="1"/>
+                                        <line x1="58" y1="30" x2="70" y2="46" stroke={color.pink} strokeWidth="1"/>
+                                        <line x1="58" y1="70" x2="70" y2="54" stroke={color.pink} strokeWidth="1"/>
+                                        <path d="M112,50 Q120,28 128,50 Q136,72 144,50 Q152,28 160,50 Q168,72 176,50 Q184,28 192,50" stroke={color.pinkDark} strokeWidth="1.8" fill="none" strokeLinecap="round"/>
+                                        <line x1="110" y1="50" x2="194" y2="50" stroke={color.rule} strokeWidth="0.5"/>
                                     </svg>
-                                    <div style={{ fontFamily: "var(--font-playfair)", fontSize: "20px", color: "#1C1917" }}>Olivia Hill</div>
-                                    <div style={{ fontFamily: "-apple-system,BlinkMacSystemFont,system-ui", fontSize: "11px", color: "#6B6560", lineHeight: 2 }}>
+                                    <div style={{ fontFamily: font.display, fontSize: "20px", color: color.ink }}>Olivia Hill</div>
+                                    <div style={{ fontFamily: font.system, fontSize: "11px", color: color.inkSecondary, lineHeight: 2 }}>
                                         Computer Science · Mathematics<br/>Northeastern University
                                     </div>
-                                    <div style={{ fontFamily: "-apple-system,BlinkMacSystemFont,system-ui", fontSize: "10px", color: "#6B6560" }}>
+                                    <div style={{ fontFamily: font.system, fontSize: "10px", color: color.inkSecondary }}>
                                         select a semester above
                                     </div>
                                 </motion.div>
@@ -207,8 +208,8 @@ export default function CourseworkPage() {
                                     initial="enter" animate="center" exit="exit"
                                     transition={{ duration: 0.28, ease: "easeOut" }}
                                     style={{
-                                        backgroundColor: "#FAF7F2",
-                                        border: "0.5px solid rgba(28,25,23,0.10)",
+                                        backgroundColor: color.card,
+                                        border: hairline(line.card),
                                         borderRadius: "8px",
                                         overflow: "hidden",
                                         position: "relative",
@@ -231,8 +232,8 @@ export default function CourseworkPage() {
                                     <div style={{ position: "relative", paddingLeft: "48px", paddingRight: "20px", paddingBottom: `${L}px` }}>
                                         {/* Header — 2 lines */}
                                         <div style={{ height: `${L * 2}px`, display: "flex", alignItems: "flex-end", paddingBottom: "5px" }}>
-                                            <span style={{ fontFamily: "var(--font-playfair)", fontStyle: "italic", fontSize: "16px", color: active!.darkColor, marginRight: "8px" }}>{active!.label}</span>
-                                            <span style={{ fontFamily: "-apple-system,BlinkMacSystemFont,system-ui", fontSize: "9px", color: "#6B6560" }}>{active!.vibe} · {active!.location}</span>
+                                            <span style={{ fontFamily: font.display, fontStyle: "italic", fontSize: "16px", color: active!.darkColor, marginRight: "8px" }}>{active!.label}</span>
+                                            <span style={{ fontFamily: font.system, fontSize: "9px", color: color.inkSecondary }}>{active!.vibe} · {active!.location}</span>
                                         </div>
 
                                         {/* Spacer */}
@@ -245,10 +246,10 @@ export default function CourseworkPage() {
                                                         animate={{ opacity: 1, x: 0 }}
                                                         transition={{ delay: i * 0.06, duration: 0.2 }}
                                             >
-                                                <div style={{ height: `${L}px`, display: "flex", alignItems: "center", fontFamily: "var(--font-dm-sans)", fontSize: "12px", fontWeight: 400, color: "#1C1917" }}>
+                                                <div style={{ height: `${L}px`, display: "flex", alignItems: "center", fontFamily: font.body, fontSize: "12px", fontWeight: 400, color: color.ink }}>
                                                     {course.name}
                                                 </div>
-                                                <div style={{ height: `${L}px`, display: "flex", alignItems: "center", fontFamily: "var(--font-playfair)", fontStyle: "italic", fontSize: "11px", color: "#6B6560" }}>
+                                                <div style={{ height: `${L}px`, display: "flex", alignItems: "center", fontFamily: font.display, fontStyle: "italic", fontSize: "11px", color: color.inkSecondary }}>
                                                     {course.note}
                                                 </div>
                                                 <div style={{ height: `${L}px` }}/>
@@ -257,7 +258,7 @@ export default function CourseworkPage() {
 
                                         {/* Footer */}
                                         <div style={{ height: `${L}px`, display: "flex", alignItems: "center", borderTop: "0.5px dashed rgba(28,25,23,0.10)" }}>
-                                            <span style={{ fontFamily: "-apple-system,BlinkMacSystemFont,system-ui", fontSize: "10px", color: "#6B6560" }}>{active!.courses.length} courses</span>
+                                            <span style={{ fontFamily: font.system, fontSize: "10px", color: color.inkSecondary }}>{active!.courses.length} courses</span>
                                         </div>
                                     </div>
                                 </motion.div>
@@ -271,7 +272,7 @@ export default function CourseworkPage() {
                             <div style={{ display: "flex", alignItems: "stretch", filter: "drop-shadow(0 8px 32px rgba(28,25,23,0.13)) drop-shadow(0 2px 8px rgba(28,25,23,0.07))" }}>
 
                                 {/* Spine */}
-                                <div style={{ width: "28px", background: "linear-gradient(90deg,#D47BAD,#F0A8CF)", borderRadius: "8px 0 0 8px", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", gap: "32px", flexShrink: 0 }}>
+                                <div style={{ width: "28px", background: `linear-gradient(90deg,${color.pinkDark},${color.pink})`, borderRadius: "8px 0 0 8px", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", gap: "32px", flexShrink: 0 }}>
                                     {[0,1,2].map(i => <div key={i} style={{ width: "15px", height: "15px", borderRadius: "50%", border: "2px solid rgba(255,255,255,.7)", backgroundColor: "rgba(255,255,255,.15)" }}/>)}
                                 </div>
 
@@ -280,7 +281,7 @@ export default function CourseworkPage() {
                                 <div style={{ position: "absolute", top: "3px", left: "28px", right: "-2px", bottom: "-3px", backgroundColor: "#EDE8DF", borderRadius: "0 8px 8px 0", zIndex: 0 }}/>
 
                                 {/* Body */}
-                                <div style={{ flex: 1, backgroundColor: "#FAF7F2", border: "0.5px solid rgba(28,25,23,.10)", borderLeft: "none", borderRadius: "0 8px 8px 0", position: "relative", minHeight: "640px", zIndex: 1 }}>
+                                <div style={{ flex: 1, backgroundColor: color.card, border: hairline(line.card), borderLeft: "none", borderRadius: "0 8px 8px 0", position: "relative", minHeight: "640px", zIndex: 1 }}>
 
                                     {/* Clipped content */}
                                     <div style={{ overflow: "hidden", borderRadius: "0 8px 8px 0", minHeight: "640px", position: "relative" }}>
@@ -292,38 +293,38 @@ export default function CourseworkPage() {
                                                             style={{ position: "absolute", inset: 0, display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", gap: "24px", padding: "48px", textAlign: "center" }}
                                                 >
                                                     <svg width="200" height="100" viewBox="0 0 200 100" fill="none">
-                                                        <line x1="100" y1="8" x2="100" y2="92" stroke="#D3CEC9" strokeWidth="0.5" strokeDasharray="4 3"/>
-                                                        <circle cx="28" cy="50" r="6" fill="none" stroke="#F0A8CF" strokeWidth="1.5"/>
-                                                        <circle cx="52" cy="30" r="6" fill="none" stroke="#F0A8CF" strokeWidth="1.5"/>
-                                                        <circle cx="52" cy="70" r="6" fill="none" stroke="#F0A8CF" strokeWidth="1.5"/>
-                                                        <circle cx="76" cy="50" r="6" fill="none" stroke="#F0A8CF" strokeWidth="1.5"/>
-                                                        <line x1="34" y1="46" x2="46" y2="34" stroke="#F0A8CF" strokeWidth="1"/>
-                                                        <line x1="34" y1="54" x2="46" y2="66" stroke="#F0A8CF" strokeWidth="1"/>
-                                                        <line x1="58" y1="30" x2="70" y2="46" stroke="#F0A8CF" strokeWidth="1"/>
-                                                        <line x1="58" y1="70" x2="70" y2="54" stroke="#F0A8CF" strokeWidth="1"/>
-                                                        <circle cx="28" cy="50" r="2" fill="#F0A8CF"/>
-                                                        <circle cx="52" cy="30" r="2" fill="#F0A8CF"/>
-                                                        <circle cx="52" cy="70" r="2" fill="#F0A8CF"/>
-                                                        <circle cx="76" cy="50" r="2" fill="#F0A8CF"/>
-                                                        <text x="14" y="22" fontFamily="monospace" fontSize="8" fill="#D3CEC9">01</text>
-                                                        <text x="72" y="22" fontFamily="monospace" fontSize="8" fill="#D3CEC9">10</text>
-                                                        <text x="14" y="82" fontFamily="monospace" fontSize="8" fill="#D3CEC9">11</text>
-                                                        <text x="72" y="82" fontFamily="monospace" fontSize="8" fill="#D3CEC9">00</text>
-                                                        <path d="M112,50 Q120,28 128,50 Q136,72 144,50 Q152,28 160,50 Q168,72 176,50 Q184,28 192,50" stroke="#D47BAD" strokeWidth="1.8" fill="none" strokeLinecap="round"/>
-                                                        <line x1="110" y1="50" x2="194" y2="50" stroke="#D3CEC9" strokeWidth="0.5"/>
-                                                        <text x="114" y="22" fontFamily="Georgia,serif" fontStyle="italic" fontSize="12" fill="#D3CEC9">∫</text>
-                                                        <text x="128" y="22" fontFamily="Georgia,serif" fontStyle="italic" fontSize="12" fill="#D3CEC9">∂</text>
-                                                        <text x="143" y="22" fontFamily="Georgia,serif" fontStyle="italic" fontSize="12" fill="#D3CEC9">∑</text>
-                                                        <text x="158" y="22" fontFamily="Georgia,serif" fontStyle="italic" fontSize="12" fill="#D3CEC9">π</text>
-                                                        <text x="135" y="88" fontFamily="Georgia,serif" fontStyle="italic" fontSize="10" fill="#6B6560">f(x) = sin(x)</text>
+                                                        <line x1="100" y1="8" x2="100" y2="92" stroke={color.rule} strokeWidth="0.5" strokeDasharray="4 3"/>
+                                                        <circle cx="28" cy="50" r="6" fill="none" stroke={color.pink} strokeWidth="1.5"/>
+                                                        <circle cx="52" cy="30" r="6" fill="none" stroke={color.pink} strokeWidth="1.5"/>
+                                                        <circle cx="52" cy="70" r="6" fill="none" stroke={color.pink} strokeWidth="1.5"/>
+                                                        <circle cx="76" cy="50" r="6" fill="none" stroke={color.pink} strokeWidth="1.5"/>
+                                                        <line x1="34" y1="46" x2="46" y2="34" stroke={color.pink} strokeWidth="1"/>
+                                                        <line x1="34" y1="54" x2="46" y2="66" stroke={color.pink} strokeWidth="1"/>
+                                                        <line x1="58" y1="30" x2="70" y2="46" stroke={color.pink} strokeWidth="1"/>
+                                                        <line x1="58" y1="70" x2="70" y2="54" stroke={color.pink} strokeWidth="1"/>
+                                                        <circle cx="28" cy="50" r="2" fill={color.pink}/>
+                                                        <circle cx="52" cy="30" r="2" fill={color.pink}/>
+                                                        <circle cx="52" cy="70" r="2" fill={color.pink}/>
+                                                        <circle cx="76" cy="50" r="2" fill={color.pink}/>
+                                                        <text x="14" y="22" fontFamily="monospace" fontSize="8" fill={color.rule}>01</text>
+                                                        <text x="72" y="22" fontFamily="monospace" fontSize="8" fill={color.rule}>10</text>
+                                                        <text x="14" y="82" fontFamily="monospace" fontSize="8" fill={color.rule}>11</text>
+                                                        <text x="72" y="82" fontFamily="monospace" fontSize="8" fill={color.rule}>00</text>
+                                                        <path d="M112,50 Q120,28 128,50 Q136,72 144,50 Q152,28 160,50 Q168,72 176,50 Q184,28 192,50" stroke={color.pinkDark} strokeWidth="1.8" fill="none" strokeLinecap="round"/>
+                                                        <line x1="110" y1="50" x2="194" y2="50" stroke={color.rule} strokeWidth="0.5"/>
+                                                        <text x="114" y="22" fontFamily="Georgia,serif" fontStyle="italic" fontSize="12" fill={color.rule}>∫</text>
+                                                        <text x="128" y="22" fontFamily="Georgia,serif" fontStyle="italic" fontSize="12" fill={color.rule}>∂</text>
+                                                        <text x="143" y="22" fontFamily="Georgia,serif" fontStyle="italic" fontSize="12" fill={color.rule}>∑</text>
+                                                        <text x="158" y="22" fontFamily="Georgia,serif" fontStyle="italic" fontSize="12" fill={color.rule}>π</text>
+                                                        <text x="135" y="88" fontFamily="Georgia,serif" fontStyle="italic" fontSize="10" fill={color.inkSecondary}>f(x) = sin(x)</text>
                                                     </svg>
                                                     <div>
-                                                        <div style={{ fontFamily: "var(--font-playfair)", fontSize: "28px", fontWeight: 400, color: "#1C1917", marginBottom: "10px" }}>Olivia Hill</div>
-                                                        <div style={{ fontFamily: "-apple-system,BlinkMacSystemFont,system-ui", fontSize: "12px", color: "#6B6560", letterSpacing: "0.04em", lineHeight: 2 }}>
+                                                        <div style={{ fontFamily: font.display, fontSize: "28px", fontWeight: 400, color: color.ink, marginBottom: "10px" }}>Olivia Hill</div>
+                                                        <div style={{ fontFamily: font.system, fontSize: "12px", color: color.inkSecondary, letterSpacing: "0.04em", lineHeight: 2 }}>
                                                             Computer Science<br/>Mathematics<br/>Northeastern University
                                                         </div>
                                                     </div>
-                                                    <div style={{ fontFamily: "-apple-system,BlinkMacSystemFont,system-ui", fontSize: "10px", color: "#6B6560", letterSpacing: "0.05em" }}>
+                                                    <div style={{ fontFamily: font.system, fontSize: "10px", color: color.inkSecondary, letterSpacing: "0.05em" }}>
                                                         select a semester →
                                                     </div>
                                                 </motion.div>
@@ -339,8 +340,8 @@ export default function CourseworkPage() {
                                                     <div style={{ position: "absolute", top: 0, bottom: 0, left: "40px", width: "1px", backgroundColor: `${active!.color}50`, pointerEvents: "none" }}/>
                                                     <div style={{ position: "relative" }}>
                                                         <div style={{ height: `${L * 2}px`, display: "flex", alignItems: "flex-end", paddingBottom: "5px" }}>
-                                                            <span style={{ fontFamily: "var(--font-playfair)", fontStyle: "italic", fontSize: "20px", color: active!.darkColor, marginRight: "10px" }}>{active!.label}</span>
-                                                            <span style={{ fontFamily: "-apple-system,BlinkMacSystemFont,system-ui", fontSize: "10px", color: "#6B6560", letterSpacing: "0.04em" }}>{active!.vibe} · {active!.location}</span>
+                                                            <span style={{ fontFamily: font.display, fontStyle: "italic", fontSize: "20px", color: active!.darkColor, marginRight: "10px" }}>{active!.label}</span>
+                                                            <span style={{ fontFamily: font.system, fontSize: "10px", color: color.inkSecondary, letterSpacing: "0.04em" }}>{active!.vibe} · {active!.location}</span>
                                                         </div>
                                                         <div style={{ height: `${L}px` }}/>
                                                         {active!.courses.map((course, i) => (
@@ -349,13 +350,13 @@ export default function CourseworkPage() {
                                                                         animate={{ opacity: 1, x: 0 }}
                                                                         transition={{ delay: i * 0.07, duration: 0.22 }}
                                                             >
-                                                                <div style={{ height: `${L}px`, display: "flex", alignItems: "center", fontFamily: "var(--font-dm-sans)", fontSize: "13px", fontWeight: 400, color: "#1C1917" }}>{course.name}</div>
-                                                                <div style={{ height: `${L}px`, display: "flex", alignItems: "center", fontFamily: "var(--font-playfair)", fontStyle: "italic", fontSize: "11px", color: "#6B6560" }}>{course.note}</div>
+                                                                <div style={{ height: `${L}px`, display: "flex", alignItems: "center", fontFamily: font.body, fontSize: "13px", fontWeight: 400, color: color.ink }}>{course.name}</div>
+                                                                <div style={{ height: `${L}px`, display: "flex", alignItems: "center", fontFamily: font.display, fontStyle: "italic", fontSize: "11px", color: color.inkSecondary }}>{course.note}</div>
                                                                 <div style={{ height: `${L}px` }}/>
                                                             </motion.div>
                                                         ))}
                                                         <div style={{ height: `${L}px`, display: "flex", alignItems: "center", borderTop: "0.5px dashed rgba(28,25,23,.10)" }}>
-                                                            <span style={{ fontFamily: "-apple-system,BlinkMacSystemFont,system-ui", fontSize: "10px", color: "#6B6560", letterSpacing: "0.04em" }}>{active!.courses.length} courses</span>
+                                                            <span style={{ fontFamily: font.system, fontSize: "10px", color: color.inkSecondary, letterSpacing: "0.04em" }}>{active!.courses.length} courses</span>
                                                         </div>
                                                     </div>
                                                 </motion.div>
@@ -375,9 +376,9 @@ export default function CourseworkPage() {
                                                             width: `${TW}px`, height: `${TH}px`,
                                                             backgroundColor: isActive ? sem.color : `${sem.color}70`,
                                                             border: "none",
-                                                            borderTop: `0.5px solid ${isActive ? sem.darkColor : "rgba(28,25,23,.08)"}`,
-                                                            borderRight: `0.5px solid ${isActive ? sem.darkColor : "rgba(28,25,23,.08)"}`,
-                                                            borderBottom: `0.5px solid ${isActive ? sem.darkColor : "rgba(28,25,23,.08)"}`,
+                                                            borderTop: `0.5px solid ${isActive ? sem.darkColor : line.tile}`,
+                                                            borderRight: `0.5px solid ${isActive ? sem.darkColor : line.tile}`,
+                                                            borderBottom: `0.5px solid ${isActive ? sem.darkColor : line.tile}`,
                                                             borderLeft: "none",
                                                             borderRadius: "0 6px 6px 0",
                                                             cursor: "pointer",
@@ -385,14 +386,18 @@ export default function CourseworkPage() {
                                                             transition: "all .2s ease",
                                                             boxShadow: isActive ? `2px 0 10px ${sem.color}50` : "1px 0 4px rgba(28,25,23,.06)",
                                                         }}
-                                                        onMouseEnter={e => { if (!isActive) (e.currentTarget as HTMLElement).style.backgroundColor = `${sem.color}95`; }}
-                                                        onMouseLeave={e => { if (!isActive) (e.currentTarget as HTMLElement).style.backgroundColor = `${sem.color}70`; }}
+                                                        {...(isActive
+                                                            ? {}
+                                                            : hoverSwap(
+                                                                { backgroundColor: `${sem.color}95` },
+                                                                { backgroundColor: `${sem.color}70` },
+                                                            ))}
                                                     >
                             <span style={{ position: "relative", display: "flex", alignItems: "center", justifyContent: "center" }}>
-                              <span style={{ fontFamily: "-apple-system,BlinkMacSystemFont,system-ui", fontSize: "10px", fontWeight: 300, color: sem.darkColor, writingMode: "vertical-rl", textOrientation: "mixed", transform: "rotate(180deg)", letterSpacing: "0.04em", whiteSpace: "nowrap", position: "absolute", opacity: isActive ? 0 : 1, transition: "opacity 0.4s ease" }}>
+                              <span style={{ fontFamily: font.system, fontSize: "10px", fontWeight: 300, color: sem.darkColor, writingMode: "vertical-rl", textOrientation: "mixed", transform: "rotate(180deg)", letterSpacing: "0.04em", whiteSpace: "nowrap", position: "absolute", opacity: isActive ? 0 : 1, transition: "opacity 0.4s ease" }}>
                                 {sem.label}
                               </span>
-                              <span style={{ fontFamily: "var(--font-playfair)", fontStyle: "italic", fontSize: "10px", fontWeight: 400, color: sem.darkColor, writingMode: "vertical-rl", textOrientation: "mixed", transform: "rotate(180deg)", letterSpacing: "0.04em", whiteSpace: "nowrap", opacity: isActive ? 1 : 0, transition: "opacity 0.4s ease" }}>
+                              <span style={{ fontFamily: font.display, fontStyle: "italic", fontSize: "10px", fontWeight: 400, color: sem.darkColor, writingMode: "vertical-rl", textOrientation: "mixed", transform: "rotate(180deg)", letterSpacing: "0.04em", whiteSpace: "nowrap", opacity: isActive ? 1 : 0, transition: "opacity 0.4s ease" }}>
                                 {sem.label}
                               </span>
                             </span>

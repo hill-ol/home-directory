@@ -11,21 +11,67 @@ npm run dev
 
 ## Stack
 
-Next.js 15 App Router · TypeScript · Tailwind v4 (CSS-first config in `globals.css`) · Framer Motion · Vercel
+Next.js 16 App Router · TypeScript · Tailwind v4 (CSS-first config in `globals.css`) · Framer Motion · Vercel
 
 ## Design system
 
-| Token | Value |
-|---|---|
-| Background | `#F2EDE4` |
-| Text primary | `#1C1917` |
-| Text secondary | `#6B6560` |
-| Text muted | `#A89E99` |
-| Accent (front) | `#F0A8CF` |
-| Accent (dark) | `#D47BAD` |
-| Card background | `#FAF7F2` |
+Tokens live in `src/lib/theme.ts`. Import from there rather than typing a hex
+literal: `import { color, font, hairline, line } from "@/lib/theme"`.
 
-**Fonts:** Playfair Display (`var(--font-playfair)`) + DM Sans (`var(--font-dm-sans)`) + system-ui for filenames/monospace labels.
+| Token | Value | |
+|---|---|---|
+| `color.cream` | `#F2EDE4` | Background |
+| `color.card` | `#FAF7F2` | Card background |
+| `color.ink` | `#1C1917` | Text primary |
+| `color.inkSecondary` | `#6B6560` | Text secondary |
+| `color.inkMuted` | `#A89E99` | Text muted |
+| `color.pink` | `#F0A8CF` | Accent (front) |
+| `color.pinkDark` | `#D47BAD` | Accent (dark) |
+| `color.pinkLight` | `#F5BADB` | Folder body on hover |
+| `color.pinkDeep` | `#C966A0` | Folder tab on hover |
+| `color.imagePlaceholder` | `#E8E4DC` | Behind photos before they load |
+| `color.rule` | `#D3CEC9` | Coursework diagram rules |
+
+Borders are the ink color at low alpha, named by role: `line.divider` (0.06),
+`line.tile` (0.08), `line.card` (0.10), `line.pill` (0.20). Wrap them in
+`hairline()` for the standard `0.5px solid` border.
+
+Deeper alphas of the same ink are drop shadows. Those stay inline, since they
+are per-component depth choices rather than a shared scale. The same goes for
+one-off palettes that belong to a single component: the passport stamp colors
+and the macOS traffic lights.
+
+**Fonts:** `font.display` (Playfair Display) + `font.body` (DM Sans) +
+`font.system` for filenames and monospace labels.
+
+### Hover styles
+Because everything is styled with inline `style` objects, there is no `:hover`
+to lean on. `src/lib/hover.ts` supplies the handler pairs instead:
+
+| Export | Use |
+|---|---|
+| `accentText` | Secondary text that takes the accent: nav items, back links |
+| `accentPill` | Outlined pill links, where border and label both take the accent |
+| `hoverSwap(on, off)` | Any other pair, including values computed per item |
+| `hoverSwapChild(sel, on, off)` | Style a descendant instead of the element itself |
+| `applyStyle(styles)` | A single setter, for sharing one style across several handlers |
+
+Spread them onto the element: `<Link style={{...}} {...accentText}>`.
+
+These mutate `element.style` directly rather than routing hover through React
+state. That is deliberate. Hover then costs no re-render, and the easing comes
+from the CSS `transition` already declared on the element. Do not replace them
+with `motion` components or `useState` for the sake of tidiness: that trades a
+free CSS transition for a render on every pointer move.
+
+### Why the tokens are literal hex
+Satori, which renders `src/app/og/route.tsx`, cannot resolve CSS custom
+properties, and `FolderGlyph` feeds that route. A `var(--color-pink)` in
+`theme.ts` would render as nothing in the OG image.
+
+That means the brand colors are declared twice: once in `theme.ts` for
+TypeScript, once in the `@theme` block in `globals.css` for `:focus-visible`
+and `.skip-link`. Change both together.
 
 ## Architecture
 
@@ -43,16 +89,65 @@ Closing reverses the animation and calls `window.history.pushState` back to `/`.
 ### Project fallback pages
 `src/app/projects/[slug]/page.tsx` exists as a fallback for direct URL access and SEO. It renders `ProjectContent` with a plain fade-in, no overlay animation. The back button uses `router.push("/")`.
 
+### Shared project presentation
+`ProjectOverlay` and `ProjectContent` show the same project at two densities:
+the modal is compact, the page is roomy. The header, metadata row, and link
+pills come from `src/components/project/`, and every difference between the two
+lives in `variants.ts` behind a single `variant: "overlay" | "page"` prop.
+
+Add a new shared style there rather than in either view, otherwise the two
+drift. Tagline and description are exported as style objects instead of
+components so each view can spread them onto its own element: the page animates
+them in with `motion.p`, the overlay renders a plain `p`.
+
+`ProjectHeader` takes the close button as `children` (only the overlay passes
+one) and an optional `titleId` so the overlay can point `aria-labelledby` at the
+project title.
+
+### Shared SVG glyphs
+The folder shape and the resume document icon live in
+`src/components/glyphs/`. The folder is drawn at six sizes across the canvas
+icons, the mobile grid, the loading and 404 screens, and the OG image, so the
+path string exists in exactly one place.
+
+`FolderGlyph` takes explicit `width` and `height` rather than deriving one from
+the other, because the existing call sites round the 96:78 ratio differently
+(360x292 and 120x98 in the OG image). It also takes `children`, which is how the
+404 screen puts a question mark inside the folder.
+
+**`FolderGlyph` must stay free of `"use client"` and of hooks.**
+`src/app/og/route.tsx` runs on the edge runtime and renders through satori; a
+client directive would break that route. For the same reason the fill transition
+is applied only when the `hovered` prop is passed, so static folders emit no CSS
+that satori has no use for.
+
 ### Mobile vs desktop
 The homepage renders two separate layouts gated by `className="hidden md:block"` / `className="block md:hidden"`. Both share the same `openProject` callback and `ProjectOverlay`. The breakpoint is `md` (768px).
+
+One `FolderIcon` serves both, switched by `variant`. Desktop draws it at 96x78
+with an 11px label and takes a `position` for the absolute canvas; mobile draws
+it at 64x52 with a 10px label, sits in grid flow, and adds `whileTap` since
+there is no hover on touch.
+
+`IconTile` is chrome only, and that is deliberate. The four places that use it
+animate differently on purpose: the desktop stack scales the tile but not its
+label, the desktop orgs scale the whole group, the mobile stack uses Framer so
+it can carry tap feedback and a brand-colored glow, and the mobile org grid is
+static. Forcing one mechanism on all four would break three of them, so the
+scale stays with each parent.
 
 ## Key components
 
 | Component | Purpose |
 |---|---|
-| `FolderIcon` | Desktop folder — hover darkens, click passes `DOMRect` to `openProject` |
+| `FolderIcon` | Folder for both layouts — hover darkens, click passes `DOMRect` to `openProject` |
+| `IconTile` | The 44px rounded white square behind every tech and org icon |
+| `HoverLabel` | Small caption that darkens when its parent is hovered |
 | `MobileHome` | Mobile homepage — grid of folders, stack icons, org icons |
 | `ProjectOverlay` | Full-screen overlay panel — animates from folder position using DOMRect offset |
+| `ProjectContent` | Standalone `/projects/<slug>` body — same content, staggered fade-in |
+| `project/*` | Header, metadata row, and link pills shared by the two above |
+| `glyphs/*` | `FolderGlyph` and `PdfGlyph` — the two reused SVG shapes |
 | `ContextMenu` | Right-click menu on desktop canvas only — shows bio info + quick links |
 | `MenuBar` | Top nav with live clock · `MobileNav` export for bottom mobile nav |
 | `StackOrbit` | 11 scattered tech icons with brand color on hover |
@@ -60,15 +155,49 @@ The homepage renders two separate layouts gated by `className="hidden md:block"`
 
 ## Content
 
-All project data lives in `src/content/projects/index.ts`. Each entry has:
+All site data lives in `src/content/`. Components read from these files and never
+declare their own copies: the desktop and mobile layouts render the same arrays.
+
+| File | Holds | Read by |
+|---|---|---|
+| `projects/index.ts` | Project entries + desktop folder positions | `page.tsx`, `MobileHome`, `/work`, `/projects/[slug]`, `sitemap.ts` |
+| `stack.ts` | 11 tech icons + desktop positions | `StackOrbit`, `MobileHome` |
+| `orgs.ts` | 4 org logos + desktop positions | `OrgIcons`, `MobileHome` |
+| `contact.ts` | Every outbound personal link | `ContextMenu`, `TakeWhatYouNeed`, `ResumeIcon`, `MobileHome`, `/readme` |
+
+Each project entry:
 ```ts
 {
   slug, filename, title, tagline, description,
-  role, period, stack, github?, live?
+  role, period, stack, github?, live?,
+  home?: { top, left }
 }
 ```
 
-To add a new project: add an entry to the array, add a `FolderIcon` in `page.tsx` and a `MobileFolder` in `MobileHome.tsx`.
+### Desktop position lives in the content file, not the page
+The desktop canvas is hand-composed, so there is no sensible default placement.
+The `home` field carries a project's coordinates and `desktopProjects` filters to
+the entries that have one. Stack and org entries use a required `desktop` field
+for the same reason. Keeping coordinates next to the data is what makes adding a
+project a single edit.
+
+### Adding a project
+Add one entry to the `projects` array. Both layouts pick it up automatically: the
+desktop canvas from `home`, the mobile grid from array order. Omit `home` to keep
+a project off the desktop canvas while still listing it on `/work`, on the mobile
+grid, and at `/projects/<slug>`.
+
+### Array order matters
+The `projects` array order drives `/work`, the mobile home grid, and
+`sitemap.ts`. It is currently reverse chronological. Reordering changes all three.
+Desktop canvas order is irrelevant since those folders are absolutely positioned.
+
+### Changing a link
+Edit `contact.ts` only. Four components and the readme page read from it. The
+record is keyed for components that need one specific link, and `contactLinks` is
+the ordered array for components that render the whole set. Before this was
+centralized, the same URL lived in three places and the context menu's LinkedIn
+link had silently gone stale.
 
 ## Writing conventions
 
@@ -92,3 +221,9 @@ To add a new project: add an entry to the array, add a `FolderIcon` in `page.tsx
 - The `overflow: "hidden"` / `transform: scale()` separation in `PosterImage` — they must be on separate elements or scale won't render
 - Tailwind v4 uses CSS-first config — do not create a `tailwind.config.js`
 - The `md` breakpoint gates mobile vs desktop layout on the homepage — do not change to `lg`
+- Content lives in `src/content/` and is read by both layouts — do not re-declare project, stack, org, or contact data inside a component
+- `ProjectOverlay` and `ProjectContent` share `src/components/project/` — do not restyle one view in isolation, change the variant instead
+- `FolderGlyph` must not gain `"use client"` or any hook — the edge-runtime OG route imports it
+- Tokens in `src/lib/theme.ts` must stay literal hex — satori cannot resolve `var()` in the OG image
+- Do not type a brand hex literal in a component — import the token so the two never drift
+- Hover handlers mutate `element.style` on purpose — do not convert them to state or `motion`

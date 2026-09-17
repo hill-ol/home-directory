@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { color, font } from "@/lib/theme";
 
 const stamps = [
     {
@@ -22,8 +23,8 @@ const stamps = [
         rotation: "5deg",
         top: "70px",
         left: "200px",
-        color: "#F0A8CF",
-        darkColor: "#D47BAD",
+        color: color.pink,
+        darkColor: color.pinkDark,
     },
     {
         city: "Budapest",
@@ -116,30 +117,30 @@ function Landmark({ city, fill, bg }: { city: string; fill: string; bg: string }
     );
 }
 
-function StampSVG({ city, country, detail, season, color, darkColor, hovered }: {
+function StampSVG({ city, country, detail, season, color: stampColor, darkColor, hovered }: {
     city: string; country: string; detail: string; season: string;
     color: string; darkColor: string; hovered: boolean;
 }) {
     const w = 130;
     const h = 150;
     const fill = hovered ? darkColor : "#C8C4BF";
-    const bg   = hovered ? `${color}60` : "rgba(28,25,23,0.04)";
+    const bg   = hovered ? `${stampColor}60` : "rgba(28,25,23,0.04)";
 
     return (
         <svg width={w} height={h} viewBox={`0 0 ${w} ${h}`} fill="none" xmlns="http://www.w3.org/2000/svg">
             <rect x="0" y="0" width={w} height={h} rx="4"
-                  fill={hovered ? color : "#FAF7F2"}
+                  fill={hovered ? stampColor : color.card}
                   style={{ transition: "fill 0.3s ease" }}
             />
 
-            {Array.from({ length: 14 }, (_, i) => <circle key={`t${i}`} cx={6 + i * 9} cy={0}  r={3.5} fill="#F2EDE4"/>)}
-            {Array.from({ length: 14 }, (_, i) => <circle key={`b${i}`} cx={6 + i * 9} cy={h}  r={3.5} fill="#F2EDE4"/>)}
-            {Array.from({ length: 15 }, (_, i) => <circle key={`l${i}`} cx={0} cy={6 + i * 9}  r={3.5} fill="#F2EDE4"/>)}
-            {Array.from({ length: 15 }, (_, i) => <circle key={`r${i}`} cx={w} cy={6 + i * 9}  r={3.5} fill="#F2EDE4"/>)}
+            {Array.from({ length: 14 }, (_, i) => <circle key={`t${i}`} cx={6 + i * 9} cy={0}  r={3.5} fill={color.cream}/>)}
+            {Array.from({ length: 14 }, (_, i) => <circle key={`b${i}`} cx={6 + i * 9} cy={h}  r={3.5} fill={color.cream}/>)}
+            {Array.from({ length: 15 }, (_, i) => <circle key={`l${i}`} cx={0} cy={6 + i * 9}  r={3.5} fill={color.cream}/>)}
+            {Array.from({ length: 15 }, (_, i) => <circle key={`r${i}`} cx={w} cy={6 + i * 9}  r={3.5} fill={color.cream}/>)}
 
             <rect x="8" y="8" width={w - 16} height={h - 16}
                   fill="none"
-                  stroke={hovered ? darkColor : "#D3CEC9"}
+                  stroke={hovered ? darkColor : color.rule}
                   strokeWidth="0.5"
                   style={{ transition: "stroke 0.3s ease" }}
             />
@@ -147,33 +148,33 @@ function StampSVG({ city, country, detail, season, color, darkColor, hovered }: 
             <Landmark city={city} fill={fill} bg={bg} />
 
             <text x={w / 2} y="90" textAnchor="middle"
-                  fontFamily="var(--font-playfair), Georgia, serif"
+                  fontFamily={`${font.display}, Georgia, serif`}
                   fontStyle="italic" fontSize="14"
-                  fill={hovered ? darkColor : "#1C1917"}
+                  fill={hovered ? darkColor : color.ink}
                   style={{ transition: "fill 0.3s ease" }}
             >{city}</text>
 
             <text x={w / 2} y="102" textAnchor="middle"
-                  fontFamily="-apple-system, BlinkMacSystemFont, system-ui"
+                  fontFamily={font.system}
                   fontSize="7" letterSpacing="0.08em"
-                  fill={hovered ? darkColor : "#A89E99"}
+                  fill={hovered ? darkColor : color.inkMuted}
                   style={{ transition: "fill 0.3s ease" }}
             >{country.toUpperCase()}</text>
 
             <rect x="20" y="108" width={w - 40} height="0.5"
-                  fill={hovered ? darkColor : "#D3CEC9"} opacity="0.6"/>
+                  fill={hovered ? darkColor : color.rule} opacity="0.6"/>
 
             <text x={w / 2} y="120" textAnchor="middle"
-                  fontFamily="-apple-system, BlinkMacSystemFont, system-ui"
+                  fontFamily={font.system}
                   fontSize="7.5"
-                  fill={hovered ? darkColor : "#6B6560"}
+                  fill={hovered ? darkColor : color.inkSecondary}
                   style={{ transition: "fill 0.3s ease" }}
             >{detail}</text>
 
             <text x={w / 2} y="132" textAnchor="middle"
-                  fontFamily="-apple-system, BlinkMacSystemFont, system-ui"
+                  fontFamily={font.system}
                   fontSize="7"
-                  fill={hovered ? darkColor : "#A89E99"}
+                  fill={hovered ? darkColor : color.inkMuted}
                   style={{ transition: "fill 0.3s ease" }}
             >{season}</text>
         </svg>

@@ -1,5 +1,13 @@
 @import "tailwindcss";
 
+/*
+* The CSS side of the design tokens, used by :focus-visible and .skip-link
+* below. Everything styled in TypeScript reads src/lib/theme.ts instead.
+*
+* These duplicate the brand colors in that file by necessity: satori, which
+* renders the OG image, cannot resolve CSS custom properties, so the TS side
+* has to hold literal hex. Change both together.
+*/
 @theme {
   --color-cream: #F2EDE4;
   --color-ink: #1C1917;
@@ -7,9 +15,6 @@
   --color-ink-muted: #A89E99;
   --color-pink: #F0A8CF;
   --color-pink-dark: #D47BAD;
-
-  --font-display: var(--font-playfair);
-  --font-sans: var(--font-dm-sans);
 }
 
 *,

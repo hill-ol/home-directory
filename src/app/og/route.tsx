@@ -1,5 +1,8 @@
 import { ImageResponse } from "next/og";
 
+import FolderGlyph from "@/components/glyphs/FolderGlyph";
+import { color } from "@/lib/theme";
+
 export const runtime = "edge";
 
 export async function GET() {
@@ -9,7 +12,7 @@ export async function GET() {
                 style={{
                     width: "1200px",
                     height: "630px",
-                    backgroundColor: "#F2EDE4",
+                    backgroundColor: color.cream,
                     display: "flex",
                     alignItems: "center",
                     padding: "0 112px",
@@ -24,10 +27,11 @@ export async function GET() {
                     marginTop: "-180px",
                     display: "flex",
                 }}>
-                    <svg width="360" height="292" viewBox="0 0 96 78" preserveAspectRatio="xMidYMid meet" fill="none">
-                        <path d="M6,78 Q2,78 2,74 L2,8 Q2,2 8,2 L34,2 Q40,2 42,6 L44,12 Q46,16 50,16 L90,16 Q94,16 94,20 L94,74 Q94,78 90,78 Z" fill="#D47BAD"/>
-                        <rect x="2" y="18" width="92" height="58" rx="6" fill="#F0A8CF"/>
-                    </svg>
+                    <FolderGlyph
+                        width={360}
+                        height={292}
+                        preserveAspectRatio="xMidYMid meet"
+                    />
                 </div>
 
                 {/* Ghost folder top right */}
@@ -38,10 +42,11 @@ export async function GET() {
                     display: "flex",
                     opacity: 0.2,
                 }}>
-                    <svg width="120" height="98" viewBox="0 0 96 78" preserveAspectRatio="xMidYMid meet" fill="none">
-                        <path d="M6,78 Q2,78 2,74 L2,8 Q2,2 8,2 L34,2 Q40,2 42,6 L44,12 Q46,16 50,16 L90,16 Q94,16 94,20 L94,74 Q94,78 90,78 Z" fill="#D47BAD"/>
-                        <rect x="2" y="18" width="92" height="58" rx="6" fill="#F0A8CF"/>
-                    </svg>
+                    <FolderGlyph
+                        width={120}
+                        height={98}
+                        preserveAspectRatio="xMidYMid meet"
+                    />
                 </div>
 
                 {/* Left content */}
@@ -51,7 +56,7 @@ export async function GET() {
                     <div style={{
                         width: "40px",
                         height: "4px",
-                        backgroundColor: "#F0A8CF",
+                        backgroundColor: color.pink,
                         borderRadius: "2px",
                         marginBottom: "32px",
                     }} />
@@ -60,7 +65,7 @@ export async function GET() {
                     <div style={{
                         fontSize: "100px",
                         fontWeight: 400,
-                        color: "#1C1917",
+                        color: color.ink,
                         lineHeight: 1,
                         letterSpacing: "-4px",
                         marginBottom: "24px",
@@ -72,7 +77,7 @@ export async function GET() {
                     {/* Role */}
                     <div style={{
                         fontSize: "28px",
-                        color: "#6B6560",
+                        color: color.inkSecondary,
                         lineHeight: 1.4,
                         fontFamily: "'Helvetica Neue', Arial, sans-serif",
                         fontWeight: 300,
@@ -86,7 +91,7 @@ export async function GET() {
                         {["TypeScript", "Next.js", "Java", "Python"].map(tag => (
                             <div key={tag} style={{
                                 fontSize: "16px",
-                                color: "#6B6560",
+                                color: color.inkSecondary,
                                 border: "1.5px solid rgba(28,25,23,0.14)",
                                 borderRadius: "40px",
                                 padding: "6px 18px",

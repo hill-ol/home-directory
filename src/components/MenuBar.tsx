@@ -4,6 +4,8 @@ import { motion } from "framer-motion";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
+import { accentText } from "@/lib/hover";
+import { color, font, hairline, line } from "@/lib/theme";
 
 const navLinks = [
     { href: "/work", label: "work" },
@@ -90,9 +92,9 @@ function MenuClock() {
     return (
         <span
             style={{
-                color: "#6B6560",
+                color: color.inkSecondary,
                 fontFamily:
-                    "-apple-system, BlinkMacSystemFont, system-ui",
+                    font.system,
                 fontSize: "11px",
                 letterSpacing: "0.01em",
             }}
@@ -116,7 +118,7 @@ export default function MenuBar() {
                 backdropFilter: "blur(12px)",
                 WebkitBackdropFilter: "blur(12px)",
                 borderBottom:
-                    "0.5px solid rgba(28, 25, 23, 0.08)",
+                    hairline(line.tile),
             }}
         >
             <div
@@ -141,18 +143,11 @@ export default function MenuBar() {
                         style={{
                             display: "flex",
                             alignItems: "center",
-                            color: "#6B6560",
+                            color: color.inkSecondary,
                             textDecoration: "none",
                             transition: "color 0.2s ease",
                         }}
-                        onMouseEnter={(event) => {
-                            event.currentTarget.style.color =
-                                "#F0A8CF";
-                        }}
-                        onMouseLeave={(event) => {
-                            event.currentTarget.style.color =
-                                "#6B6560";
-                        }}
+                        {...accentText}
                     >
                         <svg
                             aria-hidden="true"
@@ -176,8 +171,8 @@ export default function MenuBar() {
                             pathname === "/" ? "page" : undefined
                         }
                         style={{
-                            color: "#1C1917",
-                            fontFamily: "var(--font-dm-sans)",
+                            color: color.ink,
+                            fontFamily: font.body,
                             fontSize: "13px",
                             letterSpacing: "0.02em",
                             textDecoration: "none",
@@ -238,9 +233,9 @@ export default function MenuBar() {
                                     aria-hidden="true"
                                     style={{
                                         display: "block",
-                                        color: "#F0A8CF",
+                                        color: color.pink,
                                         fontFamily:
-                                            "var(--font-playfair)",
+                                            font.display,
                                         fontSize: "13px",
                                         fontStyle: "italic",
                                         opacity: isHighlighted ? 1 : 0,
@@ -257,9 +252,9 @@ export default function MenuBar() {
                                         top: 0,
                                         right: 0,
                                         left: 0,
-                                        color: "#6B6560",
+                                        color: color.inkSecondary,
                                         fontFamily:
-                                            "var(--font-dm-sans)",
+                                            font.body,
                                         fontSize: "13px",
                                         opacity: isHighlighted ? 0 : 1,
                                         whiteSpace: "nowrap",
@@ -286,7 +281,7 @@ export default function MenuBar() {
                                                 : "0"
                                             : "50%",
                                         height: "1.5px",
-                                        backgroundColor: "#F0A8CF",
+                                        backgroundColor: color.pink,
                                         borderRadius: "1px",
                                         transition:
                                             "left 0.35s ease, right 0.35s ease",
@@ -308,9 +303,9 @@ export default function MenuBar() {
                 >
                     <span
                         style={{
-                            color: "#6B6560",
+                            color: color.inkSecondary,
                             fontFamily:
-                                "-apple-system, BlinkMacSystemFont, system-ui",
+                                font.system,
                             fontSize: "11px",
                             letterSpacing: "0.01em",
                         }}
@@ -337,7 +332,7 @@ export function MobileNav() {
                 backgroundColor: "rgba(242,237,228,0.95)",
                 backdropFilter: "blur(12px)",
                 WebkitBackdropFilter: "blur(12px)",
-                borderTop: "0.5px solid rgba(28,25,23,0.08)",
+                borderTop: hairline(line.tile),
             }}
         >
             <div
@@ -392,8 +387,8 @@ export function MobileNav() {
                                         fill="none"
                                         stroke={
                                             isActive
-                                                ? "#F0A8CF"
-                                                : "#A89E99"
+                                                ? color.pink
+                                                : color.inkMuted
                                         }
                                         strokeWidth="1.5"
                                         strokeLinecap="round"
@@ -411,8 +406,8 @@ export function MobileNav() {
                                 <motion.span
                                     animate={{
                                         color: isActive
-                                            ? "#F0A8CF"
-                                            : "#6B6560",
+                                            ? color.pink
+                                            : color.inkSecondary,
                                         fontStyle: isActive
                                             ? "italic"
                                             : "normal",
@@ -420,8 +415,8 @@ export function MobileNav() {
                                     transition={{ duration: 0.2 }}
                                     style={{
                                         fontFamily: isActive
-                                            ? "var(--font-playfair)"
-                                            : "-apple-system, BlinkMacSystemFont, system-ui",
+                                            ? font.display
+                                            : font.system,
                                         fontSize: "9px",
                                         letterSpacing: "0.03em",
                                     }}
