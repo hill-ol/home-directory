@@ -38,7 +38,10 @@ export default function Polaroid() {
                 </svg>
             </div>
 
-            {/* Polaroid frame */}
+            {/*
+             * Polaroid frame. The deep bottom padding is the blank strip a
+             * polaroid leaves for a handwritten caption.
+             */}
             <div
                 style={{
                     backgroundColor: "white",
@@ -63,7 +66,7 @@ export default function Polaroid() {
                         style={{ objectFit: "cover", objectPosition: "center top" }}
                     />
                 </div>
-                </div>
             </div>
+        </div>
     );
 }

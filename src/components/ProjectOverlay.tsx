@@ -15,10 +15,6 @@ import { useDialogA11y } from "@/hooks/useDialogA11y";
 import { hoverSwap } from "@/lib/hover";
 import { color, onAccent } from "@/lib/theme";
 
-/*
- * The close button sits on the pink header, so it brightens its own white
- * scrim rather than taking the accent like the rest of the site's links.
- */
 const closeButtonHover = hoverSwap<HTMLButtonElement>(
     { backgroundColor: onAccent.scrimHover },
     { backgroundColor: onAccent.scrim },

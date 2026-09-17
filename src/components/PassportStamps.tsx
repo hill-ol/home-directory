@@ -41,7 +41,7 @@ const stamps = [
         city: "Boston",
         country: "United States",
         detail: "Home Base",
-        season: "Fall 2025 —",
+        season: "Fall 2025 — Spring 2028",
         rotation: "4deg",
         top: "320px",
         left: "190px",

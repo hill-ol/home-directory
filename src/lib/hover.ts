@@ -2,7 +2,6 @@ import type { FocusEvent, MouseEvent } from "react";
 
 import { color, line } from "@/lib/theme";
 
-/** The inline properties these helpers are allowed to swap. */
 type InlineStyle = Partial<
     Record<
         | "color"

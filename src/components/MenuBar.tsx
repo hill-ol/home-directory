@@ -81,8 +81,6 @@ function MenuClock() {
 
         updateTime();
 
-        // The displayed value only contains minutes, so updating every
-        // 30 seconds is sufficient and avoids unnecessary renders.
         const intervalId = window.setInterval(updateTime, 30_000);
 
         return () => {

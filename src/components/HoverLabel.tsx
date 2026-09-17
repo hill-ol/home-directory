@@ -1,15 +1,9 @@
 import type { CSSProperties, ReactNode } from "react";
 import { color, font } from "@/lib/theme";
 
-/*
- * The small caption under a folder, tile, or icon. Darkens from secondary to
- * primary ink when its parent is hovered.
- */
 interface HoverLabelProps {
     active?: boolean;
-    /** 10px on the desktop canvas, 9px in the denser mobile grids. */
     size?: string;
-    /** Org names are the only captions allowed to wrap onto two lines. */
     wrap?: boolean;
     style?: CSSProperties;
     children: ReactNode;

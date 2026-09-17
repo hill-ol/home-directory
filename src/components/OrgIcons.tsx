@@ -26,10 +26,6 @@ function OrgTile({ label, src, desktop }: Org) {
                 padding: "10px",
                 margin: "-10px",
                 cursor: "default",
-                /*
-                 * Unlike the stack tiles, the whole group scales here so the
-                 * org name grows with its logo.
-                 */
                 transform: hovered ? "scale(1.08)" : "scale(1)",
                 transition: "transform 0.2s ease",
             }}

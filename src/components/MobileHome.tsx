@@ -63,10 +63,13 @@ export default function MobileHome({ onFolderClick }: Props) {
                     gap: "24px",
                     paddingTop: "16px",
                 }}>
-                    {/* Polaroid card */}
+                    {/*
+                     * Polaroid card. The deep bottom padding is the blank
+                     * strip a polaroid leaves for a handwritten caption.
+                     */}
                     <div style={{
                         backgroundColor: "white",
-                        padding: "10px 10px 32px 10px",
+                        padding: "10px 10px 42px 10px",
                         boxShadow: "0 4px 24px rgba(28,25,23,0.12), 0 1px 4px rgba(28,25,23,0.06)",
                         borderRadius: "2px",
                         transform: "rotate(-2deg)",
@@ -88,15 +91,6 @@ export default function MobileHome({ onFolderClick }: Props) {
                                 style={{ objectFit: "cover", objectPosition: "center top" }}
                             />
                         </div>
-                        <div style={{
-                            fontFamily: font.display,
-                            fontStyle: "italic",
-                            fontSize: "13px",
-                            color: color.inkSecondary,
-                            textAlign: "center",
-                            marginTop: "10px",
-                            letterSpacing: "0.01em",
-                        }}></div>
                     </div>
 
                     {/* Name + bio */}
