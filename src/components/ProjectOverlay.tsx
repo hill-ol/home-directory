@@ -3,6 +3,13 @@
 import { AnimatePresence, motion } from "framer-motion";
 import { useRef } from "react";
 
+import ProjectHeader from "@/components/project/ProjectHeader";
+import ProjectLinks from "@/components/project/ProjectLinks";
+import ProjectMetaRow from "@/components/project/ProjectMetaRow";
+import {
+    projectDescriptionStyle,
+    projectTaglineStyle,
+} from "@/components/project/variants";
 import type { Project } from "@/content/projects";
 import { useDialogA11y } from "@/hooks/useDialogA11y";
 
@@ -133,13 +140,11 @@ export default function ProjectOverlay({
                                     "0 4px 16px rgba(28,25,23,0.08)",
                             }}
                         >
-                            {/* Dialog header */}
-                            <div
-                                style={{
-                                    position: "relative",
-                                    padding: "28px 32px 24px",
-                                    backgroundColor: "#F0A8CF",
-                                }}
+                            <ProjectHeader
+                                filename={project.filename}
+                                title={project.title}
+                                variant="overlay"
+                                titleId={`project-title-${project.slug}`}
                             >
                                 <button
                                     type="button"
@@ -200,36 +205,7 @@ export default function ProjectOverlay({
                                         />
                                     </svg>
                                 </button>
-
-                                <div
-                                    style={{
-                                        marginBottom: "8px",
-                                        color: "rgba(255,255,255,0.7)",
-                                        fontFamily:
-                                            "-apple-system, BlinkMacSystemFont, system-ui",
-                                        fontSize: "11px",
-                                        letterSpacing: "0.06em",
-                                    }}
-                                >
-                                    {project.filename}
-                                </div>
-
-                                <h1
-                                    id={`project-title-${project.slug}`}
-                                    style={{
-                                        margin: 0,
-                                        color: "white",
-                                        fontFamily: "var(--font-playfair)",
-                                        fontSize:
-                                            "clamp(24px, 4vw, 40px)",
-                                        fontWeight: 400,
-                                        lineHeight: 1.1,
-                                        letterSpacing: "-0.02em",
-                                    }}
-                                >
-                                    {project.title}
-                                </h1>
-                            </div>
+                            </ProjectHeader>
 
                             {/* Scrollable dialog content */}
                             <div
@@ -239,176 +215,29 @@ export default function ProjectOverlay({
                                     overflowY: "auto",
                                 }}
                             >
-                                <p
-                                    style={{
-                                        margin: "0 0 28px",
-                                        color: "#6B6560",
-                                        fontFamily: "var(--font-dm-sans)",
-                                        fontSize: "15px",
-                                        fontStyle: "italic",
-                                        fontWeight: 300,
-                                        lineHeight: 1.6,
-                                    }}
-                                >
+                                <p style={projectTaglineStyle("overlay")}>
                                     {project.tagline}
                                 </p>
 
-                                <div
-                                    style={{
-                                        display: "flex",
-                                        flexWrap: "wrap",
-                                        gap: "32px",
-                                        marginBottom: "28px",
-                                        paddingBottom: "28px",
-                                        borderBottom:
-                                            "0.5px solid rgba(28,25,23,0.10)",
-                                    }}
-                                >
-                                    {[
-                                        {
-                                            label: "Role",
-                                            value: project.role,
-                                        },
-                                        {
-                                            label: "Period",
-                                            value: project.period,
-                                        },
-                                    ].map(({ label, value }) => (
-                                        <div key={label}>
-                                            <MetadataLabel>
-                                                {label}
-                                            </MetadataLabel>
-
-                                            <div
-                                                style={{
-                                                    color: "#1C1917",
-                                                    fontFamily:
-                                                        "var(--font-dm-sans)",
-                                                    fontSize: "13px",
-                                                }}
-                                            >
-                                                {value}
-                                            </div>
-                                        </div>
-                                    ))}
-
-                                    <div>
-                                        <MetadataLabel>
-                                            Stack
-                                        </MetadataLabel>
-
-                                        <div
-                                            style={{
-                                                color: "#6B6560",
-                                                fontFamily:
-                                                    "-apple-system, BlinkMacSystemFont, system-ui",
-                                                fontSize: "12px",
-                                                lineHeight: 1.7,
-                                            }}
-                                        >
-                                            {project.stack.join(" · ")}
-                                        </div>
-                                    </div>
-                                </div>
+                                <ProjectMetaRow
+                                    project={project}
+                                    variant="overlay"
+                                />
 
                                 <p
-                                    style={{
-                                        margin: "0 0 28px",
-                                        color: "#1C1917",
-                                        fontFamily: "var(--font-dm-sans)",
-                                        fontSize: "14px",
-                                        fontWeight: 300,
-                                        lineHeight: 1.8,
-                                    }}
+                                    style={projectDescriptionStyle(
+                                        "overlay",
+                                    )}
                                 >
                                     {project.description}
                                 </p>
 
-                                <div
-                                    style={{
-                                        display: "flex",
-                                        flexWrap: "wrap",
-                                        gap: "12px",
-                                    }}
-                                >
-                                    {project.github && (
-                                        <ProjectLink
-                                            href={project.github}
-                                            label="GitHub"
-                                        />
-                                    )}
-
-                                    {project.live && (
-                                        <ProjectLink
-                                            href={project.live}
-                                            label="Live"
-                                        />
-                                    )}
-                                </div>
+                                <ProjectLinks project={project} />
                             </div>
                         </motion.div>
                     </div>
                 </>
             )}
         </AnimatePresence>
-    );
-}
-
-function MetadataLabel({
-    children,
-}: {
-    children: React.ReactNode;
-}) {
-    return (
-        <div
-            style={{
-                marginBottom: "4px",
-                color: "#6B6560",
-                fontFamily:
-                    "-apple-system, BlinkMacSystemFont, system-ui",
-                fontSize: "10px",
-                letterSpacing: "0.06em",
-                textTransform: "uppercase",
-            }}
-        >
-            {children}
-        </div>
-    );
-}
-
-interface ProjectLinkProps {
-    href: string;
-    label: string;
-}
-
-function ProjectLink({ href, label }: ProjectLinkProps) {
-    return (
-        <a
-            href={href}
-            target="_blank"
-            rel="noopener noreferrer"
-            style={{
-                padding: "6px 16px",
-                color: "#1C1917",
-                fontFamily:
-                    "-apple-system, BlinkMacSystemFont, system-ui",
-                fontSize: "12px",
-                textDecoration: "none",
-                border: "0.5px solid rgba(28,25,23,0.20)",
-                borderRadius: "20px",
-                transition: "border-color 0.2s, color 0.2s",
-            }}
-            onMouseEnter={(event) => {
-                event.currentTarget.style.borderColor = "#F0A8CF";
-                event.currentTarget.style.color = "#F0A8CF";
-            }}
-            onMouseLeave={(event) => {
-                event.currentTarget.style.borderColor =
-                    "rgba(28,25,23,0.20)";
-                event.currentTarget.style.color = "#1C1917";
-            }}
-        >
-            {label} →
-        </a>
     );
 }
