@@ -15,7 +15,7 @@ interface PdfGlyphProps {
 }
 
 export default function PdfGlyph({
-    labelColor = color.pinkDark,
+    labelColor = color.pinkText,
 }: PdfGlyphProps) {
     return (
         <svg

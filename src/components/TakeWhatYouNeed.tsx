@@ -38,8 +38,19 @@ export default function TakeWhatYouNeed() {
                 }}
             />
 
-            {/* Folder popup */}
+            {/*
+             * Folder popup.
+             *
+             * inert while closed, and that is not optional. The folder is
+             * hidden with opacity alone so it can fade, but neither opacity 0
+             * nor pointerEvents: none takes an element out of the tab order,
+             * so without this the four contact links sit in the tab sequence
+             * ahead of the button that reveals them: a keyboard user lands on
+             * four invisible stops. inert also drops the subtree from the
+             * accessibility tree, so screen readers skip it too.
+             */}
             <div
+                inert={!open}
                 style={{
                     position: "fixed",
                     top: "50%",

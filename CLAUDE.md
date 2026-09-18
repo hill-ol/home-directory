@@ -25,12 +25,13 @@ literal: `import { color, font, hairline, line } from "@/lib/theme"`.
 | `color.ink` | `#1C1917` | Text primary |
 | `color.inkSecondary` | `#6B6560` | Text secondary |
 | `color.inkMuted` | `#A89E99` | Text muted |
-| `color.pink` | `#F0A8CF` | Accent (front) |
-| `color.pinkDark` | `#D47BAD` | Accent (dark) |
+| `color.pink` | `#F0A8CF` | Accent (front), surfaces only |
+| `color.pinkDark` | `#D47BAD` | Accent (dark), surfaces only |
+| `color.pinkText` | `#7A2D5A` | The accent for **type** |
 | `color.pinkLight` | `#F5BADB` | Folder body on hover |
 | `color.pinkDeep` | `#C966A0` | Folder tab on hover |
-| `color.imagePlaceholder` | `#E8E4DC` | Behind photos before they load |
-| `color.rule` | `#D3CEC9` | Coursework diagram rules |
+| `color.surfaceSunken` | `#E8E4DC` | Recessed surface: photo placeholders, binder depth, scrollbar track |
+| `color.rule` | `#D3CEC9` | Diagram rules, faint labels, resting stamp fill |
 
 Borders are the ink color at low alpha, named by role: `line.divider` (0.06),
 `line.tile` (0.08), `line.card` (0.10), `line.pill` (0.20), plus `line.wash`
@@ -44,6 +45,43 @@ the nav bars, and `scrim` / `scrimClear` for the reach-out backdrop fade.
 `onAccent.*` is white at alpha for content on the pink: `muted` (0.7) for
 filenames and labels, `scrim` / `scrimHover` for the overlay close button.
 
+### Pink is for surfaces, pinkText is for type
+`color.pink` is 1.61:1 on cream, well under the 4.5:1 WCAG AA floor, so it can
+never carry text. Use it for folder fills, headers, bars, and illustration
+strokes. Every label, eyebrow, and link-hover colour uses `color.pinkText`
+(`#7A2D5A`) instead: 7.66:1 on cream, 8.36:1 on the card, 8.93:1 on white.
+
+That value is not new. It was already in the project as the poster label in
+`PosterImage`, which is why it reads as part of the palette rather than a
+bolted-on accessibility colour.
+
+The mobile nav's active icon uses `pinkText` too. An icon that marks state is a
+UI component under WCAG 1.4.11 and needs 3:1, which the brand pink also misses.
+
+The readme neofetch terminal also runs on `pinkText`. It used to sit on
+`pinkDark`, where even pure white text was 2.90:1, so every row failed. Its
+white ramp now measures 7.57:1 for values, 4.87:1 for the titlebar label, and
+4.76:1 for the row keys. The keys sit at `0.65` alpha, which is the dimmest
+they can go and still clear 4.5:1 on that background: lowering it back toward
+the old `0.5` reintroduces the failure.
+
+### Keeping the palette honest
+The site uses 25 distinct colors. Before adding another, check it is not a
+near-duplicate of one already there: anything within CIELAB deltaE 3 of an
+existing color is indistinguishable in practice and should reuse the token.
+
+Three were folded in for exactly that reason. `#EDE8DF` and `#E8E3D8` sat
+within deltaE 2.1 of `#E8E4DC` and became `surfaceSunken`; `#C8C4BF` sat within
+3.7 of `#D3CEC9` and became `rule`.
+
+Worth knowing about the binder: its two depth layers now share one color. The
+stacked-paper effect never came from the color difference, which was
+imperceptible, but from the 6px and 3px offsets, which are unchanged.
+
+Hover pairs are the deliberate exception. `pink`/`pinkLight` (deltaE 7.7) and
+`pinkDark`/`pinkDeep` (8.2) are meant to be small steps, and `cream`/`card`
+(4.1) is the page-versus-elevated-surface distinction.
+
 ### What stays inline, and why
 Three categories deliberately keep literal colors:
 
@@ -52,8 +90,8 @@ Three categories deliberately keep literal colors:
    border alphas by accident, so tokenizing them would imply a relationship
    that is not there.
 2. **One-component palettes.** The passport stamp colors, the readme terminal's
-   four-step white ramp, the macOS traffic lights, the coursework binder depth
-   ramp, and the award badge colors. Each belongs to one component.
+   four-step white ramp, the macOS traffic lights, and the award badge colors.
+   Each belongs to one component.
 3. **Colors inside composite shorthands.** A value buried in a `box-shadow`,
    `drop-shadow`, or `repeating-linear-gradient` string cannot be swapped for a
    token without interpolating the whole shorthand. Where the value is genuinely

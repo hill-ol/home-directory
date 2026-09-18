@@ -28,7 +28,7 @@ function WorkRow({ project }: { project: (typeof projects)[0] }) {
                     {/* Filename + period */}
                     <div style={{ display: "flex", alignItems: "center", gap: "12px", flexWrap: "wrap" }}>
                         <motion.span
-                            animate={{ color: hovered ? color.pinkDark : color.pink }}
+                            animate={{ color: hovered ? color.ink : color.pinkText }}
                             transition={{ duration: 0.2 }}
                             style={{
                                 fontFamily: font.system,
@@ -91,7 +91,7 @@ export default function WorkPage() {
                     <div style={{ marginBottom: "56px" }}>
                         <div style={{
                             fontFamily: font.system,
-                            fontSize: "11px", color: color.pink,
+                            fontSize: "11px", color: color.pinkText,
                             letterSpacing: "0.06em", textTransform: "uppercase", marginBottom: "12px",
                         }}>work/</div>
                         <h1 style={{

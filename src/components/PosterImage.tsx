@@ -145,7 +145,7 @@ export default function PosterImage({
                         position: "absolute",
                         inset: 0,
                         overflow: "hidden",
-                        backgroundColor: color.imagePlaceholder,
+                        backgroundColor: color.surfaceSunken,
                         border: hairline(line.card),
                         borderRadius: "6px",
                     }}
@@ -320,7 +320,7 @@ export default function PosterImage({
                                         width: "100%",
                                         overflow: "hidden",
                                         backgroundColor:
-                                            color.imagePlaceholder,
+                                            color.surfaceSunken,
                                         borderRadius: "8px",
                                         boxShadow:
                                             "0 16px 48px rgba(28,25,23,0.5)",
@@ -403,7 +403,7 @@ export default function PosterImage({
                                     overflow: "hidden",
                                     cursor: "zoom-out",
                                     backgroundColor:
-                                        color.imagePlaceholder,
+                                        color.surfaceSunken,
                                     borderRadius: "8px",
                                     boxShadow:
                                         "0 32px 80px rgba(28,25,23,0.6)",

@@ -10,8 +10,24 @@ export const color = {
     pinkDark: "#D47BAD",
     pinkLight: "#F5BADB",
     pinkDeep: "#C966A0",
+    /*
+     * The accent for type. Same hue family as pink, dark enough to clear
+     * WCAG AA at small sizes: 7.66:1 on cream, 8.36:1 on the card, 8.93:1 on
+     * white, against the 4.5:1 floor. pink itself is only 1.61:1 on cream, so
+     * it belongs on surfaces and illustrations, never on text.
+     */
+    pinkText: "#7A2D5A",
 
-    imagePlaceholder: "#E8E4DC",
+    /*
+     * A surface recessed behind or beneath content: photo placeholders before
+     * they load, the coursework binder's depth layers, a scrollbar track.
+     *
+     * Consolidated from three near-identical warm greys (#E8E4DC, #EDE8DF,
+     * #E8E3D8) that sat within CIELAB deltaE 2.1 of each other, close enough
+     * that nothing was distinguishing them.
+     */
+    surfaceSunken: "#E8E4DC",
+    /** Diagram rules, faint labels, and the resting passport stamp fill. */
     rule: "#D3CEC9",
 } as const;
 

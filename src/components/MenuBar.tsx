@@ -232,7 +232,7 @@ export default function MenuBar() {
                                     aria-hidden="true"
                                     style={{
                                         display: "block",
-                                        color: color.pink,
+                                        color: color.pinkText,
                                         fontFamily:
                                             font.display,
                                         fontSize: "13px",
@@ -384,9 +384,14 @@ export function MobileNav() {
                                         height="20"
                                         viewBox="0 0 24 24"
                                         fill="none"
+                                        /*
+                                         * The active icon marks state, so it
+                                         * needs the 3:1 non-text contrast the
+                                         * brand pink cannot reach on cream.
+                                         */
                                         stroke={
                                             isActive
-                                                ? color.pink
+                                                ? color.pinkText
                                                 : color.inkMuted
                                         }
                                         strokeWidth="1.5"
@@ -405,7 +410,7 @@ export function MobileNav() {
                                 <motion.span
                                     animate={{
                                         color: isActive
-                                            ? color.pink
+                                            ? color.pinkText
                                             : color.inkSecondary,
                                         fontStyle: isActive
                                             ? "italic"

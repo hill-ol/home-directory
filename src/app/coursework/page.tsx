@@ -50,7 +50,7 @@ export default function CourseworkPage() {
                     >← back to readme</Link>
 
                     <div style={{ marginBottom: "48px" }}>
-                        <div style={{ fontFamily: font.system, fontSize: "10px", color: color.pink, letterSpacing: "0.06em", textTransform: "uppercase", marginBottom: "12px" }}>coursework/</div>
+                        <div style={{ fontFamily: font.system, fontSize: "10px", color: color.pinkText, letterSpacing: "0.06em", textTransform: "uppercase", marginBottom: "12px" }}>coursework/</div>
                         <h1 style={{ fontFamily: font.display, fontSize: "clamp(32px,5vw,48px)", fontWeight: 400, color: color.ink, lineHeight: 1.1, letterSpacing: "-0.02em", margin: "0 0 12px 0" }}>Coursework</h1>
                         <p style={{ fontFamily: font.body, fontSize: "13px", fontWeight: 300, color: color.inkSecondary, lineHeight: 1.7, margin: 0 }}>{`${bio.majors.join(" and ")} combined major · ${bio.school} · ${bio.gradClass}`}</p>
                     </div>
@@ -63,11 +63,11 @@ export default function CourseworkPage() {
                                 display: "flex", gap: "8px",
                                 overflowX: "auto", paddingBottom: "8px",
                                 scrollbarWidth: "thin",
-                                scrollbarColor: `${color.pink} #EDE8DF`,
+                                scrollbarColor: `${color.pinkText} ${color.surfaceSunken}`,
                             }} className="pill-scroll">
                                 <style>{`
                   .pill-scroll::-webkit-scrollbar { height: 3px; }
-                  .pill-scroll::-webkit-scrollbar-track { background: #EDE8DF; border-radius: 2px; }
+                  .pill-scroll::-webkit-scrollbar-track { background: ${color.surfaceSunken}; border-radius: 2px; }
                   .pill-scroll::-webkit-scrollbar-thumb { background: ${color.pink}; border-radius: 2px; }
                 `}</style>
                                 {semesters.map((sem, idx) => {
@@ -146,8 +146,8 @@ export default function CourseworkPage() {
                                 </div>
 
                                 {/* Depth layers — a two step ramp, each one further back and darker */}
-                                <div style={{ position: "absolute", top: "6px", left: "28px", right: "-5px", bottom: "-6px", backgroundColor: "#E8E3D8", borderRadius: "0 8px 8px 0", zIndex: 0 }}/>
-                                <div style={{ position: "absolute", top: "3px", left: "28px", right: "-2px", bottom: "-3px", backgroundColor: "#EDE8DF", borderRadius: "0 8px 8px 0", zIndex: 0 }}/>
+                                <div style={{ position: "absolute", top: "6px", left: "28px", right: "-5px", bottom: "-6px", backgroundColor: color.surfaceSunken, borderRadius: "0 8px 8px 0", zIndex: 0 }}/>
+                                <div style={{ position: "absolute", top: "3px", left: "28px", right: "-2px", bottom: "-3px", backgroundColor: color.surfaceSunken, borderRadius: "0 8px 8px 0", zIndex: 0 }}/>
 
                                 {/* Body */}
                                 <div style={{ flex: 1, backgroundColor: color.card, border: hairline(line.card), borderLeft: "none", borderRadius: "0 8px 8px 0", position: "relative", minHeight: "640px", zIndex: 1 }}>

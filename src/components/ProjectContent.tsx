@@ -44,7 +44,7 @@ export default function ProjectContent({
             >
                 <button
                     type="button"
-                    onClick={() => router.push("/")}
+                    onClick={() => router.push("/work")}
                     style={{
                         display: "inline-flex",
                         alignItems: "center",
@@ -62,7 +62,7 @@ export default function ProjectContent({
                     }}
                     {...accentText}
                 >
-                    ← back to desktop
+                    ← back to work
                 </button>
 
                 <div

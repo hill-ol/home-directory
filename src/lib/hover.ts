@@ -53,11 +53,11 @@ export function hoverSwapChild<T extends HTMLElement = HTMLElement>(
 }
 
 export const accentText = hoverSwap(
-    { color: color.pink },
+    { color: color.pinkText },
     { color: color.inkSecondary },
 );
 
 export const accentPill = hoverSwap(
-    { borderColor: color.pink, color: color.pink },
+    { borderColor: color.pinkText, color: color.pinkText },
     { borderColor: line.pill, color: color.ink },
 );

@@ -54,7 +54,7 @@ const sources: ResearchSource[] = [
         posterHeight: 1795,
         posterLabel: "Poster #18-UR",
         institution: "Northeastern University · Oakland",
-        meta: ["Team of 5", "Advisor: Akram Bayat", "Spring 2025"],
+        meta: ["Team of 5", "Advisor: Dr. Akram Bayat", "Spring 2025"],
         award: "Khoury Undergraduate Excellence Award",
         credit: "Northeastern Oakland · Spring 2025",
         link: null,
@@ -86,7 +86,7 @@ const sources: ResearchSource[] = [
         credit: "Argonne National Laboratory · ESRP 2024",
         link: {
             href: "https://www.anl.gov/education/lyons-township-high-school-esrp-2024",
-            label: "View on Argonne.gov",
+            label: "View on anl.gov",
         },
     },
 ];

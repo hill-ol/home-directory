@@ -81,7 +81,7 @@ export default function MobileHome({ onFolderClick }: Props) {
                             width: "160px",
                             height: "200px",
                             overflow: "hidden",
-                            backgroundColor: color.imagePlaceholder,
+                            backgroundColor: color.surfaceSunken,
                         }}>
                             <Image
                                 src="/readme/Headshot.jpg"

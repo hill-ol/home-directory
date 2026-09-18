@@ -48,7 +48,7 @@ export default function NotFound() {
             {/* Error code */}
             <div style={{
                 fontFamily: font.system,
-                fontSize: "11px", color: color.pink,
+                fontSize: "11px", color: color.pinkText,
                 letterSpacing: "0.08em", textTransform: "uppercase",
                 marginBottom: "12px",
             }}>error 404</div>

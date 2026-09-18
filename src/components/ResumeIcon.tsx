@@ -31,7 +31,12 @@ export default function ResumeIcon() {
                 zIndex: 6,
             }}
         >
-            <PdfGlyph labelColor={hovered ? color.pink : color.pinkDark} />
+            {/*
+             * The wordmark keeps its readable accent rather than swapping on
+             * hover: both brand pinks fall below AA on white. Hover is already
+             * signalled by the 1.06 scale and the filename darkening.
+             */}
+            <PdfGlyph />
 
             <span
                 style={{

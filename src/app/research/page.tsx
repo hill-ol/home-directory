@@ -53,7 +53,7 @@ export default function ResearchPage() {
                         <div
                             style={{
                                 marginBottom: "12px",
-                                color: color.pink,
+                                color: color.pinkText,
                                 fontFamily: font.system,
                                 fontSize: "10px",
                                 letterSpacing: "0.06em",
@@ -125,7 +125,7 @@ export default function ResearchPage() {
                             >
                                 <span
                                     style={{
-                                        color: color.pink,
+                                        color: color.pinkText,
                                         fontFamily: "monospace",
                                         fontSize: "11px",
                                         letterSpacing: "0.04em",

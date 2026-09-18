@@ -30,6 +30,11 @@ const neofetch = [
     { key: "Interests", value: "fashion · traveling · running",   isUptime: false, isTypewriter: true  },
 ];
 
+/*
+ * Rendered twice, on two different backgrounds: inside the pink terminal and
+ * again in the footer on cream. It inherits its color so each caller can pick
+ * one that is readable where it actually sits.
+ */
 function UptimeCounter() {
     const [uptime, setUptime] = useState("");
     useEffect(() => {
@@ -46,7 +51,7 @@ function UptimeCounter() {
         const id = setInterval(update, 1000);
         return () => clearInterval(id);
     }, []);
-    return <span style={{ color: color.pink }}>{uptime}</span>;
+    return <span>{uptime}</span>;
 }
 
 function TypewriterText({ text, delay = 800 }: { text: string; delay?: number }) {
@@ -132,7 +137,7 @@ export default function ReadmePage() {
                             <div style={{
                                 width: "100px", height: "100px",
                                 borderRadius: "50%", overflow: "hidden",
-                                backgroundColor: color.imagePlaceholder,
+                                backgroundColor: color.surfaceSunken,
                                 border: "3px solid white",
                                 boxShadow: "0 2px 12px rgba(28,25,23,0.10)",
                                 position: "relative", flexShrink: 0,
@@ -144,7 +149,7 @@ export default function ReadmePage() {
                         <div className="grid md:grid-cols-2" style={{ gap: "48px", alignItems: "start" }}>
                             {/* Bio */}
                             <div style={{ display: "flex", flexDirection: "column", gap: "20px" }}>
-                                <div style={{ fontFamily: font.system, fontSize: "10px", color: color.pink, letterSpacing: "0.06em", textTransform: "uppercase" }}>readme.md</div>
+                                <div style={{ fontFamily: font.system, fontSize: "10px", color: color.pinkText, letterSpacing: "0.06em", textTransform: "uppercase" }}>readme.md</div>
                                 <h1 style={{ fontFamily: font.display, fontSize: "clamp(32px, 4vw, 52px)", fontWeight: 400, color: color.ink, lineHeight: 1.05, letterSpacing: "-0.02em", margin: 0 }}>Hi, I&apos;m Olivia.</h1>
                                 <p style={{ fontFamily: font.body, fontSize: "13px", fontWeight: 300, color: color.inkSecondary, lineHeight: 1.8, margin: 0 }}>
                                     I&apos;m a CS and Math student at Northeastern, currently on co-op at Chewy as a
@@ -199,7 +204,12 @@ export default function ReadmePage() {
                 {/* NEOFETCH */}
                 <div style={{ padding: "64px 0", borderTop: hairline(line.divider) }}>
                     <div style={{ maxWidth: "860px", margin: "0 auto", padding: "0 24px" }}>
-                        <div style={{ backgroundColor: color.pinkDark, borderRadius: "10px", overflow: "hidden" }}>
+                        {/*
+                          * The terminal runs on pinkText rather than pinkDark.
+                          * On pinkDark even pure white was 2.90:1; here plain
+                          * white text is 8.93:1 and every dimmed row clears AA.
+                          */}
+                        <div style={{ backgroundColor: color.pinkText, borderRadius: "10px", overflow: "hidden" }}>
                             <div style={{ padding: "8px 14px", backgroundColor: "rgba(0,0,0,0.15)", display: "flex", alignItems: "center", gap: "6px" }}>
                                 {["#FF5F57","#FEBC2E","#28C840"].map(c => (
                                     <div key={c} style={{ width: "10px", height: "10px", borderRadius: "50%", backgroundColor: c, opacity: 0.85 }}/>
@@ -211,7 +221,8 @@ export default function ReadmePage() {
                             <div className="grid md:grid-cols-2" style={{ padding: "20px 24px", gap: "5px 40px" }}>
                                 {neofetch.map(({ key, value, isUptime, isTypewriter }) => (
                                     <div key={key} style={{ fontFamily: "monospace", fontSize: "12px", color: "rgba(255,255,255,0.9)", display: "flex", gap: "8px" }}>
-                                        <span style={{ minWidth: "80px", color: "rgba(255,255,255,0.5)" }}>{key}</span>
+                                        {/* 0.65 is the dimmest this can go and still clear 4.5:1. */}
+                                        <span style={{ minWidth: "80px", color: "rgba(255,255,255,0.65)" }}>{key}</span>
                                         {isUptime ? (
                                             <UptimeCounter />
                                         ) : isTypewriter ? (
@@ -233,7 +244,7 @@ export default function ReadmePage() {
                         <div className="grid grid-cols-2 md:grid-cols-3" style={{ border: hairline(line.tile), borderRadius: "8px", overflow: "hidden" }}>
                             {currently.map(({ field, value }) => (
                                 <div key={field} style={{ padding: "20px 22px", borderRight: hairline(line.tile), borderBottom: hairline(line.tile), backgroundColor: color.cream }}>
-                                    <div style={{ fontFamily: "monospace", fontSize: "10px", color: color.pink, letterSpacing: "0.04em", marginBottom: "6px" }}>{field}</div>
+                                    <div style={{ fontFamily: "monospace", fontSize: "10px", color: color.pinkText, letterSpacing: "0.04em", marginBottom: "6px" }}>{field}</div>
                                     <div style={{ fontFamily: font.body, fontSize: "13px", fontWeight: 300, color: color.ink, lineHeight: 1.4 }}>
                                         {value}
                                         {field === "building" && (
@@ -262,10 +273,10 @@ export default function ReadmePage() {
                             {contactLinks.map(({ label, href, display, external }) => (
                                 <a key={label} href={href} target={external ? "_blank" : undefined} rel={external ? "noopener noreferrer" : undefined}
                                    style={{ display: "flex", justifyContent: "space-between", alignItems: "center", padding: "14px 0", borderBottom: hairline(line.divider), textDecoration: "none" }}
-                                   {...hoverSwapChild(".cv", { color: color.pinkDark }, { color: color.pink })}
+                                   {...hoverSwapChild(".cv", { color: color.ink }, { color: color.pinkText })}
                                 >
                                     <span style={{ fontFamily: "monospace", fontSize: "11px", color: color.inkSecondary, minWidth: "80px" }}>{label}</span>
-                                    <span className="cv" style={{ fontFamily: font.system, fontSize: "12px", color: color.pink, transition: "color 0.2s ease" }}>
+                                    <span className="cv" style={{ fontFamily: font.system, fontSize: "12px", color: color.pinkText, transition: "color 0.2s ease" }}>
                                         {display} →
                                     </span>
                                 </a>
