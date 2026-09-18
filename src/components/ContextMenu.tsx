@@ -40,7 +40,7 @@ const clearHighlight = applyStyle<HTMLButtonElement>({
 });
 
 function calculateUptime(): string {
-    const start = new Date("2024-09-01").getTime();
+    const start = new Date(bio.uptimeStart).getTime();
     const elapsed = Date.now() - start;
     const totalDays = Math.floor(
         elapsed / (1000 * 60 * 60 * 24),
@@ -58,10 +58,6 @@ function openInNewTab(url: string): void {
     window.open(url, "_blank", "noopener,noreferrer");
 }
 
-/*
- * Rebuilt per render rather than hoisted to a constant, because the uptime
- * row has to be current each time the menu opens.
- */
 function buildItems(): MenuItem[] {
     return [
         { label: bio.name, dividerAfter: true },
@@ -98,10 +94,6 @@ function ActionRow({
             type="button"
             role="menuitem"
             onClick={onRun}
-            /*
-             * Hovering takes focus too, so the pointer and the arrow keys
-             * agree on which row is current.
-             */
             onMouseEnter={(event) => {
                 event.currentTarget.focus();
                 highlight(event);
@@ -186,11 +178,6 @@ export default function ContextMenu() {
 
     useEffect(() => {
         const handleContextMenu = (event: MouseEvent) => {
-            /*
-             * Check the media query when the event occurs instead of only
-             * when the component mounts. This remains correct if the user
-             * resizes the browser after loading the page.
-             */
             if (
                 !window.matchMedia("(min-width: 768px)").matches
             ) {
@@ -203,10 +190,6 @@ export default function ContextMenu() {
                 return;
             }
 
-            /*
-             * Preserve the browser's normal context menu on interactive
-             * controls and editable fields.
-             */
             if (
                 target.closest(
                     "a, button, input, textarea, select, [contenteditable='true']",
@@ -216,9 +199,6 @@ export default function ContextMenu() {
             }
 
             event.preventDefault();
-
-            // Open at the pointer. The layout effect below pulls the menu
-            // back inside the viewport once its real size is known.
             setPosition({ x: event.clientX, y: event.clientY });
             setVisible(true);
         };
@@ -250,14 +230,6 @@ export default function ContextMenu() {
         };
     }, []);
 
-    /*
-     * Clamp the menu into the viewport using its measured size rather than a
-     * guessed height, so adding a row cannot push it off the bottom edge.
-     *
-     * offsetHeight rather than getBoundingClientRect, because the menu
-     * animates in from scale 0.95 and the visual rect would read 5% short.
-     * A layout effect runs before paint, so the correction is never visible.
-     */
     useLayoutEffect(() => {
         if (!visible) return;
 

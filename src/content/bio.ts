@@ -17,6 +17,13 @@ export const bio = {
     location: "Boston, MA",
     availableFrom: "S'28",
     scholarCities: ["London", "Oakland", "Budapest"],
+    /*
+     * Start of the Northeastern chapter, which both uptime counters measure
+     * from: the readme terminal in years, months, and days, and the desktop
+     * context menu in months and days. They hardcoded this date separately
+     * before, so moving the start meant remembering to edit two files.
+     */
+    uptimeStart: "2024-09-01",
 } as const;
 
 export const tagline =

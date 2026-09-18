@@ -7,28 +7,17 @@ import Image from "next/image";
 import PassportStamps from "@/components/PassportStamps";
 import { bio } from "@/content/bio";
 import { contactLinks } from "@/content/contact";
+import {
+    bioParagraphs,
+    currently,
+    heading,
+    lastModified,
+    neofetch,
+} from "@/content/readme";
+import { stamps } from "@/content/stamps";
 import { accentText, hoverSwapChild } from "@/lib/hover";
 import { color, font, hairline, line } from "@/lib/theme";
 
-const currently = [
-    { field: "building",  value: "this portfolio"           },
-    { field: "reading",   value: "Frankenstein & Cleopatra" },
-    { field: "listening", value: "Lorde"                    },
-    { field: "wearing",   value: "new work bag"              },
-    { field: "eating",    value: "peanut butter pretzels"   },
-    { field: "watching",  value: "Claude YouTube videos"    },
-];
-
-const neofetch = [
-    { key: "OS",        value: bio.school,                        isUptime: false, isTypewriter: false },
-    { key: "Host",      value: `CS + Math, ${bio.gradClass}`,     isUptime: false, isTypewriter: false },
-    { key: "Uptime",    value: "",                                isUptime: true,  isTypewriter: false },
-    { key: "Shell",     value: "TypeScript · Python",             isUptime: false, isTypewriter: false },
-    { key: "Editor",    value: "VS Code",                         isUptime: false, isTypewriter: false },
-    { key: "Location",  value: bio.location,                      isUptime: false, isTypewriter: false },
-    { key: "Status",    value: `on co-op @ ${bio.coop}`,          isUptime: false, isTypewriter: false },
-    { key: "Interests", value: "fashion · traveling · running",   isUptime: false, isTypewriter: true  },
-];
 
 /*
  * Rendered twice, on two different backgrounds: inside the pink terminal and
@@ -38,7 +27,7 @@ const neofetch = [
 function UptimeCounter() {
     const [uptime, setUptime] = useState("");
     useEffect(() => {
-        const start = new Date("2024-09-01");
+        const start = new Date(bio.uptimeStart);
         const update = () => {
             const now = new Date();
             const diff = now.getTime() - start.getTime();
@@ -150,26 +139,12 @@ export default function ReadmePage() {
                             {/* Bio */}
                             <div style={{ display: "flex", flexDirection: "column", gap: "20px" }}>
                                 <div style={{ fontFamily: font.system, fontSize: "10px", color: color.pinkText, letterSpacing: "0.06em", textTransform: "uppercase" }}>readme.md</div>
-                                <h1 style={{ fontFamily: font.display, fontSize: "clamp(32px, 4vw, 52px)", fontWeight: 400, color: color.ink, lineHeight: 1.05, letterSpacing: "-0.02em", margin: 0 }}>Hi, I&apos;m Olivia.</h1>
-                                <p style={{ fontFamily: font.body, fontSize: "13px", fontWeight: 300, color: color.inkSecondary, lineHeight: 1.8, margin: 0 }}>
-                                    I&apos;m a CS and Math student at Northeastern, currently on co-op at Chewy as a
-                                    software engineer. Studying math alongside CS has changed how I approach building.
-                                    It gives me stronger context for the tools I reach for and pushes me toward problems
-                                    that sit at technical intersections. Outside of class, I build at Generate Product
-                                    Development Studio, where I&apos;ve wrapped up my first semester shipping a trip
-                                    planning app with an incredible team.
-                                </p>
-                                <p style={{ fontFamily: font.body, fontSize: "13px", fontWeight: 300, color: color.inkSecondary, lineHeight: 1.8, margin: 0 }}>
-                                    Before that I was working on full-stack projects ranging from a geographically-tagged
-                                    art commission platform to a job aggregator I built to solve a problem I had myself.
-                                    My math background helps here too. It&apos;s less about the coursework and more
-                                    about having a framework for thinking carefully before reaching for a solution.
-                                </p>
-                                <p style={{ fontFamily: font.body, fontSize: "13px", fontWeight: 300, color: color.inkSecondary, lineHeight: 1.8, margin: 0 }}>
-                                    When I&apos;m not at my desk I&apos;m usually running, exploring Boston, reading, or
-                                    planning my next trip. Open to SWE co-ops where I can work on real problems and keep
-                                    learning.
-                                </p>
+                                <h1 style={{ fontFamily: font.display, fontSize: "clamp(32px, 4vw, 52px)", fontWeight: 400, color: color.ink, lineHeight: 1.05, letterSpacing: "-0.02em", margin: 0 }}>{heading}</h1>
+                                {bioParagraphs.map(paragraph => (
+                                    <p key={paragraph.slice(0, 24)} style={{ fontFamily: font.body, fontSize: "13px", fontWeight: 300, color: color.inkSecondary, lineHeight: 1.8, margin: 0 }}>
+                                        {paragraph}
+                                    </p>
+                                ))}
                                 <Link href="/coursework" style={{ fontFamily: font.system, fontSize: "11px", color: color.inkSecondary, textDecoration: "none", marginTop: "4px", transition: "color 0.2s ease" }}
                                       {...accentText}
                                 >view coursework →</Link>
@@ -185,12 +160,7 @@ export default function ReadmePage() {
                         <div className="block md:hidden">
                             <div style={{ fontFamily: font.system, fontSize: "10px", color: color.inkSecondary, letterSpacing: "0.06em", textTransform: "uppercase", marginBottom: "16px", marginTop: "8px" }}>global scholar</div>
                             <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "12px" }}>
-                                {[
-                                    { city: "London",   season: "Fall 2024",   color: "#C8B8E8" },
-                                    { city: "Oakland",  season: "Spring 2025", color: color.pink },
-                                    { city: "Budapest", season: "Summer 2025", color: "#A8D4C8" },
-                                    { city: "Boston",   season: "Fall 2025",   color: "#F5C8A0" },
-                                ].map(stamp => (
+                                {stamps.map(stamp => (
                                     <div key={stamp.city} style={{ backgroundColor: stamp.color, borderRadius: "6px", padding: "12px", display: "flex", flexDirection: "column", gap: "2px" }}>
                                         <div style={{ fontFamily: font.display, fontStyle: "italic", fontSize: "14px", color: color.ink }}>{stamp.city}</div>
                                         <div style={{ fontFamily: font.system, fontSize: "10px", color: color.inkSecondary }}>{stamp.season}</div>
@@ -219,13 +189,13 @@ export default function ReadmePage() {
                                 </span>
                             </div>
                             <div className="grid md:grid-cols-2" style={{ padding: "20px 24px", gap: "5px 40px" }}>
-                                {neofetch.map(({ key, value, isUptime, isTypewriter }) => (
+                                {neofetch.map(({ key, value, kind }) => (
                                     <div key={key} style={{ fontFamily: "monospace", fontSize: "12px", color: "rgba(255,255,255,0.9)", display: "flex", gap: "8px" }}>
                                         {/* 0.65 is the dimmest this can go and still clear 4.5:1. */}
                                         <span style={{ minWidth: "80px", color: "rgba(255,255,255,0.65)" }}>{key}</span>
-                                        {isUptime ? (
+                                        {kind === "uptime" ? (
                                             <UptimeCounter />
-                                        ) : isTypewriter ? (
+                                        ) : kind === "typewriter" ? (
                                             <TypewriterText text={value} delay={600} />
                                         ) : (
                                             <span>{value}</span>
@@ -288,7 +258,7 @@ export default function ReadmePage() {
                 {/* FOOTER */}
                 <div style={{ borderTop: hairline(line.divider), padding: "16px 0" }}>
                     <div style={{ maxWidth: "860px", margin: "0 auto", padding: "0 24px", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-                        <span style={{ fontFamily: "monospace", fontSize: "10px", color: color.inkSecondary }}>last modified: May 2026</span>
+                        <span style={{ fontFamily: "monospace", fontSize: "10px", color: color.inkSecondary }}>last modified: {lastModified}</span>
                         <span style={{ fontFamily: "monospace", fontSize: "10px", color: color.inkSecondary }}>uptime: <UptimeCounter /></span>
                     </div>
                 </div>

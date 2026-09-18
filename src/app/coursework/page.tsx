@@ -66,10 +66,10 @@ export default function CourseworkPage() {
                                 scrollbarColor: `${color.pinkText} ${color.surfaceSunken}`,
                             }} className="pill-scroll">
                                 <style>{`
-                  .pill-scroll::-webkit-scrollbar { height: 3px; }
-                  .pill-scroll::-webkit-scrollbar-track { background: ${color.surfaceSunken}; border-radius: 2px; }
-                  .pill-scroll::-webkit-scrollbar-thumb { background: ${color.pink}; border-radius: 2px; }
-                `}</style>
+                                .pill-scroll::-webkit-scrollbar { height: 3px; }
+                                .pill-scroll::-webkit-scrollbar-track { background: ${color.surfaceSunken}; border-radius: 2px; }
+                                .pill-scroll::-webkit-scrollbar-thumb { background: ${color.pink}; border-radius: 2px; }
+                                `}</style>
                                 {semesters.map((sem, idx) => {
                                     const isActive = activeIdx === idx;
                                     return (
@@ -224,7 +224,6 @@ export default function CourseworkPage() {
                             </div>
                         </div>
                     </div>
-
                 </div>
             </main>
         </motion.div>

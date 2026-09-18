@@ -9,6 +9,30 @@ npm install
 npm run dev
 ```
 
+## Testing
+
+```bash
+npm run typecheck && npm run lint && npx playwright test
+```
+
+`tests/e2e/portfolio.spec.ts` runs axe over every route at both breakpoints.
+Three things in there are load bearing, and removing any of them produces
+contrast failures that do not exist at rest:
+
+1. **Wait for `networkidle`.** The poster and photo images finish after the
+   load event, and axe run early measures text against a background that has
+   not arrived.
+2. **Scroll the page.** Rows animate in with `whileInView`, so anything below
+   the fold sits at `opacity: 0` until its observer fires.
+3. **Poll until opacities hold steady.** `reducedMotion` alone is not enough:
+   `MotionConfig` runs `reducedMotion="user"`, which drops transform and
+   layout animations but deliberately keeps opacity fades. Sampling mid-fade
+   reads `#6B6560` as `#726c67` and reports a failure that is not real.
+
+Routes with open contrast issues are listed in `knownFailures` and marked
+`test.fail()`, so they are tracked rather than hidden. Fixing one turns the
+suite red, which is the prompt to remove its entry.
+
 ## Stack
 
 Next.js 16 App Router · TypeScript · Tailwind v4 (CSS-first config in `globals.css`) · Framer Motion · Vercel
@@ -263,7 +287,9 @@ declare their own copies: the desktop and mobile layouts render the same arrays.
 | `contact.ts` | Every outbound personal link | `ContextMenu`, `TakeWhatYouNeed`, `ResumeIcon`, `MobileHome`, `/readme` |
 | `research.ts` | Poster entries, resolved against `projects` | `/research` |
 | `coursework.ts` | 5 semesters, their courses, and their palette | `/coursework` |
-| `bio.ts` | Identity facts and the composed intro sentences | `layout.tsx`, `/og`, homepage, `MenuBar`, `ContextMenu`, `/readme`, `/coursework` |
+| `bio.ts` | Identity facts, composed intros, the uptime epoch | `layout.tsx`, `/og`, homepage, `MenuBar`, `ContextMenu`, `/readme`, `/coursework` |
+| `readme.ts` | Bio prose, the currently grid, the neofetch rows | `/readme` |
+| `stamps.ts` | 4 Global Scholar cities + desktop scatter positions | `PassportStamps`, `/readme` |
 
 Each project entry:
 ```ts
@@ -327,6 +353,31 @@ A `project` slug that matches nothing throws at module load, which fails the
 build rather than rendering a blank entry. Add poster-specific fields
 (`poster`, `posterLabel`, `institution`, `meta`, `award`, `credit`, `link`) to
 `research.ts`; add prose to `projects/index.ts`.
+
+### The readme page
+Its copy lives in `readme.ts`: the three bio paragraphs, the currently grid,
+and the neofetch rows. A `neofetch` row carries `kind: "text" | "uptime" |
+"typewriter"` to say how it renders, which replaced a pair of booleans that had
+to be set false on every ordinary row.
+
+`lastModified` is hand maintained on purpose. It means "when the writing last
+changed", so deriving it from the build would reset it on a dependency bump.
+
+Both uptime counters read `bio.uptimeStart`. They format differently, years and
+months and days in the readme terminal against months and days in the context
+menu, but they measure from the same date, which used to be hardcoded twice.
+
+### The passport stamps
+`stamps.ts` is the single source. `PassportStamps` draws the desktop scatter
+using `rotation`, `top`, and `left`; `/readme` renders the same array as a
+mobile grid and ignores those fields, the same split as `stack.ts` and
+`orgs.ts`.
+
+These were separate arrays until they drifted: the mobile copy still said
+Boston was `"Fall 2025"` after the desktop one had been updated to
+`"Fall 2025 — Spring 2028"`. Note that value contains an em dash, which the
+writing conventions below forbid. It predates this refactor and is left as
+written rather than quietly reworded.
 
 ### Changing a link
 Edit `contact.ts` only. Four components and the readme page read from it. The
