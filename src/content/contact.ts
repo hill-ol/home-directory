@@ -2,13 +2,12 @@ export type ContactLink = {
     label: string;
     href: string;
     display: string;
-    /** Square image used by the reach-out folder. null renders the PDF glyph. */
     icon: string | null;
     external: boolean;
 };
 
 /*
- * Single SOT  for every outbound personal link on the site.
+ * Single SOT for every outbound personal link on the site.
  */
 export const contact = {
     email: {
