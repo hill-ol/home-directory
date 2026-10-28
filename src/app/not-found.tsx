@@ -3,6 +3,7 @@
 import { motion } from "framer-motion";
 import Link from "next/link";
 
+import SectionLabel from "@/components/SectionLabel";
 import FolderGlyph from "@/components/glyphs/FolderGlyph";
 import { accentPill } from "@/lib/hover";
 import { color, font, hairline, line, onAccent } from "@/lib/theme";
@@ -46,12 +47,9 @@ export default function NotFound() {
             </motion.div>
 
             {/* Error code */}
-            <div style={{
-                fontFamily: font.system,
-                fontSize: "11px", color: color.pinkText,
-                letterSpacing: "0.08em", textTransform: "uppercase",
-                marginBottom: "12px",
-            }}>error 404</div>
+            <SectionLabel tone="accent" size="11px" style={{ marginBottom: "12px" }}>
+                error 404
+            </SectionLabel>
 
             {/* Heading */}
             <h1 style={{

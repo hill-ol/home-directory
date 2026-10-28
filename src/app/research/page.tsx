@@ -5,6 +5,7 @@ import Link from "next/link";
 
 import PosterImage from "@/components/PosterImage";
 import Pill from "@/components/Pill";
+import SectionLabel from "@/components/SectionLabel";
 import { research } from "@/content/research";
 import { accentPill, accentText } from "@/lib/hover";
 import { color, font, hairline, line } from "@/lib/theme";
@@ -50,18 +51,12 @@ export default function ResearchPage() {
                     </Link>
 
                     <header style={{ marginBottom: "64px" }}>
-                        <div
-                            style={{
-                                marginBottom: "12px",
-                                color: color.pinkText,
-                                fontFamily: font.system,
-                                fontSize: "10px",
-                                letterSpacing: "0.06em",
-                                textTransform: "uppercase",
-                            }}
+                        <SectionLabel
+                            tone="accent"
+                            style={{ marginBottom: "12px" }}
                         >
                             research/
-                        </div>
+                        </SectionLabel>
 
                         <h1
                             style={{
@@ -167,17 +162,9 @@ export default function ResearchPage() {
                                     gap: "14px",
                                 }}
                             >
-                                <div
-                                    style={{
-                                        color: color.inkSecondary,
-                                        fontFamily: "monospace",
-                                        fontSize: "10px",
-                                        letterSpacing: "0.06em",
-                                        textTransform: "uppercase",
-                                    }}
-                                >
+                                <SectionLabel mono>
                                     {entry.institution}
-                                </div>
+                                </SectionLabel>
 
                                 <h2
                                     style={{

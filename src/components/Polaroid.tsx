@@ -63,6 +63,7 @@ export default function Polaroid() {
                         src="/readme/Headshot.jpg"
                         alt="Olivia Hill"
                         fill
+                        sizes="128px"
                         style={{ objectFit: "cover", objectPosition: "center top" }}
                     />
                 </div>

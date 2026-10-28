@@ -1,27 +1,8 @@
-import type { ReactNode } from "react";
-
+import SectionLabel from "@/components/SectionLabel";
 import type { Project } from "@/content/projects";
 
 import { projectVariants, type ProjectVariant } from "./variants";
 import { color, font, hairline, line } from "@/lib/theme";
-
-function MetadataLabel({ children }: { children: ReactNode }) {
-    return (
-        <div
-            style={{
-                marginBottom: "4px",
-                color: color.inkSecondary,
-                fontFamily:
-                    font.system,
-                fontSize: "10px",
-                letterSpacing: "0.06em",
-                textTransform: "uppercase",
-            }}
-        >
-            {children}
-        </div>
-    );
-}
 
 interface ProjectMetaRowProps {
     project: Project;
@@ -50,7 +31,9 @@ export default function ProjectMetaRow({
                 { label: "Period", value: project.period },
             ].map(({ label, value }) => (
                 <div key={label}>
-                    <MetadataLabel>{label}</MetadataLabel>
+                    <SectionLabel style={{ marginBottom: "4px" }}>
+                        {label}
+                    </SectionLabel>
 
                     <div
                         style={{
@@ -65,7 +48,9 @@ export default function ProjectMetaRow({
             ))}
 
             <div>
-                <MetadataLabel>Stack</MetadataLabel>
+                <SectionLabel style={{ marginBottom: "4px" }}>
+                    Stack
+                </SectionLabel>
 
                 <div
                     style={{

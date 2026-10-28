@@ -4,6 +4,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { useState } from "react";
 import Link from "next/link";
 
+import SectionLabel from "@/components/SectionLabel";
 import CourseworkCover from "@/components/coursework/CourseworkCover";
 import SemesterPage, {
     LINE_HEIGHT,
@@ -50,7 +51,7 @@ export default function CourseworkPage() {
                     >← back to readme</Link>
 
                     <div style={{ marginBottom: "48px" }}>
-                        <div style={{ fontFamily: font.system, fontSize: "10px", color: color.pinkText, letterSpacing: "0.06em", textTransform: "uppercase", marginBottom: "12px" }}>coursework/</div>
+                        <SectionLabel tone="accent" style={{ marginBottom: "12px" }}>coursework/</SectionLabel>
                         <h1 style={{ fontFamily: font.display, fontSize: "clamp(32px,5vw,48px)", fontWeight: 400, color: color.ink, lineHeight: 1.1, letterSpacing: "-0.02em", margin: "0 0 12px 0" }}>Coursework</h1>
                         <p style={{ fontFamily: font.body, fontSize: "13px", fontWeight: 300, color: color.inkSecondary, lineHeight: 1.7, margin: 0 }}>{`${bio.majors.join(" and ")} combined major · ${bio.school} · ${bio.gradClass}`}</p>
                     </div>
@@ -80,7 +81,7 @@ export default function CourseworkPage() {
                                                 flexShrink: 0,
                                                 padding: "6px 14px",
                                                 borderRadius: "20px",
-                                                border: `0.5px solid ${isActive ? sem.darkColor : line.card}`,
+                                                border: hairline(isActive ? sem.darkColor : line.card),
                                                 backgroundColor: isActive ? sem.color : "transparent",
                                                 fontFamily: isActive ? font.display : font.system,
                                                 fontStyle: isActive ? "italic" : "normal",
@@ -189,9 +190,9 @@ export default function CourseworkPage() {
                                                             width: `${TW}px`, height: `${TH}px`,
                                                             backgroundColor: isActive ? sem.color : `${sem.color}70`,
                                                             border: "none",
-                                                            borderTop: `0.5px solid ${isActive ? sem.darkColor : line.tile}`,
-                                                            borderRight: `0.5px solid ${isActive ? sem.darkColor : line.tile}`,
-                                                            borderBottom: `0.5px solid ${isActive ? sem.darkColor : line.tile}`,
+                                                            borderTop: hairline(isActive ? sem.darkColor : line.tile),
+                                                            borderRight: hairline(isActive ? sem.darkColor : line.tile),
+                                                            borderBottom: hairline(isActive ? sem.darkColor : line.tile),
                                                             borderLeft: "none",
                                                             borderRadius: "0 6px 6px 0",
                                                             cursor: "pointer",

@@ -222,7 +222,7 @@ export default function PosterImage({
                         right: "12px",
                         zIndex: 2,
                         padding: "3px 8px",
-                        color: "#7A2D5A",
+                        color: color.pinkText,
                         backgroundColor: color.pink,
                         borderRadius: "3px",
                         fontFamily: "monospace",

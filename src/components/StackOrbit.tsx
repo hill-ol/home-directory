@@ -4,8 +4,8 @@ import { useState } from "react";
 
 import HoverLabel from "@/components/HoverLabel";
 import IconTile from "@/components/IconTile";
+import StackGlyph from "@/components/glyphs/StackGlyph";
 import { stack } from "@/content/stack";
-import { color } from "@/lib/theme";
 
 export default function StackOrbit() {
     const [hovered, setHovered] = useState<string | null>(null);
@@ -47,22 +47,10 @@ export default function StackOrbit() {
                             }}
                         >
                             <IconTile active={isHovered}>
-                                <svg
-                                    aria-hidden="true"
-                                    viewBox="0 0 24 24"
-                                    width="22"
-                                    height="22"
-                                    fill={
-                                        isHovered
-                                            ? `#${icon.hex}`
-                                            : color.inkMuted
-                                    }
-                                    style={{
-                                        transition: "fill 0.25s ease",
-                                    }}
-                                >
-                                    <path d={icon.path} />
-                                </svg>
+                                <StackGlyph
+                                    icon={icon}
+                                    active={isHovered}
+                                />
                             </IconTile>
                         </div>
 

@@ -13,7 +13,7 @@ import { bio } from "@/content/bio";
 import { contact } from "@/content/contact";
 import { useRestoreFocus } from "@/hooks/useRestoreFocus";
 import { applyStyle } from "@/lib/hover";
-import { color, font, line, surface } from "@/lib/theme";
+import { color, font, hairline, line, surface } from "@/lib/theme";
 
 interface MenuItem {
     label: string;
@@ -330,7 +330,7 @@ export default function ContextMenu() {
                         backgroundColor: surface.panel,
                         backdropFilter: "blur(20px)",
                         WebkitBackdropFilter: "blur(20px)",
-                        border: "0.5px solid rgba(28,25,23,0.12)",
+                        border: hairline(line.card),
                         borderRadius: "10px",
                         boxShadow:
                             "0 8px 32px rgba(28,25,23,0.18), " +

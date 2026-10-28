@@ -8,7 +8,9 @@ import type { SimpleIcon } from "simple-icons";
 import FolderIcon from "@/components/FolderIcon";
 import HoverLabel from "@/components/HoverLabel";
 import IconTile from "@/components/IconTile";
+import SectionLabel from "@/components/SectionLabel";
 import PdfGlyph from "@/components/glyphs/PdfGlyph";
+import StackGlyph from "@/components/glyphs/StackGlyph";
 import { bio, intro } from "@/content/bio";
 import { contact } from "@/content/contact";
 import { orgs } from "@/content/orgs";
@@ -30,10 +32,7 @@ function MobileStackIcon({ icon, label }: { icon: SimpleIcon; label: string }) {
                 transition={{ duration: 0.2, ease: "easeOut" }}
             >
                 <IconTile active={active} accent={`#${icon.hex}`}>
-                    <svg viewBox="0 0 24 24" width="22" height="22" fill={active ? `#${icon.hex}` : color.inkMuted}
-                         style={{ transition: "fill 0.2s ease" }}>
-                        <path d={icon.path}/>
-                    </svg>
+                    <StackGlyph icon={icon} active={active}/>
                 </IconTile>
             </motion.div>
             <HoverLabel active={active} size="9px">{label}</HoverLabel>
@@ -87,6 +86,7 @@ export default function MobileHome({ onFolderClick }: Props) {
                                 src="/readme/Headshot.jpg"
                                 alt="Olivia Hill"
                                 fill
+                                sizes="160px"
                                 priority
                                 style={{ objectFit: "cover", objectPosition: "center top" }}
                             />
@@ -120,7 +120,7 @@ export default function MobileHome({ onFolderClick }: Props) {
 
                 {/* Projects */}
                 <div>
-                    <div style={{ fontFamily: font.system, fontSize: "10px", color: color.inkSecondary, letterSpacing: "0.06em", textTransform: "uppercase", marginBottom: "16px" }}>projects</div>
+                    <SectionLabel style={{ marginBottom: "16px" }}>projects</SectionLabel>
                     <div style={{ display: "grid", gridTemplateColumns: "repeat(2, 1fr)", gap: "20px" }}>
                         {projects.map(project => (
                             <FolderIcon
@@ -142,7 +142,7 @@ export default function MobileHome({ onFolderClick }: Props) {
 
                 {/* Stack */}
                 <div>
-                    <div style={{ fontFamily: font.system, fontSize: "10px", color: color.inkSecondary, letterSpacing: "0.06em", textTransform: "uppercase", marginBottom: "16px" }}>stack</div>
+                    <SectionLabel style={{ marginBottom: "16px" }}>stack</SectionLabel>
                     <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: "12px" }}>
                         {stack.map(({ icon, label }) => (
                             <MobileStackIcon key={label} icon={icon} label={label} />
@@ -152,12 +152,12 @@ export default function MobileHome({ onFolderClick }: Props) {
 
                 {/* Orgs */}
                 <div>
-                    <div style={{ fontFamily: font.system, fontSize: "10px", color: color.inkSecondary, letterSpacing: "0.06em", textTransform: "uppercase", marginBottom: "16px" }}>experience</div>
+                    <SectionLabel style={{ marginBottom: "16px" }}>experience</SectionLabel>
                     <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: "12px" }}>
                         {orgs.map(org => (
                             <div key={org.label} style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: "4px" }}>
                                 <IconTile>
-                                    <Image src={org.src} alt={org.label} fill style={{ objectFit: "contain" }}/>
+                                    <Image src={org.src} alt={org.label} fill sizes="44px" style={{ objectFit: "contain" }}/>
                                 </IconTile>
                                 <HoverLabel size="9px" wrap>{org.label}</HoverLabel>
                             </div>

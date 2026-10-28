@@ -5,6 +5,7 @@ import Link from "next/link";
 import { useEffect, useState, useRef } from "react";
 import Image from "next/image";
 import PassportStamps from "@/components/PassportStamps";
+import SectionLabel from "@/components/SectionLabel";
 import { bio } from "@/content/bio";
 import { contactLinks } from "@/content/contact";
 import {
@@ -111,6 +112,7 @@ export default function ReadmePage() {
                             src="/readme/Headshot.jpg"
                             alt="Olivia Hill"
                             fill
+                            sizes="(min-width: 768px) 40vw, 100vw"
                             style={{ objectFit: "cover", objectPosition: "center top" }}
                             priority
                         />
@@ -131,14 +133,14 @@ export default function ReadmePage() {
                                 boxShadow: "0 2px 12px rgba(28,25,23,0.10)",
                                 position: "relative", flexShrink: 0,
                             }}>
-                                <Image src="/readme/Headshot.jpg" alt="Olivia Hill" fill style={{ objectFit: "cover", objectPosition: "center top" }}/>
+                                <Image src="/readme/Headshot.jpg" alt="Olivia Hill" fill sizes="100px" style={{ objectFit: "cover", objectPosition: "center top" }}/>
                             </div>
                         </div>
 
                         <div className="grid md:grid-cols-2" style={{ gap: "48px", alignItems: "start" }}>
                             {/* Bio */}
                             <div style={{ display: "flex", flexDirection: "column", gap: "20px" }}>
-                                <div style={{ fontFamily: font.system, fontSize: "10px", color: color.pinkText, letterSpacing: "0.06em", textTransform: "uppercase" }}>readme.md</div>
+                                <SectionLabel tone="accent">readme.md</SectionLabel>
                                 <h1 style={{ fontFamily: font.display, fontSize: "clamp(32px, 4vw, 52px)", fontWeight: 400, color: color.ink, lineHeight: 1.05, letterSpacing: "-0.02em", margin: 0 }}>{heading}</h1>
                                 {bioParagraphs.map(paragraph => (
                                     <p key={paragraph.slice(0, 24)} style={{ fontFamily: font.body, fontSize: "13px", fontWeight: 300, color: color.inkSecondary, lineHeight: 1.8, margin: 0 }}>
@@ -158,7 +160,7 @@ export default function ReadmePage() {
 
                         {/* Passport stamps — mobile */}
                         <div className="block md:hidden">
-                            <div style={{ fontFamily: font.system, fontSize: "10px", color: color.inkSecondary, letterSpacing: "0.06em", textTransform: "uppercase", marginBottom: "16px", marginTop: "8px" }}>global scholar</div>
+                            <SectionLabel style={{ marginBottom: "16px", marginTop: "8px" }}>global scholar</SectionLabel>
                             <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "12px" }}>
                                 {stamps.map(stamp => (
                                     <div key={stamp.city} style={{ backgroundColor: stamp.color, borderRadius: "6px", padding: "12px", display: "flex", flexDirection: "column", gap: "2px" }}>
@@ -210,7 +212,7 @@ export default function ReadmePage() {
                 {/* CURRENTLY */}
                 <div style={{ padding: "0 0 64px" }}>
                     <div style={{ maxWidth: "860px", margin: "0 auto", padding: "0 24px" }}>
-                        <div style={{ fontFamily: font.system, fontSize: "13px", color: color.inkSecondary, letterSpacing: "0.06em", textTransform: "uppercase", marginBottom: "24px" }}>currently</div>
+                        <SectionLabel size="13px" style={{ marginBottom: "24px" }}>currently</SectionLabel>
                         <div className="grid grid-cols-2 md:grid-cols-3" style={{ border: hairline(line.tile), borderRadius: "8px", overflow: "hidden" }}>
                             {currently.map(({ field, value }) => (
                                 <div key={field} style={{ padding: "20px 22px", borderRight: hairline(line.tile), borderBottom: hairline(line.tile), backgroundColor: color.cream }}>
@@ -238,7 +240,7 @@ export default function ReadmePage() {
                 {/* CONTACT */}
                 <div style={{ borderTop: hairline(line.divider), padding: "48px 0 64px" }}>
                     <div style={{ maxWidth: "860px", margin: "0 auto", padding: "0 24px" }}>
-                        <div style={{ fontFamily: font.system, fontSize: "13px", color: color.inkSecondary, letterSpacing: "0.06em", textTransform: "uppercase", marginBottom: "24px" }}>contact</div>
+                        <SectionLabel size="13px" style={{ marginBottom: "24px" }}>contact</SectionLabel>
                         <div style={{ display: "flex", flexDirection: "column" }}>
                             {contactLinks.map(({ label, href, display, external }) => (
                                 <a key={label} href={href} target={external ? "_blank" : undefined} rel={external ? "noopener noreferrer" : undefined}

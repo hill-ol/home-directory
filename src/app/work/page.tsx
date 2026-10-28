@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import { useState } from "react";
 import Link from "next/link";
 import Pill from "@/components/Pill";
+import SectionLabel from "@/components/SectionLabel";
 import { projects } from "@/content/projects";
 import { color, font, hairline, line } from "@/lib/theme";
 
@@ -89,11 +90,7 @@ export default function WorkPage() {
 
                     {/* Header */}
                     <div style={{ marginBottom: "56px" }}>
-                        <div style={{
-                            fontFamily: font.system,
-                            fontSize: "11px", color: color.pinkText,
-                            letterSpacing: "0.06em", textTransform: "uppercase", marginBottom: "12px",
-                        }}>work/</div>
+                        <SectionLabel tone="accent" size="11px" style={{ marginBottom: "12px" }}>work/</SectionLabel>
                         <h1 style={{
                             fontFamily: font.display,
                             fontSize: "clamp(32px, 5vw, 52px)",
@@ -126,7 +123,6 @@ export default function WorkPage() {
                             </motion.div>
                         ))}
                     </div>
-
                 </div>
             </main>
         </motion.div>
