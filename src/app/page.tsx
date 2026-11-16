@@ -2,7 +2,6 @@
 
 import { useState, useCallback, useEffect } from "react";
 import StackOrbit from "@/components/StackOrbit";
-import Polaroid from "@/components/Polaroid";
 import FolderIcon from "@/components/FolderIcon";
 import OrgIcons from "@/components/OrgIcons";
 import ResumeIcon from "@/components/ResumeIcon";
@@ -83,7 +82,6 @@ export default function Home() {
                     paddingTop: "48px",
                 }}>
                     <StackOrbit />
-                    <Polaroid />
                     <OrgIcons />
                     <ResumeIcon />
 

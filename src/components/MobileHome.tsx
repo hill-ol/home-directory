@@ -54,7 +54,7 @@ export default function MobileHome({ onFolderClick }: Props) {
         }}>
             <div style={{ padding: "0 24px", display: "flex", flexDirection: "column", gap: "40px" }}>
 
-                {/* Hero — Polaroid + name */}
+                {/* Hero: name + bio */}
                 <div style={{
                     display: "flex",
                     flexDirection: "column",
@@ -62,37 +62,6 @@ export default function MobileHome({ onFolderClick }: Props) {
                     gap: "24px",
                     paddingTop: "16px",
                 }}>
-                    {/*
-                     * Polaroid card. The deep bottom padding is the blank
-                     * strip a polaroid leaves for a handwritten caption.
-                     */}
-                    <div style={{
-                        backgroundColor: "white",
-                        padding: "10px 10px 42px 10px",
-                        boxShadow: "0 4px 24px rgba(28,25,23,0.12), 0 1px 4px rgba(28,25,23,0.06)",
-                        borderRadius: "2px",
-                        transform: "rotate(-2deg)",
-                        width: "180px",
-                        flexShrink: 0,
-                    }}>
-                        <div style={{
-                            position: "relative",
-                            width: "160px",
-                            height: "200px",
-                            overflow: "hidden",
-                            backgroundColor: color.surfaceSunken,
-                        }}>
-                            <Image
-                                src="/readme/Headshot.jpg"
-                                alt="Olivia Hill"
-                                fill
-                                sizes="160px"
-                                priority
-                                style={{ objectFit: "cover", objectPosition: "center top" }}
-                            />
-                        </div>
-                    </div>
-
                     {/* Name + bio */}
                     <div style={{ textAlign: "center" }}>
                         <h1 style={{
