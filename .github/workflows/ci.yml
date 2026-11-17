@@ -14,6 +14,18 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 15
 
+    env:
+      # CI builds against the committed seed in src/content, with no database
+      # on purpose. That keeps the run hermetic: the accessibility suite then
+      # measures content that lives in the repo, so editing the live site
+      # cannot turn CI red, and no real credentials are needed here.
+      #
+      # These two exist only because createNeonAuth validates its config at
+      # module load, which happens while Next collects page data for
+      # /api/auth/[...path]. They sign nothing and reach nothing.
+      NEON_AUTH_BASE_URL: https://auth.invalid/ci
+      NEON_AUTH_COOKIE_SECRET: ci-placeholder-value-that-signs-nothing-real
+
     steps:
       - name: Check out repository
         uses: actions/checkout@v7
