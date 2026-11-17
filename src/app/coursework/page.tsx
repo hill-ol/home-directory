@@ -2,15 +2,16 @@
 
 import { motion, AnimatePresence } from "framer-motion";
 import { useState } from "react";
-import Link from "next/link";
 
-import SectionLabel from "@/components/SectionLabel";
 import CourseworkCover from "@/components/coursework/CourseworkCover";
+import BackLink from "@/components/ui/BackLink";
+import Page from "@/components/ui/Page";
+import PageHeader from "@/components/ui/PageHeader";
 import SemesterPage, {
     LINE_HEIGHT,
 } from "@/components/coursework/SemesterPage";
 import { useContent } from "@/components/ContentProvider";
-import { accentText, hoverSwap } from "@/lib/hover";
+import { hoverSwap } from "@/lib/hover";
 import { color, font, hairline, line } from "@/lib/theme";
 
 /** Desktop tab width, height, and the overlap between stacked tabs. */
@@ -38,23 +39,12 @@ export default function CourseworkPage() {
 
     return (
         <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.4 }}>
-            <main style={{ minHeight: "100vh", backgroundColor: color.cream, paddingTop: "80px", paddingBottom: "96px" }}>
-                <div style={{ maxWidth: "760px", margin: "0 auto", padding: "0 24px" }}>
+            <Page maxWidth="760px">
+                <BackLink href="/readme">back to readme</BackLink>
 
-                    <Link href="/readme" style={{
-                        fontFamily: font.system,
-                        fontSize: "12px", color: color.inkSecondary, textDecoration: "none",
-                        display: "inline-flex", alignItems: "center", gap: "6px",
-                        marginBottom: "48px", transition: "color .2s",
-                    }}
-                          {...accentText}
-                    >← back to readme</Link>
-
-                    <div style={{ marginBottom: "48px" }}>
-                        <SectionLabel tone="accent" style={{ marginBottom: "12px" }}>coursework/</SectionLabel>
-                        <h1 style={{ fontFamily: font.display, fontSize: "clamp(32px,5vw,48px)", fontWeight: 400, color: color.ink, lineHeight: 1.1, letterSpacing: "-0.02em", margin: "0 0 12px 0" }}>Coursework</h1>
-                        <p style={{ fontFamily: font.body, fontSize: "13px", fontWeight: 300, color: color.inkSecondary, lineHeight: 1.7, margin: 0 }}>{`${bio.majors.join(" and ")} combined major · ${bio.school} · ${bio.gradClass}`}</p>
-                    </div>
+                <PageHeader eyebrow="coursework/" title="Coursework">
+                    {`${bio.majors.join(" and ")} combined major · ${bio.school} · ${bio.gradClass}`}
+                </PageHeader>
 
                     {/* ── MOBILE ── */}
                     <div className="block md:hidden">
@@ -225,8 +215,7 @@ export default function CourseworkPage() {
                             </div>
                         </div>
                     </div>
-                </div>
-            </main>
+            </Page>
         </motion.div>
     );
 }

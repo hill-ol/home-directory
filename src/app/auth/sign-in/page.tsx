@@ -3,13 +3,17 @@
 import { useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { authClient } from "@/lib/auth/client";
-import { color, font, hairline, line } from "@/lib/theme";
+import Button from "@/components/ui/Button";
+import Field from "@/components/ui/Field";
+import Page from "@/components/ui/Page";
+import StatusText from "@/components/ui/StatusText";
+import { color, font } from "@/lib/theme";
 
 /*
  * A plain form rather than Better Auth UI. That package wants shadcn/ui and
  * TanStack Query, and this project has neither: everything is styled with
- * inline token objects. One form with two fields is not worth two
- * dependencies and a component system.
+ * inline token objects, and the primitives in src/components/ui cover a form
+ * this size.
  */
 export default function SignInPage() {
     const router = useRouter();
@@ -50,39 +54,17 @@ export default function SignInPage() {
         router.refresh();
     }
 
-    const field: React.CSSProperties = {
-        fontFamily: font.body,
-        fontSize: "14px",
-        fontWeight: 300,
-        color: color.ink,
-        backgroundColor: color.card,
-        border: hairline(line.card),
-        borderRadius: "2px",
-        padding: "10px 12px",
-        width: "100%",
-    };
-
-    const label: React.CSSProperties = {
-        fontFamily: font.system,
-        fontSize: "10px",
-        letterSpacing: "0.04em",
-        color: color.inkSecondary,
-        display: "block",
-        marginBottom: "6px",
-    };
-
     return (
-        <main style={{
-            minHeight: "100vh",
-            backgroundColor: color.cream,
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            padding: "80px 24px",
-        }}>
+        <Page variant="centered">
             <form
                 onSubmit={onSubmit}
-                style={{ width: "100%", maxWidth: "320px" }}
+                style={{
+                    width: "100%",
+                    maxWidth: "320px",
+                    display: "flex",
+                    flexDirection: "column",
+                    gap: "16px",
+                }}
             >
                 <h1 style={{
                     fontFamily: font.display,
@@ -91,64 +73,38 @@ export default function SignInPage() {
                     color: color.ink,
                     lineHeight: 1.1,
                     letterSpacing: "-0.02em",
-                    margin: "0 0 24px 0",
+                    margin: "0 0 8px 0",
                 }}>Sign in</h1>
 
-                <div style={{ marginBottom: "16px" }}>
-                    <label style={label} htmlFor="email">EMAIL</label>
-                    <input
-                        id="email"
-                        type="email"
-                        autoComplete="username"
-                        required
-                        value={email}
-                        onChange={(e) => setEmail(e.target.value)}
-                        style={field}
-                    />
-                </div>
+                <Field
+                    idPrefix="signin"
+                    name="email"
+                    type="email"
+                    autoComplete="username"
+                    required
+                    value={email}
+                    onChange={setEmail}
+                />
 
-                <div style={{ marginBottom: "24px" }}>
-                    <label style={label} htmlFor="password">PASSWORD</label>
-                    <input
-                        id="password"
-                        type="password"
-                        autoComplete="current-password"
-                        required
-                        value={password}
-                        onChange={(e) => setPassword(e.target.value)}
-                        style={field}
-                    />
-                </div>
+                <Field
+                    idPrefix="signin"
+                    name="password"
+                    type="password"
+                    autoComplete="current-password"
+                    required
+                    value={password}
+                    onChange={setPassword}
+                />
 
-                {error && (
-                    <p role="alert" style={{
-                        fontFamily: font.body,
-                        fontSize: "13px",
-                        fontWeight: 300,
-                        color: color.pinkText,
-                        margin: "0 0 16px 0",
-                        lineHeight: 1.5,
-                    }}>{error}</p>
-                )}
+                <StatusText tone="error" size="md">{error}</StatusText>
 
-                <button
+                <Button
                     type="submit"
+                    size="md"
                     disabled={pending}
-                    style={{
-                        fontFamily: font.system,
-                        fontSize: "11px",
-                        letterSpacing: "0.04em",
-                        color: color.cream,
-                        backgroundColor: color.ink,
-                        border: "none",
-                        borderRadius: "2px",
-                        padding: "12px 16px",
-                        width: "100%",
-                        cursor: pending ? "default" : "pointer",
-                        opacity: pending ? 0.6 : 1,
-                    }}
-                >{pending ? "SIGNING IN" : "SIGN IN"}</button>
+                    style={{ width: "100%" }}
+                >{pending ? "SIGNING IN" : "SIGN IN"}</Button>
             </form>
-        </main>
+        </Page>
     );
 }

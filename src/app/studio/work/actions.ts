@@ -59,3 +59,50 @@ export async function saveProjectDescription(
         return { ok: false, error: describe(error) };
     }
 }
+
+export type NewProject = {
+    slug: string;
+    filename: string;
+    title: string;
+    tagline: string;
+    description: string;
+    period: string;
+    role: string;
+    stack: string[];
+    github: string;
+    live: string;
+};
+
+/*
+ * Adds a project to the front of the array.
+ *
+ * Order is not decoration: it drives /work, the mobile home grid, and
+ * sitemap.ts, and it is reverse chronological. A project being added is
+ * almost always the newest one, so it goes first rather than last.
+ *
+ * `home` is deliberately not set, so a new project appears on /work, on the
+ * mobile grid, and at its own page, but not on the hand-composed desktop
+ * canvas. Those coordinates are chosen by eye against the other folders and
+ * do not have a sensible default.
+ *
+ * The payload is shaped for the form's convenience, not trusted: setContent
+ * runs it through the schema, which is what actually decides.
+ */
+export async function addProject(input: NewProject): Promise<SaveResult> {
+    try {
+        const projects = await getContent("projects");
+
+        if (projects.some((project) => project.slug === input.slug)) {
+            return {
+                ok: false,
+                error: `A project with the slug "${input.slug}" already exists.`,
+            };
+        }
+
+        await setContent("projects", [input, ...projects]);
+
+        return { ok: true };
+    } catch (error) {
+        return { ok: false, error: describe(error) };
+    }
+}

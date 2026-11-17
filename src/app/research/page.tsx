@@ -1,13 +1,15 @@
 "use client";
 
 import { motion } from "framer-motion";
-import Link from "next/link";
 
 import PosterImage from "@/components/PosterImage";
 import Pill from "@/components/Pill";
 import SectionLabel from "@/components/SectionLabel";
+import BackLink from "@/components/ui/BackLink";
+import Page from "@/components/ui/Page";
+import PageHeader from "@/components/ui/PageHeader";
 import { useContent } from "@/components/ContentProvider";
-import { accentPill, accentText } from "@/lib/hover";
+import { accentPill } from "@/lib/hover";
 import { color, font, hairline, line } from "@/lib/theme";
 
 export default function ResearchPage() {
@@ -18,77 +20,14 @@ export default function ResearchPage() {
             animate={{ opacity: 1 }}
             transition={{ duration: 0.4 }}
         >
-            <main
-                style={{
-                    minHeight: "100vh",
-                    paddingTop: "80px",
-                    paddingBottom: "96px",
-                    backgroundColor: color.cream,
-                }}
-            >
-                <div
-                    style={{
-                        maxWidth: "900px",
-                        margin: "0 auto",
-                        padding: "0 24px",
-                    }}
-                >
-                    <Link
-                        href="/"
-                        style={{
-                            display: "inline-flex",
-                            alignItems: "center",
-                            gap: "6px",
-                            marginBottom: "48px",
-                            color: color.inkSecondary,
-                            fontFamily: font.system,
-                            fontSize: "12px",
-                            textDecoration: "none",
-                            transition: "color 0.2s",
-                        }}
-                        {...accentText}
-                    >
-                        ← back to desktop
-                    </Link>
+            <Page>
+                <BackLink href="/">back to desktop</BackLink>
 
-                    <header style={{ marginBottom: "64px" }}>
-                        <SectionLabel
-                            tone="accent"
-                            style={{ marginBottom: "12px" }}
-                        >
-                            research/
-                        </SectionLabel>
+                <PageHeader eyebrow="research/" title="Research">
+                    Undergraduate and pre-collegiate research across quantum
+                    computing, database systems, and environmental chemistry.
+                </PageHeader>
 
-                        <h1
-                            style={{
-                                margin: "0 0 12px",
-                                color: color.ink,
-                                fontFamily: font.display,
-                                fontSize: "clamp(32px, 5vw, 48px)",
-                                fontWeight: 400,
-                                lineHeight: 1.1,
-                                letterSpacing: "-0.02em",
-                            }}
-                        >
-                            Research
-                        </h1>
-
-                        <p
-                            style={{
-                                margin: 0,
-                                color: color.inkSecondary,
-                                fontFamily: font.body,
-                                fontSize: "13px",
-                                fontWeight: 300,
-                                lineHeight: 1.7,
-                            }}
-                        >
-                            Undergraduate and pre-collegiate
-                            research across quantum computing,
-                            database systems, and environmental
-                            chemistry.
-                        </p>
-                    </header>
 
                     {research.map((entry, index) => (
                         <motion.article
@@ -309,8 +248,7 @@ export default function ResearchPage() {
                             </div>
                         </motion.article>
                     ))}
-                </div>
-            </main>
+            </Page>
         </motion.div>
     );
 }

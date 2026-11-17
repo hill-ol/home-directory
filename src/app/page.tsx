@@ -46,7 +46,7 @@ export default function Home() {
         window.history.back();
     }, []);
 
-    // Handle browser back button — close overlay if open
+    // Handle browser back button - close overlay if open
     useEffect(() => {
         const handlePopState = (e: PopStateEvent) => {
             const slug = e.state?.[PROJECT_HISTORY_KEY];

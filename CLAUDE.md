@@ -145,6 +145,46 @@ from the CSS `transition` already declared on the element. Do not replace them
 with `motion` components or `useState` for the sake of tidiness: that trades a
 free CSS transition for a render on every pointer move.
 
+### Shared chrome lives in src/components/ui
+`Page`, `PageHeader`, `BackLink`, `Button`, `Field`, `Modal`, `StatusText`.
+
+They exist because the same markup was being retyped per page and drifting
+one page at a time. Three copies of the field style had already picked 13px
+against 14px, cream against card, and three different paddings; the display
+heading was hand-rolled on four pages; two pages had their own back link.
+That is the drift `ProjectOverlay` / `ProjectContent` share `variants.ts` to
+avoid.
+
+- `Page` switches on `variant: "column" | "centered"`. `column` is the centred
+  reading column under the fixed menu bar, with the 80px top padding that
+  clears it; `centered` is a single block in the middle of the viewport.
+  `maxWidth` defaults to 900px, and `/coursework` passes 760px.
+- `PageHeader` is the eyebrow, the display heading and the lead paragraph.
+- `BackLink` owns the arrow, so it cannot be a hyphen on one page and an
+  arrow on another.
+- `Button` takes `variant: "primary" | "quiet"` and `size: "sm" | "md"`, and
+  owns the disabled dimming.
+- `Field` owns the label and the control together so the `htmlFor` and `id`
+  pairing cannot be forgotten. `idPrefix` keeps ids unique when a page renders
+  one per row. `onChange` hands back the value, not the event.
+- `Modal` is the `useDialogA11y` shell: scrim, centred panel, close button,
+  title wired to `aria-labelledby`.
+- `StatusText` picks the ARIA role from the tone, so an error is announced
+  assertively and a neutral update is not. It renders nothing for empty
+  children, which is why callers pass `""` rather than guarding.
+
+These are plain components that spread style objects, exactly as `Pill` and
+`IconTile` already do. **Not a third-party kit.** The inline-style approach is
+load bearing: `hover.ts` mutates `element.style` to avoid re-renders, and
+satori cannot resolve `var()` in the OG image, so a second styling system
+would fight both.
+
+What deliberately stays out: the homepage, which is an absolutely positioned
+canvas; `MobileHome`; `/readme`, a full-bleed two column hero; `not-found`,
+which animates its own `main`; the one-component palettes listed above; and
+the `PosterImage` / `ProjectOverlay` shells, whose animation is the point.
+Forcing those through a shared component would mean a prop per difference.
+
 ### Why the tokens are literal hex
 Satori, which renders `src/app/og/route.tsx`, cannot resolve CSS custom
 properties, and `FolderGlyph` feeds that route. A `var(--color-pink)` in
@@ -267,6 +307,7 @@ scale stays with each parent.
 | `project/*` | Header, metadata row, and link pills shared by the two above |
 | `glyphs/*` | `FolderGlyph` and `PdfGlyph` — the two reused SVG shapes |
 | `ContextMenu` | Right-click menu on desktop canvas only — shows bio info + quick links |
+| `ui/*` | `Page`, `PageHeader`, `BackLink`, `Button`, `Field`, `Modal`, `StatusText` |
 | `ContentProvider` | Carries the fetched content down the tree; `useContent()` reads it |
 | `useRestoreFocus` | Focus a transient surface on open, put focus back on close |
 | `MenuBar` | Top nav with live clock · `MobileNav` export for bottom mobile nav |
@@ -341,6 +382,17 @@ Saving is explicit, not on blur, because a rejection needs somewhere to land.
 There is no optimistic update: `updateTag` gives read-your-own-writes, so the
 value is genuinely stored by the time the action resolves.
 
+Adding a project opens a modal built on `useDialogA11y`, the same hook behind
+the poster viewer: scroll lock, Tab trap, Escape, and focus returned to the
+trigger. Two deliberate differences. A click on the backdrop does **not**
+close it, because a stray click beside a long form costs more than one beside
+a picture, and closing keeps whatever has been typed, since only a successful
+add clears the fields.
+
+Its panel is centred by a flex wrapper rather than `translate(-50%, -50%)`.
+Framer Motion writes the element transform itself to animate `scale`, so a
+translate in `style` is silently overwritten and the panel lands off-centre.
+
 `src/lib/site-content.ts` is the composed layer the root layout actually uses:
 content plus everything that used to be derived at module scope. `intro`,
 `introInline`, `introWithClass`, `metaDescription` and `readmeHeading` live in
@@ -398,10 +450,20 @@ for the same reason. Keeping coordinates next to the data is what makes adding a
 project a single edit.
 
 ### Adding a project
-Add one entry to the `projects` array. Both layouts pick it up automatically: the
-desktop canvas from `home`, the mobile grid from array order. Omit `home` to keep
-a project off the desktop canvas while still listing it on `/work`, on the mobile
-grid, and at `/projects/<slug>`.
+Use the form at `/studio/work`. It writes through `setContent`, so the schema
+and the reference check both apply, and the new entry goes to the **front** of
+the array: order drives `/work`, the mobile grid and `sitemap.ts`, and it is
+reverse chronological, so the project being added is almost always the newest.
+
+The form does not set `home`, so a new project appears on `/work`, on the
+mobile grid and at `/projects/<slug>`, but not on the desktop canvas. Those
+coordinates are chosen by eye against the other folders and have no sensible
+default, so they are still added by hand in `src/content/projects/index.ts`
+and seeded, or set directly on the row.
+
+The slug is derived from the title until the field is touched. Choose it
+carefully: it is the key `research.ts` joins on and the URL of the project
+page, and renaming it later is refused while a research entry points at it.
 
 ### Array order matters
 The `projects` array order drives `/work`, the mobile home grid, and
@@ -562,6 +624,7 @@ Page descriptions come from `src/content/bio.ts`. The per-route
 - `requireSession()` is called in exactly one place, `setContent()`: there is no row-level security behind it, so do not add a second session check elsewhere
 - `src/lib/schemas.ts` fails closed: do not make an unknown key fall through unvalidated, and do not write a key before its schema exists
 - `/work` must stay statically rendered and free of editor code: the editor lives at `/studio/work`, which is already dynamic and already gated
+- Shared chrome comes from `src/components/ui`: do not hand-roll another page shell, heading, back link, input, button or status line, and do not bring in a component kit, since inline styles are what `hover.ts` and satori both depend on
 - `src/lib/stack-icons.ts` must stay server-side: a dynamic index into `simple-icons` cannot be tree-shaken, so resolving in a client component ships the whole icon set
 - `StackGlyph` takes `path` and `hex`, not a `SimpleIcon`, for the same reason: do not give it back a dependency on the icon package
 - `db/apply.mjs` must use `DATABASE_URL_UNPOOLED`: DDL through PgBouncer fails in ways that never mention pooling

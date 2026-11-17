@@ -2,7 +2,9 @@
 
 import { useState, useTransition } from "react";
 import { saveProjectDescription } from "@/app/studio/work/actions";
-import { color, font, hairline, line } from "@/lib/theme";
+import Button from "@/components/ui/Button";
+import Field from "@/components/ui/Field";
+import StatusText from "@/components/ui/StatusText";
 
 /**
  * The description field on one row of `/studio/work`.
@@ -48,86 +50,32 @@ export default function DescriptionEditor({
         });
     }
 
-    const button: React.CSSProperties = {
-        fontFamily: font.system,
-        fontSize: "10px",
-        letterSpacing: "0.04em",
-        borderRadius: "2px",
-        padding: "7px 12px",
-        cursor: "pointer",
-    };
-
     return (
         <div style={{ marginTop: "8px", display: "flex", flexDirection: "column", gap: "8px" }}>
-            <label
-                htmlFor={`description-${slug}`}
-                style={{
-                    fontFamily: font.system,
-                    fontSize: "10px",
-                    letterSpacing: "0.04em",
-                    color: color.inkSecondary,
-                }}
-            >DESCRIPTION</label>
-
-            <textarea
-                id={`description-${slug}`}
+            {/* The slug keeps the id unique across the rows on this page. */}
+            <Field
+                idPrefix={slug}
+                name="description"
+                multiline
                 value={value}
-                onChange={(event) => setValue(event.target.value)}
-                rows={6}
-                style={{
-                    fontFamily: font.body,
-                    fontSize: "13px",
-                    fontWeight: 300,
-                    lineHeight: 1.6,
-                    color: color.ink,
-                    backgroundColor: color.card,
-                    border: hairline(line.card),
-                    borderRadius: "2px",
-                    padding: "10px 12px",
-                    width: "100%",
-                    resize: "vertical",
-                }}
+                onChange={setValue}
             />
 
             <div style={{ display: "flex", alignItems: "center", gap: "8px", flexWrap: "wrap" }}>
-                <button
-                    type="button"
-                    onClick={onSave}
-                    disabled={!dirty || pending}
-                    style={{
-                        ...button,
-                        color: color.cream,
-                        backgroundColor: color.ink,
-                        border: "none",
-                        cursor: !dirty || pending ? "default" : "pointer",
-                        opacity: !dirty || pending ? 0.4 : 1,
-                    }}
-                >{pending ? "SAVING" : "SAVE"}</button>
+                <Button type="button" onClick={onSave} disabled={!dirty || pending}>
+                    {pending ? "SAVING" : "SAVE"}
+                </Button>
 
-                <button
+                <Button
                     type="button"
+                    variant="quiet"
+                    disabled={!dirty || pending}
                     onClick={() => { setValue(saved); setError(null); setJustSaved(false); }}
-                    disabled={!dirty || pending}
-                    style={{
-                        ...button,
-                        color: color.inkSecondary,
-                        backgroundColor: "transparent",
-                        border: hairline(line.pill),
-                        cursor: !dirty || pending ? "default" : "pointer",
-                        opacity: !dirty || pending ? 0.4 : 1,
-                    }}
-                >REVERT</button>
+                >REVERT</Button>
 
-                <span
-                    role="status"
-                    style={{
-                        fontFamily: font.system,
-                        fontSize: "10px",
-                        color: error ? color.pinkText : color.inkSecondary,
-                    }}
-                >
-                    {error ? error : justSaved && !dirty ? "Saved." : dirty ? "Unsaved changes." : ""}
-                </span>
+                <StatusText tone={error ? "error" : "neutral"}>
+                    {error ?? (justSaved && !dirty ? "Saved." : dirty ? "Unsaved changes." : "")}
+                </StatusText>
             </div>
         </div>
     );

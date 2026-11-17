@@ -1,15 +1,10 @@
 import FolderGlyph from "@/components/glyphs/FolderGlyph";
+import Page from "@/components/ui/Page";
 import { color, font } from "@/lib/theme";
 
 export default function Loading() {
     return (
-        <div style={{
-            minHeight: "100vh",
-            backgroundColor: color.cream,
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-        }}>
+        <Page variant="centered">
             <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: "20px" }}>
                 {/* Pulsing folder */}
                 <div style={{
@@ -31,6 +26,6 @@ export default function Loading() {
           50% { opacity: 0.4; }
         }
       `}</style>
-        </div>
+        </Page>
     );
 }
