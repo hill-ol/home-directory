@@ -1,4 +1,4 @@
-import { getProject } from "@/content/projects";
+import { findProject, projects, type Project } from "@/content/projects";
 
 type Presentation = {
     number: string;
@@ -27,7 +27,12 @@ export type ResearchEntry = Presentation &
 
 type ResearchSource = Presentation & ({ project: string } | Writeup);
 
-const sources: ResearchSource[] = [
+/*
+ * Exported so the seed script can write the unresolved entries. What goes
+ * in the database is this array, project references and all: resolve() runs
+ * at render time, the same as it does now.
+ */
+export const sources: ResearchSource[] = [
     {
         number: "01",
         project: "mills",
@@ -91,11 +96,19 @@ const sources: ResearchSource[] = [
     },
 ];
 
-function resolve(source: ResearchSource): ResearchEntry {
+/*
+ * Resolves one entry against a projects array. Entries that name a project
+ * read their prose off it, so the roughly 800-character abstracts are not
+ * duplicated between here and the project entry.
+ */
+export function resolveResearchEntry(
+    source: ResearchSource,
+    list: Project[],
+): ResearchEntry {
     if (!("project" in source)) return source;
 
     const { project: slug, ...presentation } = source;
-    const match = getProject(slug);
+    const match = findProject(list, slug);
 
     if (!match) {
         throw new Error(
@@ -113,4 +126,12 @@ function resolve(source: ResearchSource): ResearchEntry {
     };
 }
 
-export const research: ResearchEntry[] = sources.map(resolve);
+export function resolveResearch(
+    list: ResearchSource[],
+    projectList: Project[],
+): ResearchEntry[] {
+    return list.map((source) => resolveResearchEntry(source, projectList));
+}
+
+/* The seeded set, resolved at import time so a bad slug fails the build. */
+export const research: ResearchEntry[] = resolveResearch(sources, projects);

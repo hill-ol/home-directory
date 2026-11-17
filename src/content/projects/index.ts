@@ -98,3 +98,20 @@ export const desktopProjects:
     (project): project is PlacedProject =>
         project.home !== undefined,
 );
+/*
+ * Parameterised versions of the two helpers above, for callers that hold a
+ * projects array from the database rather than the seeded one. The originals
+ * stay because research.ts validates the seed against them at import time.
+ */
+export function findProject(
+    list: Project[],
+    slug: string,
+): Project | undefined {
+    return list.find((p) => p.slug === slug);
+}
+
+export function placedProjects(list: Project[]): PlacedProject[] {
+    return list.filter(
+        (project): project is PlacedProject => project.home !== undefined,
+    );
+}

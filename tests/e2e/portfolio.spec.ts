@@ -124,6 +124,7 @@ test.describe("accessibility", () => {
         "/research",
         "/coursework",
         "/projects/styleboard",
+        "/auth/sign-in",
         "/a-route-that-does-not-exist",
     ];
 
@@ -179,6 +180,19 @@ test.describe("accessibility", () => {
                 }
                 window.scrollTo(0, 0);
             });
+
+            /*
+             * Give the observers a beat before polling.
+             *
+             * The poll below settles as soon as two consecutive samples
+             * match, and that is also true before any animation has
+             * started. In isolation the rows are already fading by the
+             * first sample, but under full-suite parallelism a page can be
+             * slow enough that the poll settles first, and axe then
+             * measures a row mid-fade. Rows take 0.45s plus a 0.05s-per-row
+             * stagger, so this covers the longest list on the site.
+             */
+            await page.waitForTimeout(800);
 
             /*
              * Then wait for the fades to finish.

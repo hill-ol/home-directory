@@ -267,6 +267,7 @@ scale stays with each parent.
 | `project/*` | Header, metadata row, and link pills shared by the two above |
 | `glyphs/*` | `FolderGlyph` and `PdfGlyph` — the two reused SVG shapes |
 | `ContextMenu` | Right-click menu on desktop canvas only — shows bio info + quick links |
+| `ContentProvider` | Carries the fetched content down the tree; `useContent()` reads it |
 | `useRestoreFocus` | Focus a transient surface on open, put focus back on close |
 | `MenuBar` | Top nav with live clock · `MobileNav` export for bottom mobile nav |
 | `StackOrbit` | 11 scattered tech icons with brand color on hover |
@@ -276,8 +277,55 @@ scale stays with each parent.
 
 ## Content
 
-All site data lives in `src/content/`. Components read from these files and never
-declare their own copies: the desktop and mobile layouts render the same arrays.
+Site data lives in a single `content` table on Neon, one row per module, with
+the `jsonb` payload holding exactly the shape the matching `src/content` file
+exports. `src/content/*.ts` is still in the repo and still the place the types
+are declared, but it is now the **seed and the fallback**, not the live source.
+
+Read it through `src/lib/content.ts`:
+
+- `getAllContent()` / `getContent(key)` are server-side, cached under the
+  `content` tag, and merge key by key over the committed seed. A key that has
+  not been seeded falls back on its own rather than taking the whole site back
+  to the committed copy, and an unreachable database falls back entirely, which
+  on the Free plan includes a compute suspended over quota.
+- The root `layout.tsx` awaits it once and hands the whole set to
+  `ContentProvider`. Client components call `useContent()`. They cannot import
+  `src/content` for live data any more, because a client component cannot await
+  a query.
+- `sitemap.ts`, `robots.ts`, and `src/app/og/route.tsx` sit outside the layout
+  tree, so they call `getContent()` directly.
+
+Writes go through `setContent()` in `src/lib/content-write.ts`, never raw SQL.
+It calls `requireSession()` first and `updateTag()` last.
+
+`src/lib/site-content.ts` is the composed layer the root layout actually uses:
+content plus everything that used to be derived at module scope. `intro`,
+`introInline`, `introWithClass`, `metaDescription` and `readmeHeading` live in
+`src/lib/bio-text.ts` as pure functions of a `Bio`. They stay in code because
+the database holds atoms and these are sentences composed from them; storing
+the sentences would reintroduce the duplication `bio.ts` was written to remove.
+`bio-text.ts` is free of `server-only` so the edge OG route can use it without
+pulling in the database layer.
+
+A route layout that reads content exports `generateMetadata`, not a static
+`metadata` object. The per-route descriptions are still hand-written prose;
+only `bio.name` is interpolated.
+
+`stack` is the one row whose stored shape differs from its module shape. The
+database holds `iconSlug`, not the `SimpleIcon` object, so the row does not
+freeze a copy of the npm package. `src/lib/stack-icons.ts` resolves it
+**server-side on purpose**: a slug lookup needs the whole `simple-icons`
+namespace and a dynamic index into it cannot be tree-shaken, so resolving in
+`StackOrbit` would ship the entire icon set to the browser.
+
+`nav.ts` is deliberately not in the database. Nav links point at real routes,
+so making them editable means being able to link the site at a page that does
+not exist. That is structure, not content.
+
+The table below describes the seed modules, which are also where each shape is
+defined.
+
 
 | File | Holds | Read by |
 |---|---|---|
@@ -386,6 +434,60 @@ the ordered array for components that render the whole set. Before this was
 centralized, the same URL lived in three places and the context menu's LinkedIn
 link had silently gone stale.
 
+## Backend
+
+Neon, declared as infrastructure-as-code in `neon.ts` and applied with
+`neon deploy`. Three services: Lakebase Postgres, Managed Better Auth, and
+Object Storage. `neon deploy` also pulls the branch's env into `.env.local`,
+which is gitignored; `neon.ts` is committed and holds no secrets.
+
+**Driver.** `@neondatabase/serverless` over HTTP, in `src/lib/db.ts`, built
+lazily on first query. Neon's own guidance prefers `node-postgres` on Vercel,
+and that is right for a transactional app, but `src/app/og/route.tsx` runs on
+`runtime = "edge"` where `pg` cannot go. One HTTP driver that works in both
+runtimes beats two drivers for a site that makes one cached query per render.
+
+**Schema** is `db/schema.sql`, applied with `node --env-file=.env.local
+db/apply.mjs`. That script uses `DATABASE_URL_UNPOOLED`: DDL must not go
+through PgBouncer, which runs in transaction mode and drops session state in
+ways that never name pooling as the cause. If the schema grows past a couple
+of tables, replace the script with a real migration tool.
+
+**Auth** is Managed Better Auth. `src/lib/auth/server.ts` holds the client and
+`requireSession()`; `src/proxy.ts` gates `/studio` and nothing else. Neon's
+recipe is a catch-all matcher with the public pages allowlisted, which is
+backwards for a public portfolio with one private area: scoping the matcher
+means a new public route is public by default and cannot be accidentally
+locked behind a login.
+
+There is no row-level security behind any of this, so `requireSession()` is
+the entire authorization boundary. It is called in exactly one place,
+`setContent()`. Writing a second session check somewhere else is the smell
+that the boundary has stopped being auditable.
+
+It checks the owner, not just a session. Managed Auth serves sign-up through
+the same catch-all proxy as sign-in, so while `Disable Sign Up` is false on
+the branch a stranger can hold a perfectly valid session. `AUTH_OWNER_EMAIL`
+is the account that may write, and an unset value denies everyone rather than
+allowing anyone.
+
+**Object Storage** has two `public_read` buckets, `project-media` and
+`org-logo`, reached through `src/lib/storage.ts`. Public read because these
+are images `next/image` loads on a public site; a private bucket would need a
+signed, expiring URL minted per render, which cannot be statically rendered or
+cached. Writes still need the branch credential. The bucket host is
+branch-scoped, which is why `next.config.ts` wildcards it in
+`images.remotePatterns`.
+
+Upload each version to a **new key** and repoint the stored URL. A cached
+object is only as fresh as its key, so overwriting one means serving a stale
+image until the TTL expires.
+
+**Seeding a branch.** `POST /api/seed` lifts the committed `src/content`
+modules into rows. It 404s in production and uses `on conflict do nothing`, so
+it cannot clobber a real edit. Useful whenever a new Neon branch needs its
+content.
+
 ## Writing conventions
 
 - **No em dashes anywhere** — use colons or commas instead
@@ -414,7 +516,12 @@ Page descriptions come from `src/content/bio.ts`. The per-route
 - The `overflow: "hidden"` / `transform: scale()` separation in `PosterImage` (`src/components/PosterImage.tsx`) — they must be on separate elements or scale won't render
 - Tailwind v4 uses CSS-first config — do not create a `tailwind.config.js`
 - The `md` breakpoint gates mobile vs desktop layout on the homepage — do not change to `lg`
-- Content lives in `src/content/` and is read by both layouts — do not re-declare project, stack, org, contact, or bio data inside a component
+- Content lives in the `content` table and is read through `src/lib/content.ts`: do not import `src/content` for live data in a component, and do not re-declare project, stack, org, contact, or bio data inside one
+- `requireSession()` is called in exactly one place, `setContent()`: there is no row-level security behind it, so do not add a second session check elsewhere
+- `src/lib/stack-icons.ts` must stay server-side: a dynamic index into `simple-icons` cannot be tree-shaken, so resolving in a client component ships the whole icon set
+- `StackGlyph` takes `path` and `hex`, not a `SimpleIcon`, for the same reason: do not give it back a dependency on the icon package
+- `db/apply.mjs` must use `DATABASE_URL_UNPOOLED`: DDL through PgBouncer fails in ways that never mention pooling
+- `src/proxy.ts` gates `/studio` by matcher, not by allowlisting every public page, so do not invert it
 - `ProjectOverlay` and `ProjectContent` share `src/components/project/` — do not restyle one view in isolation, change the variant instead
 - `FolderGlyph` must not gain `"use client"` or any hook — the edge-runtime OG route imports it
 - Tokens in `src/lib/theme.ts` must stay literal hex — satori cannot resolve `var()` in the OG image

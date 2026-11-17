@@ -21,6 +21,20 @@ const securityHeaders = [
 
 const nextConfig: NextConfig = {
   allowedDevOrigins: ["127.0.0.1"],
+  images: {
+    /*
+     * Neon Object Storage serves public_read objects from a branch-scoped
+     * host, so the branch id is wildcarded: a preview branch serves its own
+     * copy of each object from its own subdomain. Without this entry,
+     * next/image refuses the URL outright.
+     */
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "**.storage.c-8.us-east-2.aws.neon.tech",
+      },
+    ],
+  },
   async headers() {
     return [
       {
