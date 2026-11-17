@@ -1,16 +1,25 @@
 import type { Metadata } from "next";
 
-import { bio } from "@/content/bio";
+import { getSiteContent } from "@/lib/site-content";
 
-export const metadata: Metadata = {
-    title: "Work",
-    description: "Projects by Olivia Hill: StyleBoard (AI fashion curation), CoopScout (co-op job aggregator), Toggo (trip planning app at Generate), Child Therapist Training Database (Khoury Excellence Award), and quantum computing research at The Mills Institute.",
-    openGraph: {
-        title: `Work · ${bio.name}`,
-        description: "Full-stack products and research tools by Olivia Hill, CS + Math student at Northeastern.",
-        images: [{ url: "/og", width: 1200, height: 630 }],
-    },
-};
+/*
+ * generateMetadata rather than a static object: bio.name now comes from
+ * the database. The descriptions stay as prose on purpose, since they are
+ * bespoke SEO copy rather than composed facts.
+ */
+export async function generateMetadata(): Promise<Metadata> {
+    const { bio } = await getSiteContent();
+
+    return {
+        title: "Work",
+        description: "Projects by Olivia Hill: StyleBoard (AI fashion curation), CoopScout (co-op job aggregator), Toggo (trip planning app at Generate), Child Therapist Training Database (Khoury Excellence Award), and quantum computing research at The Mills Institute.",
+        openGraph: {
+            title: `Work · ${bio.name}`,
+            description: "Full-stack products and research tools by Olivia Hill, CS + Math student at Northeastern.",
+            images: [{ url: "/og", width: 1200, height: 630 }],
+        },
+    };
+}
 
 export default function Layout({ children }: { children: React.ReactNode }) {
     return children;

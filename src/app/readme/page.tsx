@@ -6,16 +6,7 @@ import { useEffect, useState, useRef } from "react";
 import Image from "next/image";
 import PassportStamps from "@/components/PassportStamps";
 import SectionLabel from "@/components/SectionLabel";
-import { bio } from "@/content/bio";
-import { contactLinks } from "@/content/contact";
-import {
-    bioParagraphs,
-    currently,
-    heading,
-    lastModified,
-    neofetch,
-} from "@/content/readme";
-import { stamps } from "@/content/stamps";
+import { useContent } from "@/components/ContentProvider";
 import { accentText, hoverSwapChild } from "@/lib/hover";
 import { color, font, hairline, line } from "@/lib/theme";
 
@@ -26,6 +17,7 @@ import { color, font, hairline, line } from "@/lib/theme";
  * one that is readable where it actually sits.
  */
 function UptimeCounter() {
+    const { bio } = useContent();
     const [uptime, setUptime] = useState("");
     useEffect(() => {
         const start = new Date(bio.uptimeStart);
@@ -40,7 +32,7 @@ function UptimeCounter() {
         update();
         const id = setInterval(update, 1000);
         return () => clearInterval(id);
-    }, []);
+    }, [bio.uptimeStart]);
     return <span>{uptime}</span>;
 }
 
@@ -84,6 +76,8 @@ function TypewriterText({ text, delay = 800 }: { text: string; delay?: number })
 }
 
 export default function ReadmePage() {
+    const { contactLinks, readme, stamps, readmeHeading: heading } = useContent();
+    const { bioParagraphs, currently, neofetch, lastModified } = readme;
     return (
         <motion.div
             initial={{ opacity: 0 }}

@@ -6,11 +6,12 @@ import Link from "next/link";
 import PosterImage from "@/components/PosterImage";
 import Pill from "@/components/Pill";
 import SectionLabel from "@/components/SectionLabel";
-import { research } from "@/content/research";
+import { useContent } from "@/components/ContentProvider";
 import { accentPill, accentText } from "@/lib/hover";
 import { color, font, hairline, line } from "@/lib/theme";
 
 export default function ResearchPage() {
+    const { research } = useContent();
     return (
         <motion.div
             initial={{ opacity: 0 }}

@@ -1,8 +1,10 @@
 import type { MetadataRoute } from "next";
-import { projects } from "@/content/projects";
+import { getSiteContent } from "@/lib/site-content";
 import { siteUrl } from "@/lib/site";
 
-export default function sitemap(): MetadataRoute.Sitemap {
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
+    const { projects } = await getSiteContent();
+
     const staticRoutes: MetadataRoute.Sitemap = [
         { url: siteUrl, lastModified: new Date(), changeFrequency: "monthly", priority: 1 },
         { url: `${siteUrl}/work`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.9 },

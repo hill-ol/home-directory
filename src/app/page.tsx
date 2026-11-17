@@ -7,8 +7,8 @@ import OrgIcons from "@/components/OrgIcons";
 import ResumeIcon from "@/components/ResumeIcon";
 import MobileHome from "@/components/MobileHome";
 import ProjectOverlay from "@/components/ProjectOverlay";
-import { bio, intro } from "@/content/bio";
-import { desktopProjects, getProject } from "@/content/projects";
+import { findProject } from "@/content/projects";
+import { useContent } from "@/components/ContentProvider";
 import ContextMenu from "@/components/ContextMenu";
 import type { Project } from "@/content/projects";
 import { color, font } from "@/lib/theme";
@@ -16,11 +16,12 @@ import { color, font } from "@/lib/theme";
 const PROJECT_HISTORY_KEY = "portfolioProjectSlug";
 
 export default function Home() {
+    const { bio, intro, projects, desktopProjects } = useContent();
     const [activeProject, setActiveProject] = useState<Project | null>(null);
     const [folderRect, setFolderRect] = useState<DOMRect | null>(null);
 
     const openProject = useCallback((slug: string, rect: DOMRect) => {
-        const project = getProject(slug);
+        const project = findProject(projects, slug);
         if (!project) return;
         
         setFolderRect(rect);
@@ -37,7 +38,7 @@ export default function Home() {
             ...existingState,
             [PROJECT_HISTORY_KEY]: slug,
         }, "", `/projects/${slug}`);
-    }, []);
+    }, [projects]);
 
     const closeProject = useCallback(() => {
         // Opening an overlay always adds one history entry, so closing should
@@ -55,11 +56,11 @@ export default function Home() {
                 return
             }
 
-            setActiveProject(getProject(slug) ?? null);
+            setActiveProject(findProject(projects, slug) ?? null);
         };
         window.addEventListener("popstate", handlePopState);
         return () => window.removeEventListener("popstate", handlePopState);
-    }, []);
+    }, [projects]);
 
     return (
         <>

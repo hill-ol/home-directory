@@ -9,8 +9,7 @@ import CourseworkCover from "@/components/coursework/CourseworkCover";
 import SemesterPage, {
     LINE_HEIGHT,
 } from "@/components/coursework/SemesterPage";
-import { bio } from "@/content/bio";
-import { semesters } from "@/content/coursework";
+import { useContent } from "@/components/ContentProvider";
 import { accentText, hoverSwap } from "@/lib/hover";
 import { color, font, hairline, line } from "@/lib/theme";
 
@@ -26,6 +25,7 @@ const pageVariants = {
 };
 
 export default function CourseworkPage() {
+    const { bio, coursework: semesters } = useContent();
     const [activeIdx, setActiveIdx] = useState<number | null>(null);
     const [direction, setDirection] = useState(1);
 

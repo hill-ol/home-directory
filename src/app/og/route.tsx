@@ -1,12 +1,20 @@
 import { ImageResponse } from "next/og";
 
 import FolderGlyph from "@/components/glyphs/FolderGlyph";
-import { bio, introInline } from "@/content/bio";
+import { getContent } from "@/lib/content";
+import { introInline } from "@/lib/bio-text";
 import { color } from "@/lib/theme";
 
 export const runtime = "edge";
 
 export async function GET() {
+    /*
+     * getContent rather than getSiteContent: this route runs on the edge, so
+     * it takes the one key it needs and the plain text helper, not the whole
+     * composed layer with its icon resolution.
+     */
+    const bio = await getContent("bio");
+
     return new ImageResponse(
         (
             <div
@@ -84,7 +92,7 @@ export async function GET() {
                         fontWeight: 300,
                         marginBottom: "40px",
                     }}>
-                        {introInline}
+                        {introInline(bio)}
                     </div>
 
                     {/* Tags */}

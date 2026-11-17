@@ -5,10 +5,11 @@ import { useState } from "react";
 import Link from "next/link";
 import Pill from "@/components/Pill";
 import SectionLabel from "@/components/SectionLabel";
-import { projects } from "@/content/projects";
+import type { Project } from "@/content/projects";
+import { useContent } from "@/components/ContentProvider";
 import { color, font, hairline, line } from "@/lib/theme";
 
-function WorkRow({ project }: { project: (typeof projects)[0] }) {
+function WorkRow({ project }: { project: Project }) {
     const [hovered, setHovered] = useState(false);
 
     return (
@@ -79,6 +80,8 @@ function WorkRow({ project }: { project: (typeof projects)[0] }) {
 }
 
 export default function WorkPage() {
+    const { projects } = useContent();
+
     return (
         <motion.div
             initial={{ opacity: 0 }}
