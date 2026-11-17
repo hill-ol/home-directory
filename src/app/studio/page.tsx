@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { notFound } from "next/navigation";
 import { currentUser } from "@/lib/auth/server";
 import { color, font } from "@/lib/theme";
@@ -49,7 +50,7 @@ export default async function StudioPage() {
                     margin: 0,
                     lineHeight: 1.7,
                 }}>
-                    Signed in as {user.email}.
+                    Signed in as {user.email}. <Link href="/studio/work" style={{ color: color.pinkText }}>Edit projects</Link>.
                 </p>
             </div>
         </main>

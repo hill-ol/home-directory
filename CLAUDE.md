@@ -311,6 +311,36 @@ on an unknown slug, which failed the build. Nothing fails a build any more, so
 deleting or renaming a project that a research entry names is refused at the
 write boundary instead.
 
+
+### The editor lives at /studio, not on the public page
+
+`/studio/work` edits project descriptions. It is **not** on `/work`, and that
+is the point: `/work` stays statically prerendered and carries no editor code
+for the visitors who will never use it.
+
+The alternative was an edit-mode toggle on `/work` itself, which needs the
+page to know whether you are signed in. Reading the session in the root layout
+would mark the whole tree dynamic and lose static rendering across the site,
+so that would have meant discovering the session client-side, plus a dual-mode
+row that is either a link or a form. `/studio/*` is already dynamic and
+already gated by `src/proxy.ts`, so putting the editor there removes the
+question instead of answering it.
+
+`WorkRow` is shared by both behind `variant: "read" | "edit"`, the same split
+`ProjectOverlay` / `ProjectContent` and `FolderIcon` already use. The read
+variant hovers and is wrapped in a `Link`; the edit variant does neither and
+renders whatever it is given as `children` beneath the tagline.
+
+The Server Action in `src/app/studio/work/actions.ts` **returns** errors
+rather than throwing them. `setContent` rejects in three registers: a
+`Response` from `requireSession`, a `ZodError` from the schema, and a plain
+`Error` from the reference check. Letting any of those escape a Server Action
+gives the browser a digest and a blank screen.
+
+Saving is explicit, not on blur, because a rejection needs somewhere to land.
+There is no optimistic update: `updateTag` gives read-your-own-writes, so the
+value is genuinely stored by the time the action resolves.
+
 `src/lib/site-content.ts` is the composed layer the root layout actually uses:
 content plus everything that used to be derived at module scope. `intro`,
 `introInline`, `introWithClass`, `metaDescription` and `readmeHeading` live in
@@ -531,6 +561,7 @@ Page descriptions come from `src/content/bio.ts`. The per-route
 - Content lives in the `content` table and is read through `src/lib/content.ts`: do not import `src/content` for live data in a component, and do not re-declare project, stack, org, contact, or bio data inside one
 - `requireSession()` is called in exactly one place, `setContent()`: there is no row-level security behind it, so do not add a second session check elsewhere
 - `src/lib/schemas.ts` fails closed: do not make an unknown key fall through unvalidated, and do not write a key before its schema exists
+- `/work` must stay statically rendered and free of editor code: the editor lives at `/studio/work`, which is already dynamic and already gated
 - `src/lib/stack-icons.ts` must stay server-side: a dynamic index into `simple-icons` cannot be tree-shaken, so resolving in a client component ships the whole icon set
 - `StackGlyph` takes `path` and `hex`, not a `SimpleIcon`, for the same reason: do not give it back a dependency on the icon package
 - `db/apply.mjs` must use `DATABASE_URL_UNPOOLED`: DDL through PgBouncer fails in ways that never mention pooling

@@ -1,83 +1,11 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { useState } from "react";
 import Link from "next/link";
-import Pill from "@/components/Pill";
 import SectionLabel from "@/components/SectionLabel";
-import type { Project } from "@/content/projects";
+import WorkRow from "@/components/work/WorkRow";
 import { useContent } from "@/components/ContentProvider";
-import { color, font, hairline, line } from "@/lib/theme";
-
-function WorkRow({ project }: { project: Project }) {
-    const [hovered, setHovered] = useState(false);
-
-    return (
-        <motion.div
-            onHoverStart={() => setHovered(true)}
-            onHoverEnd={() => setHovered(false)}
-            animate={{ paddingLeft: hovered ? "10px" : "0px" }}
-            transition={{ duration: 0.2, ease: "easeOut" }}
-            style={{
-                padding: "24px 0",
-                borderBottom: hairline(line.tile),
-                cursor: "pointer",
-            }}
-        >
-            <div style={{ display: "flex", alignItems: "flex-start", justifyContent: "space-between", gap: "16px" }}>
-                <div style={{ display: "flex", flexDirection: "column", gap: "6px", flex: 1 }}>
-
-                    {/* Filename + period */}
-                    <div style={{ display: "flex", alignItems: "center", gap: "12px", flexWrap: "wrap" }}>
-                        <motion.span
-                            animate={{ color: hovered ? color.ink : color.pinkText }}
-                            transition={{ duration: 0.2 }}
-                            style={{
-                                fontFamily: font.system,
-                                fontSize: "10px", letterSpacing: "0.04em",
-                            }}
-                        >{project.filename}</motion.span>
-                        <span style={{
-                            fontFamily: font.system,
-                            fontSize: "10px", color: color.inkSecondary,
-                        }}>{project.period}</span>
-                    </div>
-
-                    {/* Title */}
-                    <motion.div
-                        animate={{ color: hovered ? color.pink : color.ink }}
-                        transition={{ duration: 0.2 }}
-                        style={{
-                            fontFamily: font.display,
-                            fontSize: "clamp(18px, 3vw, 22px)",
-                            fontWeight: 400, lineHeight: 1.2,
-                        }}
-                    >{project.title}</motion.div>
-
-                    {/* Tagline */}
-                    <div style={{
-                        fontFamily: font.body, fontSize: "13px",
-                        fontWeight: 300, color: color.inkSecondary, lineHeight: 1.5,
-                    }}>{project.tagline}</div>
-
-                    {/* Stack pills mobile */}
-                    <div className="flex md:hidden" style={{ flexWrap: "wrap", gap: "4px", marginTop: "4px" }}>
-                        {project.stack.slice(0, 3).map(s => (
-                            <Pill key={s}>{s}</Pill>
-                        ))}
-                    </div>
-                </div>
-
-                {/* Stack pills desktop */}
-                <div className="hidden md:flex" style={{ flexWrap: "wrap", gap: "4px", justifyContent: "flex-end", maxWidth: "200px", flexShrink: 0 }}>
-                    {project.stack.slice(0, 3).map(s => (
-                        <Pill key={s}>{s}</Pill>
-                    ))}
-                </div>
-            </div>
-        </motion.div>
-    );
-}
+import { color, font } from "@/lib/theme";
 
 export default function WorkPage() {
     const { projects } = useContent();
