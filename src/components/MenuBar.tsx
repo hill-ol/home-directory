@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
-import { bio } from "@/content/bio";
+import { useContent } from "@/components/ContentProvider";
 import { desktopNavLinks, homeLink, navLinks } from "@/content/nav";
 import { accentText } from "@/lib/hover";
 import { color, font, hairline, line, surface } from "@/lib/theme";
@@ -71,6 +71,7 @@ function MenuClock() {
 }
 
 export default function MenuBar() {
+    const { bio } = useContent();
     const pathname = usePathname();
     const [hoveredLink, setHoveredLink] = useState<string | null>(
         null,

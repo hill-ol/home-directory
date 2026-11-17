@@ -5,7 +5,8 @@ import { useState } from "react";
 
 import HoverLabel from "@/components/HoverLabel";
 import IconTile from "@/components/IconTile";
-import { orgs, type Org } from "@/content/orgs";
+import type { Org } from "@/content/orgs";
+import { useContent } from "@/components/ContentProvider";
 
 function OrgTile({ label, src, desktop }: Org) {
     const [hovered, setHovered] = useState(false);
@@ -46,6 +47,7 @@ function OrgTile({ label, src, desktop }: Org) {
 }
 
 export default function OrgIcons() {
+    const { orgs } = useContent();
     return (
         <>
             {orgs.map((org) => (

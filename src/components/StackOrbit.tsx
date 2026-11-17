@@ -5,14 +5,15 @@ import { useState } from "react";
 import HoverLabel from "@/components/HoverLabel";
 import IconTile from "@/components/IconTile";
 import StackGlyph from "@/components/glyphs/StackGlyph";
-import { stack } from "@/content/stack";
+import { useContent } from "@/components/ContentProvider";
 
 export default function StackOrbit() {
+    const { stack } = useContent();
     const [hovered, setHovered] = useState<string | null>(null);
 
     return (
         <>
-            {stack.map(({ icon, label, desktop }) => {
+            {stack.map(({ path, hex, label, desktop }) => {
                 const isHovered = hovered === label;
 
                 return (
@@ -48,7 +49,8 @@ export default function StackOrbit() {
                         >
                             <IconTile active={isHovered}>
                                 <StackGlyph
-                                    icon={icon}
+                                    path={path}
+                                    hex={hex}
                                     active={isHovered}
                                 />
                             </IconTile>

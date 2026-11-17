@@ -3,10 +3,11 @@
 import { useState } from "react";
 
 import PdfGlyph from "@/components/glyphs/PdfGlyph";
-import { contact } from "@/content/contact";
+import { useContent } from "@/components/ContentProvider";
 import { color, font } from "@/lib/theme";
 
 export default function ResumeIcon() {
+    const { contact } = useContent();
     const [hovered, setHovered] = useState(false);
 
     return (

@@ -1,5 +1,7 @@
+"use client";
+
 import CourseworkEmblem from "@/components/coursework/CourseworkEmblem";
-import { bio } from "@/content/bio";
+import { useContent } from "@/components/ContentProvider";
 import { color, font } from "@/lib/theme";
 
 /*
@@ -12,6 +14,7 @@ export default function CourseworkCover({
 }: {
     variant: "mobile" | "desktop";
 }) {
+    const { bio } = useContent();
     const isDesktop = variant === "desktop";
 
     const name = (

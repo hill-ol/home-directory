@@ -3,7 +3,6 @@
 import Image from "next/image";
 import { motion } from "framer-motion";
 import { useState } from "react";
-import type { SimpleIcon } from "simple-icons";
 
 import FolderIcon from "@/components/FolderIcon";
 import HoverLabel from "@/components/HoverLabel";
@@ -11,14 +10,10 @@ import IconTile from "@/components/IconTile";
 import SectionLabel from "@/components/SectionLabel";
 import PdfGlyph from "@/components/glyphs/PdfGlyph";
 import StackGlyph from "@/components/glyphs/StackGlyph";
-import { bio, intro } from "@/content/bio";
-import { contact } from "@/content/contact";
-import { orgs } from "@/content/orgs";
-import { projects } from "@/content/projects";
-import { stack } from "@/content/stack";
+import { useContent } from "@/components/ContentProvider";
 import { color, font } from "@/lib/theme";
 
-function MobileStackIcon({ icon, label }: { icon: SimpleIcon; label: string }) {
+function MobileStackIcon({ path, hex, label }: { path: string; hex: string; label: string }) {
     const [active, setActive] = useState(false);
     return (
         <motion.div
@@ -31,8 +26,8 @@ function MobileStackIcon({ icon, label }: { icon: SimpleIcon; label: string }) {
                 animate={{ scale: active ? 1.1 : 1 }}
                 transition={{ duration: 0.2, ease: "easeOut" }}
             >
-                <IconTile active={active} accent={`#${icon.hex}`}>
-                    <StackGlyph icon={icon} active={active}/>
+                <IconTile active={active} accent={`#${hex}`}>
+                    <StackGlyph path={path} hex={hex} active={active}/>
                 </IconTile>
             </motion.div>
             <HoverLabel active={active} size="9px">{label}</HoverLabel>
@@ -45,6 +40,7 @@ interface Props {
 }
 
 export default function MobileHome({ onFolderClick }: Props) {
+    const { bio, intro, contact, orgs, projects, stack } = useContent();
     return (
         <main style={{
             minHeight: "100vh",
@@ -113,8 +109,8 @@ export default function MobileHome({ onFolderClick }: Props) {
                 <div>
                     <SectionLabel style={{ marginBottom: "16px" }}>stack</SectionLabel>
                     <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: "12px" }}>
-                        {stack.map(({ icon, label }) => (
-                            <MobileStackIcon key={label} icon={icon} label={label} />
+                        {stack.map(({ path, hex, label }) => (
+                            <MobileStackIcon key={label} path={path} hex={hex} label={label} />
                         ))}
                     </div>
                 </div>

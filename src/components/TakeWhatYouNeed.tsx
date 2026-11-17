@@ -5,12 +5,13 @@ import Image from "next/image";
 import { usePathname } from "next/navigation";
 
 import PdfGlyph from "@/components/glyphs/PdfGlyph";
-import { contactLinks } from "@/content/contact";
+import { useContent } from "@/components/ContentProvider";
 import { color, font, hairline, line, surface } from "@/lib/theme";
 
 const rotations = [-14, -5, 5, 15];
 
 export default function TakeWhatYouNeed() {
+    const { contactLinks } = useContent();
     const [open, setOpen] = useState(false);
     const [hovered, setHovered] = useState<string | null>(null);
     const pathname = usePathname();

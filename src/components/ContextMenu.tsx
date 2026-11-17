@@ -9,8 +9,9 @@ import {
     useState,
 } from "react";
 
-import { bio } from "@/content/bio";
-import { contact } from "@/content/contact";
+import { useContent } from "@/components/ContentProvider";
+import type { Bio } from "@/lib/content";
+import type { ContactLink } from "@/content/contact";
 import { useRestoreFocus } from "@/hooks/useRestoreFocus";
 import { applyStyle } from "@/lib/hover";
 import { color, font, hairline, line, surface } from "@/lib/theme";
@@ -39,8 +40,8 @@ const clearHighlight = applyStyle<HTMLButtonElement>({
     backgroundColor: "transparent",
 });
 
-function calculateUptime(): string {
-    const start = new Date(bio.uptimeStart).getTime();
+function calculateUptime(uptimeStart: string): string {
+    const start = new Date(uptimeStart).getTime();
     const elapsed = Date.now() - start;
     const totalDays = Math.floor(
         elapsed / (1000 * 60 * 60 * 24),
@@ -58,7 +59,14 @@ function openInNewTab(url: string): void {
     window.open(url, "_blank", "noopener,noreferrer");
 }
 
-function buildItems(): MenuItem[] {
+/*
+ * Takes the content rather than importing it, because the content is
+ * fetched per request now and this runs at module scope.
+ */
+function buildItems(
+    bio: Bio,
+    contact: Record<string, ContactLink>,
+): MenuItem[] {
     return [
         { label: bio.name, dividerAfter: true },
         { label: bio.study },
@@ -77,7 +85,7 @@ function buildItems(): MenuItem[] {
             action: () => openInNewTab(contact.linkedin.href),
             dividerAfter: true,
         },
-        { label: `Uptime: ${calculateUptime()}` },
+        { label: `Uptime: ${calculateUptime(bio.uptimeStart)}` },
         { label: "Build: Next.js 16 · Vercel" },
     ];
 }
@@ -165,6 +173,7 @@ function InfoRow({
 }
 
 export default function ContextMenu() {
+    const { bio, contact } = useContent();
     const [visible, setVisible] = useState(false);
     const [position, setPosition] = useState({ x: 0, y: 0 });
 
@@ -337,7 +346,7 @@ export default function ContextMenu() {
                             "0 2px 8px rgba(28,25,23,0.08)",
                     }}
                 >
-                    {buildItems().map((item, index) => (
+                    {buildItems(bio, contact).map((item, index) => (
                         <div key={item.label}>
                             {item.action ? (
                                 <ActionRow

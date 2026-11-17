@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 
-import { stamps } from "@/content/stamps";
+import { useContent } from "@/components/ContentProvider";
 import { color, font, line } from "@/lib/theme";
 
 function Landmark({ city, fill, bg }: { city: string; fill: string; bg: string }) {
@@ -137,6 +137,7 @@ function StampSVG({ city, country, detail, season, color: stampColor, darkColor,
 }
 
 export default function PassportStamps() {
+    const { stamps } = useContent();
     const [hovered, setHovered] = useState<string | null>(null);
 
     return (
