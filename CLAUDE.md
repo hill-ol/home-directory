@@ -297,7 +297,19 @@ Read it through `src/lib/content.ts`:
   tree, so they call `getContent()` directly.
 
 Writes go through `setContent()` in `src/lib/content-write.ts`, never raw SQL.
-It calls `requireSession()` first and `updateTag()` last.
+It takes `unknown`, on purpose: the data arrives from a form, so the type it
+claims is not evidence. The order is `requireSession()`, then the shape, then
+the rules that span rows, then the write, then `updateTag()`.
+
+`src/lib/schemas.ts` holds the Zod schemas and **fails closed**: a key with no
+schema cannot be written at all. An editor for a key arrives together with its
+schema, never before it. Only `projects` has one so far.
+
+`assertReferencesHold()` covers what a schema cannot see, because it spans two
+rows. `research.ts` resolves against projects and used to throw at module load
+on an unknown slug, which failed the build. Nothing fails a build any more, so
+deleting or renaming a project that a research entry names is refused at the
+write boundary instead.
 
 `src/lib/site-content.ts` is the composed layer the root layout actually uses:
 content plus everything that used to be derived at module scope. `intro`,
@@ -518,6 +530,7 @@ Page descriptions come from `src/content/bio.ts`. The per-route
 - The `md` breakpoint gates mobile vs desktop layout on the homepage — do not change to `lg`
 - Content lives in the `content` table and is read through `src/lib/content.ts`: do not import `src/content` for live data in a component, and do not re-declare project, stack, org, contact, or bio data inside one
 - `requireSession()` is called in exactly one place, `setContent()`: there is no row-level security behind it, so do not add a second session check elsewhere
+- `src/lib/schemas.ts` fails closed: do not make an unknown key fall through unvalidated, and do not write a key before its schema exists
 - `src/lib/stack-icons.ts` must stay server-side: a dynamic index into `simple-icons` cannot be tree-shaken, so resolving in a client component ships the whole icon set
 - `StackGlyph` takes `path` and `hex`, not a `SimpleIcon`, for the same reason: do not give it back a dependency on the icon package
 - `db/apply.mjs` must use `DATABASE_URL_UNPOOLED`: DDL through PgBouncer fails in ways that never mention pooling
